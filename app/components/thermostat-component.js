@@ -6,7 +6,7 @@ angular.module('thing-it-device-ui')
             change: '&'
         },
         controllerAs: 'vm',
-        controller: function ($interval) {
+        controller: function ($element) {
             const vm = this;
             vm.thermostatData = {
                 scalePosition: 0,
@@ -20,7 +20,10 @@ angular.module('thing-it-device-ui')
                 isHeat: false
             };
 
-            vm.widthThermostat = document.getElementsByClassName('thermostat')[0].clientWidth;
+            vm.widthThermostat = $element[0].querySelector('.thermostat').offsetWidth;
+
+            window.alert('Width ' + vm.widthThermostat);
+
             vm.scaleStep = 40;
             vm.previousScalePosition = vm.state.setpoint * vm.scaleStep;
             vm.primaryScaleStyle = {
@@ -31,47 +34,58 @@ angular.module('thing-it-device-ui')
                 left: vm.state.setpoint * vm.scaleStep
             }
 
-            vm.mouseDown = mouseDown;
-            vm.mouseMove = mouseMove;
-            vm.mouseUp = mouseUp;
-            vm.mouseLeave = mouseLeave;
+            // vm.mouseDown = mouseDown;
+            // vm.mouseMove = mouseMove;
+            // vm.mouseUp = mouseUp;
+            // vm.mouseLeave = mouseLeave;
 
-            // $interval(() => {
-            //     if (vm.state.temperature.toFixed(1) === vm.state.setpoint.toFixed(1)) {
-            //         vm.thermostatData.isCool = false;
-            //         vm.thermostatData.isHeat = false;
-            //         return;
-            //     }
-            //
-            //     let diffTemp = Math.abs((vm.state.setpoint - vm.state.temperature) * vm.scaleStep);
-            //
-            //     if (vm.thermostatData.isHeat) {
-            //         vm.smallScaleStyle.left = (vm.state.setpoint * vm.scaleStep - diffTemp);
-            //     }
-            //
-            //     vm.smallScaleStyle.width = diffTemp;
-            //     vm.state.temperature = vm.state.temperature;
-            // }, 400);
+            var hammer = new Hammer($element[0].querySelector('.thermostat'));
 
-            function mouseDown($event) {
+            //hammer.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
+
+            hammer.on('panstart', function ($event) {
                 vm.thermostatData.mousePush = true;
-                vm.thermostatData.mouseInitial = $event.x;
-            };
+                vm.thermostatData.mouseInitial = $event.center.x;
+            });
 
-            function mouseMove($event) {
+            hammer.on('panmove', function ($event) {
                 if (!vm.thermostatData.mousePush) {
                     return;
                 }
-                vm.thermostatData.scaleChange = $event.x - vm.thermostatData.mouseInitial;
+                vm.thermostatData.scaleChange = $event.center.x - vm.thermostatData.mouseInitial;
                 vm.thermostatData.scalePosition = vm.previousScalePosition + vm.thermostatData.scaleChange;
                 vm.state.setpoint = getTemperature();
                 vm.thermostatData.isNegative = vm.state.setpoint < 0;
                 vm.primaryScaleStyle = {left: vm.widthThermostat / 2 - vm.thermostatData.scalePosition};
 
-                vm.change();
-
                 setSmallScalePosition();
-            };
+
+                vm.change();
+            });
+
+            hammer.on('panend', function ($event) {
+                unPush();
+            });
+
+            // function mouseDown($event) {
+            //     vm.thermostatData.mousePush = true;
+            //     vm.thermostatData.mouseInitial = $event.x;
+            // };
+            //
+            // function mouseMove($event) {
+            //     if (!vm.thermostatData.mousePush) {
+            //         return;
+            //     }
+            //     vm.thermostatData.scaleChange = $event.x - vm.thermostatData.mouseInitial;
+            //     vm.thermostatData.scalePosition = vm.previousScalePosition + vm.thermostatData.scaleChange;
+            //     vm.state.setpoint = getTemperature();
+            //     vm.thermostatData.isNegative = vm.state.setpoint < 0;
+            //     vm.primaryScaleStyle = {left: vm.widthThermostat / 2 - vm.thermostatData.scalePosition};
+            //
+            //     vm.change();
+            //
+            //     setSmallScalePosition();
+            // };
 
             function setSmallScalePosition() {
                 vm.smallScaleStyle.width = Math.abs((vm.state.setpoint - vm.state.temperature) * vm.scaleStep);

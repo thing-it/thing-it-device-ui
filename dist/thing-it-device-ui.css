@@ -29,6 +29,7 @@ ul li {
   z-index: 1;
   background-color: grey;
   color: white;
+  text-transform: uppercase;
 }
 /* Slider with icons */
 .slider-with-icons {
@@ -40,7 +41,7 @@ ul li {
   line-height: 48px;
   text-align: center;
   font-size: 20px;
-  color: #99cbe9;
+  color: #549cd6;
 }
 .slider-with-icons .md-track {
   background: rgba(0, 0, 0, 0.1);
@@ -225,7 +226,7 @@ ul li {
   height: 7px;
   transform: skew(15deg, 0deg);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: #99cbe9;
+  background: #1c4d75;
 }
 .jalousie-plugin .jalousie-preview div:first-child {
   margin-top: 0 !important;
@@ -279,7 +280,7 @@ ul li {
 }
 .room-control-plugin .values-list li .icon-title {
   font-size: 20px;
-  color: #99cbe9;
+  color: #549cd6;
   height: 20px;
   line-height: 20px;
   text-align: center;
@@ -306,7 +307,7 @@ ul li {
   border: none;
   color: #fff;
   border-radius: 50%;
-  background: #3395D3;
+  background: #1c4d75;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12), 0 6px 6px 0 rgba(0, 0, 0, 0.24);
 }
 .group-component .description {
@@ -337,7 +338,7 @@ ul li {
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 .multi-state-component button.active-button {
-  background: #3395D3;
+  background: #1c4d75;
   color: #fff;
 }
 .multi-state-component button:not(.active-button) {
@@ -372,18 +373,18 @@ ul li {
   font-weight: bold;
   white-space: nowrap;
   padding-right: 4px;
-  color: #99cbe9;
+  color: #549cd6;
 }
 .binary-component {
   padding: 8px 0 10px;
 }
 .binary-component md-switch.md-default-theme.md-checked .md-thumb,
 .binary-component md-switch.md-checked .md-thumb {
-  background: #3395D3;
+  background: #1c4d75;
 }
 .binary-component md-switch.md-default-theme.md-checked .md-bar,
 .binary-component md-switch.md-checked .md-bar {
-  background: #99cbe9;
+  background: #549cd6;
 }
 .binary-component md-switch {
   margin: 0;
@@ -396,5 +397,5 @@ ul li {
   color: rgba(0, 0, 0, 0.4);
 }
 .binary-component .binary-active .md-label {
-  color: #3395D3;
+  color: #1c4d75;
 }

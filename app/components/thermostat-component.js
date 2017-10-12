@@ -22,8 +22,6 @@ angular.module('thing-it-device-ui')
 
             vm.widthThermostat = $element[0].querySelector('.thermostat').offsetWidth;
 
-            window.alert('Width ' + vm.widthThermostat);
-
             vm.scaleStep = 40;
             vm.previousScalePosition = vm.state.setpoint * vm.scaleStep;
             vm.primaryScaleStyle = {
@@ -41,7 +39,19 @@ angular.module('thing-it-device-ui')
 
             var hammer = new Hammer($element[0].querySelector('.thermostat'));
 
-            //hammer.get('pan').set({direction: Hammer.DIRECTION_HORIZONTAL});
+            hammer.on('tap', function ($event) {
+                if ($event.center.x > vm.widthThermostat / 2) {
+                    vm.state.setpoint += 0.5;
+                } else {
+                    vm.state.setpoint -= 0.5;
+                }
+
+                setSmallScalePosition();
+
+                vm.change();
+            });
+
+            hammer.get('pan').set({threshold: 5, direction: Hammer.DIRECTION_HORIZONTAL});
 
             hammer.on('panstart', function ($event) {
                 vm.thermostatData.mousePush = true;

@@ -1,0 +1,23 @@
+<div class="room-control-plugin">
+  <ul class="values-list">
+    <li>
+      <div class="icon-title"><span class="icon-person"></span></div>
+      <div class="value"><span ng-class="vm.roomControlData.checkmark ? 'icon-checkmark' : 'icon-cross'"></span></div>
+    </li>
+    <li>
+      <div class="value">{{::vm.roomControlData.temperature}} °</div>
+    </li>
+    <li>
+      <div class="icon-title"><span class="icon-light-bright"></span></div>
+      <div class="value">{{::vm.roomControlData.lightBright}}</div>
+    </li>
+    <li>
+      <div class="icon-title"><span class="icon-contrast"></span></div>
+      <div class="value">{{::vm.roomControlData.contrast}} %</div>
+    </li>
+    <li>
+      <div class="icon-title"><span class="icon-plug"></span></div>
+      <div class="value">{{::vm.roomControlData.plug}} W</div>
+    </li>
+  </ul>
+</div>

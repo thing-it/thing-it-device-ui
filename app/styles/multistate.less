@@ -1,0 +1,42 @@
+.multi-state-component {
+  flex-wrap: wrap;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+
+  button {
+    border-radius: 2px;
+    border: none;
+    line-height: 36px;
+    padding: 0 20px;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+
+    &.active-button {
+      background: @primal-color-dark;
+      color: #fff;
+    }
+
+    &:not(.active-button) {
+      background: #f8f8f8;
+    }
+  }
+}
+
+.multi-state-component {
+  padding: 8px 8px 12px;
+
+  div {
+    padding: 4px;
+
+    button {
+      font-size: @general-text;
+      font-weight: bold;
+      color: rgba(0, 0, 0, .56);
+      outline: none;
+
+      .button.active {
+
+      }
+    }
+  }
+}

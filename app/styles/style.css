@@ -1,0 +1,400 @@
+@import "normalize.css";
+.text {
+  font-size: 13px;
+  line-height: 16px;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  display: block;
+}
+/* Plugins */
+.plugin-wrapper {
+  position: relative;
+  background: #fff;
+  border-top: 1px solid grey;
+  overflow: hidden;
+}
+.plugin-wrapper > .title {
+  font-size: 13px;
+  line-height: 16px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 2px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  background-color: grey;
+  color: white;
+}
+/* Slider with icons */
+.slider-with-icons {
+  display: flex;
+}
+.slider-with-icons .start-icon,
+.slider-with-icons .end-icon {
+  width: 50px;
+  line-height: 48px;
+  text-align: center;
+  font-size: 20px;
+  color: #99cbe9;
+}
+.slider-with-icons .md-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+.slider-with-icons md-slider.md-default-theme .md-thumb:after,
+.slider-with-icons md-slider .md-thumb:after {
+  border-color: #000;
+  background-color: #000;
+}
+.slider-with-icons md-slider.md-default-theme .md-track.md-track-fill,
+.slider-with-icons md-slider .md-track.md-track-fill {
+  background: #000;
+}
+.slider-with-icons .slider {
+  flex-grow: 1;
+}
+.thermostat-plugin {
+  overflow: hidden;
+  position: relative;
+  height: 82px;
+  background-size: 20px 100%;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.thermostat-plugin .title {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: bold;
+  padding-left: 12px;
+  padding-top: 9px;
+  position: relative;
+  z-index: 1;
+}
+.thermostat-plugin:not(.cool):not(.heat) .odds {
+  opacity: 0;
+}
+@keyframes themperature-change {
+  0% {
+    box-shadow: 0 0 82px -82px #fff inset, 0 0 82px -82px rgba(255, 255, 255, 0.3) inset, 0 0 82px -82px #fff inset;
+  }
+  100% {
+    box-shadow: 0 -164px 82px -82px rgba(255, 255, 255, 0) inset, 0 -328px 82px -82px rgba(255, 255, 255, 0) inset, 0 -164px 82px -82px rgba(255, 255, 255, 0) inset;
+  }
+}
+.thermostat-plugin.heat,
+.thermostat-plugin.cool {
+  animation: themperature-change infinite 3s;
+  background-size: 100%;
+}
+.thermostat-plugin.heat .title,
+.thermostat-plugin.cool .title {
+  color: #fff;
+}
+.thermostat-plugin.heat .temperature,
+.thermostat-plugin.cool .temperature {
+  color: #fff;
+}
+.thermostat-plugin.heat .current-temperature,
+.thermostat-plugin.cool .current-temperature {
+  color: #fff;
+}
+.thermostat-plugin.heat .pointer polygon,
+.thermostat-plugin.cool .pointer polygon {
+  fill: #fff;
+}
+.thermostat-plugin.heat .scale,
+.thermostat-plugin.cool .scale {
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 5%, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, 0) 100%);
+}
+.thermostat-plugin.heat .scale .odds,
+.thermostat-plugin.cool .scale .odds {
+  border-color: #fff !important;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+}
+.thermostat-plugin.cool {
+  background-image: linear-gradient(-45deg, #00C1E0 0%, #4B76FF 100%);
+}
+.thermostat-plugin.cool .odds {
+  border-right: 3px solid #000;
+}
+.thermostat-plugin.cool .odds .current-temperature {
+  left: 100%;
+  margin-left: 5px;
+}
+.thermostat-plugin.heat {
+  background-image: linear-gradient(-45deg, #FF9E55 0%, #FF6D4B 100%);
+}
+.thermostat-plugin.heat .odds {
+  border-left: 3px solid #000;
+}
+.thermostat-plugin.heat .odds .current-temperature {
+  right: 100%;
+  margin-right: 5px;
+}
+.thermostat-plugin .current-temperature {
+  position: absolute;
+  top: -3px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: bold;
+}
+.thermostat-plugin .temperature {
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+.thermostat-plugin .temperature span {
+  position: relative;
+}
+.thermostat-plugin .temperature span.negative:before {
+  content: "−";
+  position: absolute;
+  right: 100%;
+}
+.thermostat-plugin .temperature span:after {
+  content: "°";
+  position: absolute;
+  left: 100%;
+}
+.thermostat-plugin .pointer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.thermostat-plugin .pointer polygon {
+  fill: #000;
+}
+.thermostat-plugin .scale {
+  width: 4000px;
+  height: 13px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 100%);
+  background-size: 20px 100%;
+}
+.thermostat-plugin .scale .odds {
+  position: absolute;
+  bottom: 0;
+  height: 13px;
+  transition: .4s opacity;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
+  background-size: 2px 100%;
+}
+.thermostat-plugin:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  z-index: 1;
+}
+.jalousie-plugin {
+  position: relative;
+  margin-bottom: 20px;
+}
+.jalousie-plugin .title {
+  line-height: 13px;
+  font-size: 13px;
+  font-weight: bold;
+  padding-left: 12px;
+  padding-top: 8px;
+}
+.jalousie-plugin .jalousie-preview {
+  width: 74px;
+  height: 104px;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+}
+.jalousie-plugin .jalousie-preview div {
+  position: relative;
+  height: 7px;
+  transform: skew(15deg, 0deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #99cbe9;
+}
+.jalousie-plugin .jalousie-preview div:first-child {
+  margin-top: 0 !important;
+}
+.jalousie-plugin .controls {
+  margin-left: 82px;
+}
+.area-plugin ul {
+  padding: 6px 0px 8px 6px;
+  flex-wrap: wrap;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.area-plugin ul li {
+  padding: 4px 6px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.area-plugin ul li .title {
+  font-family: OpenSans-Bold;
+  font-size: 13px;
+  color: #99CBE9;
+  letter-spacing: 0;
+  line-height: 20px;
+  padding-right: 4px;
+}
+.area-plugin ul li .value {
+  font-size: 20px;
+  line-height: 20px;
+}
+.area-plugin ul li .value .icon-cross {
+  color: #D2D2D2;
+}
+.light-plugin {
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FFF59D 100%);
+  background-repeat: no-repeat;
+}
+.room-control-plugin .values-list {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  padding: 4px 0 0 6px;
+}
+.room-control-plugin .values-list li {
+  padding: 4px 8px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.room-control-plugin .values-list li .icon-title {
+  font-size: 20px;
+  color: #99cbe9;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  padding-right: 4px;
+}
+.room-control-plugin .values-list li .value {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: bold;
+  line-height: 20px;
+}
+.room-control-plugin .values-list li .value span {
+  font-size: 20px;
+}
+.group-component {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  padding: 12px 12px 14px;
+}
+.group-component .call-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  background: #3395D3;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12), 0 6px 6px 0 rgba(0, 0, 0, 0.24);
+}
+.group-component .description {
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  line-height: 40px;
+  padding-left: 12px;
+}
+.group-component.in-call .call-btn {
+  transform: rotate(135deg);
+}
+.group-component.in-call .description {
+  display: none;
+}
+.multi-state-component {
+  flex-wrap: wrap;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.multi-state-component button {
+  border-radius: 2px;
+  border: none;
+  line-height: 36px;
+  padding: 0 20px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+}
+.multi-state-component button.active-button {
+  background: #3395D3;
+  color: #fff;
+}
+.multi-state-component button:not(.active-button) {
+  background: #f8f8f8;
+}
+.multi-state-component {
+  padding: 8px 8px 12px;
+}
+.multi-state-component div {
+  padding: 4px;
+}
+.multi-state-component div button {
+  font-size: 13px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.56);
+  outline: none;
+}
+.bacnet-component {
+  padding: 6px 12px 10px;
+}
+.bacnet-component table {
+  font-size: 13px;
+  line-height: 16px;
+  border-collapse: collapse;
+}
+.bacnet-component table tr,
+.bacnet-component table td {
+  padding: 3px 0;
+  vertical-align: top;
+}
+.bacnet-component table .title {
+  font-weight: bold;
+  white-space: nowrap;
+  padding-right: 4px;
+  color: #99cbe9;
+}
+.binary-component {
+  padding: 8px 0 10px;
+}
+.binary-component md-switch.md-default-theme.md-checked .md-thumb,
+.binary-component md-switch.md-checked .md-thumb {
+  background: #3395D3;
+}
+.binary-component md-switch.md-default-theme.md-checked .md-bar,
+.binary-component md-switch.md-checked .md-bar {
+  background: #99cbe9;
+}
+.binary-component md-switch {
+  margin: 0;
+  padding-left: 12px;
+}
+.binary-component .md-label {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.4);
+}
+.binary-component .binary-active .md-label {
+  color: #3395D3;
+}

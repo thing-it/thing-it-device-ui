@@ -1,0 +1,36 @@
+.jalousie-plugin {
+  position: relative;
+  margin-bottom: 20px;
+
+  .title {
+    line-height: 13px;
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 12px;
+    padding-top: 8px;
+  }
+
+  .jalousie-preview {
+    width: 74px;
+    height: 104px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+
+    div {
+      position: relative;
+      height: 7px;
+      transform: skew(15deg, 0deg);
+      border-top: 1px solid rgba(0,0,0,.1);
+      background: @primal-color-middle;
+
+      &:first-child {
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  .controls {
+    margin-left: 82px;
+  }
+}

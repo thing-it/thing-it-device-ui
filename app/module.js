@@ -1,0 +1,1 @@
+angular.module('thing-it-device-ui', ['ngMaterial','ngMessages']);

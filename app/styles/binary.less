@@ -1,0 +1,28 @@
+.binary-component {
+  padding: 8px 0 10px;
+
+  md-switch.md-default-theme.md-checked .md-thumb,
+  md-switch.md-checked .md-thumb {
+    background: @primal-color-dark;
+  }
+
+  md-switch.md-default-theme.md-checked .md-bar,
+  md-switch.md-checked .md-bar {
+    background: @primal-color-middle;
+  }
+
+  md-switch {
+    margin: 0;
+    padding-left: 12px;
+  }
+
+  .md-label {
+    .text;
+    font-weight: bold;
+    color: rgba(0, 0, 0, .4);
+  }
+
+  .binary-active .md-label {
+    color: @primal-color-dark;
+  }
+}

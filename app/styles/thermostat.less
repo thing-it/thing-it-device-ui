@@ -1,0 +1,197 @@
+.thermostat-plugin {
+  overflow: hidden;
+  position: relative;
+  height: 82px;
+  background-size: 20px 100%;
+  -moz-user-select: none;
+  -o-user-select:none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .title {
+    .text;
+    font-weight: bold;
+    padding-left: 12px;
+    padding-top: 9px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &:not(.cool):not(.heat) {
+
+    .odds {
+      opacity: 0;
+    }
+  }
+
+  @keyframes themperature-change {
+    @color: #fff;
+
+    0% {
+      box-shadow: 0 0 82px -82px @color inset,
+      0 0 82px -82px fade(@color, 30%) inset,
+      0 0 82px -82px @color inset;
+    }
+
+    100% {
+      box-shadow: 0 -164px 82px -82px fade(@color, 0) inset,
+      0 -328px 82px -82px fade(@color, 0) inset,
+      0 -164px 82px -82px fade(@color, 0) inset;
+    }
+  }
+
+  &.heat,
+  &.cool {
+    animation: themperature-change infinite 3s;
+    background-size: 100%;
+
+    .title {
+      color: #fff;
+    }
+
+    .temperature {
+      color: #fff;
+    }
+
+    .current-temperature {
+      color: #fff;
+    }
+
+    .pointer {
+
+      polygon {
+        fill: #fff;
+      }
+    }
+
+    .scale {
+      background-image: linear-gradient(90deg,
+        rgba(255, 255, 255, .3) 0%,
+        rgba(255, 255, 255, .3) 5%,
+        rgba(255, 255, 255, 0) 5%,
+        rgba(255, 255, 255, 0) 100%);
+
+      .odds {
+        border-color: #fff !important;
+        background-image: linear-gradient(90deg,
+          rgba(255, 255, 255, .7) 0%,
+          rgba(255, 255, 255, .7) 50%,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      }
+    }
+  }
+
+  &.cool {
+    background-image: linear-gradient(-45deg, #00C1E0 0%, #4B76FF 100%);
+
+    .odds {
+      border-right: 3px solid #000;
+
+      .current-temperature {
+        left: 100%;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &.heat {
+    background-image: linear-gradient(-45deg, #FF9E55 0%, #FF6D4B 100%);
+
+    .odds {
+      border-left: 3px solid #000;
+
+      .current-temperature {
+        right: 100%;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .current-temperature {
+    position: absolute;
+    top: -3px;
+    font-size: @general-text;
+    line-height: @general-line-height;
+    font-weight: bold;
+  }
+
+  .temperature {
+  	font-size: 30px;
+  	font-weight: 700;
+  	color: #000;
+    text-align: center;
+
+    span {
+      position: relative;
+
+      &.negative:before {
+        content: "−";
+        position: absolute;
+        right: 100%;
+      }
+
+      &:after {
+        content: "°";
+        position: absolute;
+        left: 100%;
+      }
+    }
+  }
+
+  .pointer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    polygon {
+      fill: #000;
+    }
+  }
+
+  .scale {
+    width: 4000px;
+    height: 13px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(90deg,
+      rgba(0, 0, 0, .2) 0%,
+      rgba(0, 0, 0, .2) 5%,
+      rgba(0, 0, 0, 0) 5%,
+      rgba(0, 0, 0, 0) 100%);
+    background-size: 20px 100%;
+
+    .odds {
+      position: absolute;
+      bottom: 0;
+      height: 13px;
+      transition: .4s opacity;
+      background: linear-gradient(90deg,
+        rgba(0, 0, 0, .5) 0%,
+        rgba(0, 0, 0, .5) 50%,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0) 100%);
+      background-size: 2px 100%;
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    z-index: 1;
+  }
+
+  &.heat {
+
+  }
+}

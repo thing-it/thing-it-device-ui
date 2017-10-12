@@ -75,8 +75,13 @@ angular.module('thing-it-device-ui')
             vm.rotateJalousie = rotateJalousie;
 
             function rotateJalousie() {
-                let newStateSkew = -(vm.state.rotation * 30 / 100) + 15;
-                let newStateScale = Math.abs(vm.state.rotation - 50) / 50;
+                var rotation = vm.state.rotation;
+                var rotation = (vm.state.rotation + 90) * 100 / 180;
+
+                console.log('ROT ' + rotation);
+
+                let newStateSkew = -(rotation * 30 / 100) + 15;
+                let newStateScale = Math.abs(rotation - 50) / 50;
                 newStateScale = newStateScale < 0.15 ? 0.15 : newStateScale;
 
                 for (let i = 0; i < vm.jalousieData.slatsCount; i++) {

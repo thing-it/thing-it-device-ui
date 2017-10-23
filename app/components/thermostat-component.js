@@ -20,6 +20,10 @@ angular.module('thing-it-device-ui')
                 isHeat: false
             };
 
+            if (!vm.state) {
+                vm.state = {setpoint: 22};
+            }
+
             vm.widthThermostat = $element[0].querySelector('.thermostat').offsetWidth;
 
             vm.scaleStep = 40;

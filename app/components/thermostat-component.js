@@ -8,6 +8,11 @@ angular.module('thing-it-device-ui')
         controllerAs: 'vm',
         controller: function ($element) {
             const vm = this;
+
+            if (!vm.state) {
+                vm.state = {setpoint: 22};
+            }
+
             vm.thermostatData = {
                 scalePosition: 0,
                 scaleChange: 0,
@@ -20,12 +25,7 @@ angular.module('thing-it-device-ui')
                 isHeat: false
             };
 
-            if (!vm.state) {
-                vm.state = {setpoint: 22};
-            }
-
             vm.widthThermostat = $element[0].querySelector('.thermostat').offsetWidth;
-
             vm.scaleStep = 40;
             vm.previousScalePosition = vm.state.setpoint * vm.scaleStep;
             vm.primaryScaleStyle = {
@@ -66,6 +66,7 @@ angular.module('thing-it-device-ui')
                 if (!vm.thermostatData.mousePush) {
                     return;
                 }
+
                 vm.thermostatData.scaleChange = $event.center.x - vm.thermostatData.mouseInitial;
                 vm.thermostatData.scalePosition = vm.previousScalePosition + vm.thermostatData.scaleChange;
                 vm.state.setpoint = getTemperature();
@@ -73,6 +74,8 @@ angular.module('thing-it-device-ui')
                 vm.primaryScaleStyle = {left: vm.widthThermostat / 2 - vm.thermostatData.scalePosition};
 
                 setSmallScalePosition();
+
+                // Notify listeners
 
                 vm.change();
             });
@@ -101,11 +104,22 @@ angular.module('thing-it-device-ui')
             //     setSmallScalePosition();
             // };
 
+            function getTemperature() {
+                let temperature = vm.thermostatData.scalePosition / vm.scaleStep;
+                const delimiter = 0.5;
+                let tail = temperature % delimiter;
+
+                temperature -= tail;
+                temperature = tail > 0.25 ? temperature + delimiter : temperature;
+
+                return temperature;
+            };
+
             function setSmallScalePosition() {
-                vm.smallScaleStyle.width = Math.abs((vm.state.setpoint - vm.state.temperature) * vm.scaleStep);
                 vm.thermostatData.isCool = vm.state.temperature > vm.state.setpoint;
                 vm.thermostatData.isHeat = !vm.thermostatData.isCool;
 
+                vm.smallScaleStyle.width = Math.abs(vm.state.setpoint - vm.state.temperature) * vm.scaleStep;
                 vm.smallScaleStyle.left = vm.thermostatData.isCool ?
                     vm.thermostatData.scalePosition : vm.state.temperature * vm.scaleStep;
             }
@@ -116,15 +130,6 @@ angular.module('thing-it-device-ui')
 
             function mouseLeave() {
                 unPush();
-            };
-
-            function getTemperature() {
-                let temperature = vm.thermostatData.scalePosition / vm.scaleStep;
-                const delimeter = 0.5;
-                let tail = temperature % delimeter;
-                temperature -= tail;
-                temperature = tail > 0.25 ? temperature + delimeter : temperature;
-                return temperature;
             };
 
             function unPush() {
@@ -139,28 +144,24 @@ angular.module('thing-it-device-ui')
             };
 
             this.$onChanges = function (changes) {
-                if (!changes || !changes.state || !changes.state.currentValue || !changes.state.currentValue.temperature || !changes.state.currentValue.setpoint) {
+                if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }
 
-                console.log('Changes >>>', changes.state.currentValue);
+                var oldSetpoint = vm.state.setpoint;
 
                 vm.state = changes.state.currentValue;
 
                 if (vm.state.temperature.toFixed(1) === vm.state.setpoint.toFixed(1)) {
                     vm.thermostatData.isCool = false;
                     vm.thermostatData.isHeat = false;
+
                     return;
                 }
 
-                let diffTemp = Math.abs((vm.state.setpoint - vm.state.temperature) * vm.scaleStep);
+                vm.thermostatData.scalePosition = vm.previousScalePosition + (vm.state.setpoint - oldSetpoint) / vm.scaleStep;
 
-                if (vm.thermostatData.isHeat) {
-                    vm.smallScaleStyle.left = (vm.state.setpoint * vm.scaleStep - diffTemp);
-                }
-
-                vm.smallScaleStyle.width = diffTemp;
-                vm.state.temperature = vm.state.temperature;
+                setSmallScalePosition();
             };
         }
     });

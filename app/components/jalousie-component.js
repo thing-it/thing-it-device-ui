@@ -38,13 +38,12 @@ angular.module('thing-it-device-ui')
             vm.rotateJalousie = rotateJalousie;
 
             function rotateJalousie() {
-                var rotation = vm.state.rotation;
+                //var rotation = vm.state.rotation;
                 var rotation = (vm.state.rotation + 90) * 100 / 180;
-
-                console.log('ROT ' + rotation);
 
                 let newStateSkew = -(rotation * 30 / 100) + 15;
                 let newStateScale = Math.abs(rotation - 50) / 50;
+
                 newStateScale = newStateScale < 0.15 ? 0.15 : newStateScale;
 
                 for (let i = 0; i < vm.jalousieData.slatsCount; i++) {
@@ -57,6 +56,7 @@ angular.module('thing-it-device-ui')
                 const barInterval = 100 / numberOfBars;
                 const numOfOpenedBars = vm.state.percentage / barInterval;
                 const barOpenedHeight = 7;
+
                 for (let i = numberOfBars - 1; i > 0; i--) {
                     let barOpened = numOfOpenedBars - (numberOfBars - i);
 
@@ -71,11 +71,11 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
+                console.log('Changes Jalousie >>>', changes);
+
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }
-
-                console.log('Changes >>>', changes.state.currentValue);
 
                 vm.state = changes.state.currentValue;
 

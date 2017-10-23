@@ -1,7 +1,7 @@
 let main = angular.module('DemoApp', ['thing-it-device-ui'])
     .controller('PortalController', function ($interval, $timeout) {
         this.thermostat = {
-            _state: {setpoint: 22, temperature: 18},
+            _state: {setpoint: 22, temperature: 22},
             setState: function (state) {
                 if (this.control) {
                     $interval.cancel(this.control);
@@ -9,10 +9,19 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
                 this._state.setpoint = state.setpoint;
 
+                this.controlLoop();
+            },
+            controlLoop: function () {
+                if (this.control) {
+                    $interval.cancel(this.control);
+                }
+
                 var step = this._state.setpoint > this._state.temperature ? 0.1 : -0.1;
 
                 this.control = $interval(() => {
                     this._state.temperature += step;
+
+                    console.log('Temp >>>', this._state.temperature);
 
                     this._state = {
                         setpoint: this._state.setpoint,
@@ -22,9 +31,27 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                     if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
                         $interval.cancel(this.control);
                     }
-                }, 400);
+                }, 200);
             }
         };
+
+        $interval(() => {
+            if (this.thermostat._state.setpoint == 18) {
+                this.thermostat._state = {
+                    setpoint: 22,
+                    temperature: this.thermostat._state.temperature
+                };
+
+                this.thermostat.controlLoop();
+            } else {
+                this.thermostat._state = {
+                    setpoint: 18,
+                    temperature: this.thermostat._state.temperature
+                };
+
+                this.thermostat.controlLoop();
+            }
+        }, 10000);
 
         this.jalousie = {
             _state: {percentage: 50, rotation: 90},
@@ -34,6 +61,20 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 // }, 2000);
             }
         };
+
+        $interval(() => {
+            if (this.jalousie._state.rotation == 90) {
+                this.jalousie._state = {
+                    rotation: 0,
+                    percentage: 0
+                };
+            } else {
+                this.jalousie._state = {
+                    rotation: 90,
+                    percentage: 0
+                };
+            }
+        }, 5000);
 
         this.callActorService = function (component, service, parameters) {
             console.log('Actor Service ' + service + ' called with ' + JSON.stringify(parameters));

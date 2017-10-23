@@ -20,13 +20,12 @@
   }
 
   &:not(.cool):not(.heat) {
-
     .odds {
       opacity: 0;
     }
   }
 
-  @keyframes themperature-change {
+  @keyframes temperature-change {
     @color: #fff;
 
     0% {
@@ -44,10 +43,14 @@
 
   &.heat,
   &.cool {
-    animation: themperature-change infinite 3s;
+    animation: temperature-change infinite 3s;
     background-size: 100%;
 
     .title {
+      color: #fff;
+    }
+
+    .setpoint {
       color: #fff;
     }
 
@@ -60,7 +63,6 @@
     }
 
     .pointer {
-
       polygon {
         fill: #fff;
       }
@@ -118,10 +120,10 @@
     font-weight: bold;
   }
 
-  .temperature {
+  .setpoint {
   	font-size: 30px;
   	font-weight: 700;
-  	color: #000;
+  	color: #999999;
     text-align: center;
 
     span {
@@ -149,7 +151,7 @@
     margin: auto;
 
     polygon {
-      fill: #000;
+      fill: #999999;
     }
   }
 

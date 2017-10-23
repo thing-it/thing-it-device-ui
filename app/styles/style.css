@@ -82,7 +82,7 @@ ul li {
 .thermostat-plugin:not(.cool):not(.heat) .odds {
   opacity: 0;
 }
-@keyframes themperature-change {
+@keyframes temperature-change {
   0% {
     box-shadow: 0 0 82px -82px #fff inset, 0 0 82px -82px rgba(255, 255, 255, 0.3) inset, 0 0 82px -82px #fff inset;
   }
@@ -92,11 +92,15 @@ ul li {
 }
 .thermostat-plugin.heat,
 .thermostat-plugin.cool {
-  animation: themperature-change infinite 3s;
+  animation: temperature-change infinite 3s;
   background-size: 100%;
 }
 .thermostat-plugin.heat .title,
 .thermostat-plugin.cool .title {
+  color: #fff;
+}
+.thermostat-plugin.heat .setpoint,
+.thermostat-plugin.cool .setpoint {
   color: #fff;
 }
 .thermostat-plugin.heat .temperature,
@@ -147,21 +151,21 @@ ul li {
   line-height: 16px;
   font-weight: bold;
 }
-.thermostat-plugin .temperature {
+.thermostat-plugin .setpoint {
   font-size: 30px;
   font-weight: 700;
-  color: #000;
+  color: #999999;
   text-align: center;
 }
-.thermostat-plugin .temperature span {
+.thermostat-plugin .setpoint span {
   position: relative;
 }
-.thermostat-plugin .temperature span.negative:before {
+.thermostat-plugin .setpoint span.negative:before {
   content: "−";
   position: absolute;
   right: 100%;
 }
-.thermostat-plugin .temperature span:after {
+.thermostat-plugin .setpoint span:after {
   content: "°";
   position: absolute;
   left: 100%;
@@ -174,7 +178,7 @@ ul li {
   margin: auto;
 }
 .thermostat-plugin .pointer polygon {
-  fill: #000;
+  fill: #999999;
 }
 .thermostat-plugin .scale {
   width: 4000px;

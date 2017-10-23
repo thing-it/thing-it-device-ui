@@ -22,6 +22,10 @@ angular.module('thing-it-device-ui')
                 };
             });
 
+            if (!vm.state) {
+                vm.state = {rotation: 0, percentage: 100}
+            }
+
             vm.onPercentageChange = function () {
                 openJalousie();
                 vm.change();

@@ -143,6 +143,8 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
+                console.log('Changes >>>', changes.state.currentValue);
+
                 vm.state = changes.state.currentValue;
 
                 if (vm.state.temperature.toFixed(1) === vm.state.setpoint.toFixed(1)) {

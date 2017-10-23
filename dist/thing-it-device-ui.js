@@ -114,6 +114,8 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
+                console.log('Changes >>>', changes.state.currentValue);
+
                 vm.state = changes.state.currentValue;
 
                 openJalousie();
@@ -335,6 +337,8 @@ angular.module('thing-it-device-ui')
                 if (!changes || !changes.state || !changes.state.currentValue || !changes.state.currentValue.temperature || !changes.state.currentValue.setpoint) {
                     return;
                 }
+
+                console.log('Changes >>>', changes.state.currentValue);
 
                 vm.state = changes.state.currentValue;
 

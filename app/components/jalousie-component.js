@@ -75,6 +75,8 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
+                console.log('Changes >>>', changes.state.currentValue);
+
                 vm.state = changes.state.currentValue;
 
                 openJalousie();

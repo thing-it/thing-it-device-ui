@@ -8,6 +8,8 @@ angular.module('thing-it-device-ui')
         controllerAs: 'vm',
         controller: function () {
             const vm = this;
+
+            vm.state = {rotation: 0, percentage: 100};
             vm.jalousieData = {slatsCount: 12};
             vm.jalousieControls = {
                 jalousieOpened: 0,
@@ -21,10 +23,6 @@ angular.module('thing-it-device-ui')
                     }
                 };
             });
-
-            if (!vm.state) {
-                vm.state = {rotation: 0, percentage: 100}
-            }
 
             vm.onPercentageChange = function () {
                 openJalousie();

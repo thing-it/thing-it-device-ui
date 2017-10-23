@@ -18,6 +18,24 @@ module.exports = function (grunt) {
                         src: ["**/*"],
                         dest: "dist/assets"
                     }]
+            },
+            templates: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "app/templates",
+                        src: ["**/*"],
+                        dest: "dist/templates"
+                    }]
+            },
+            templatesTest: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "app/templates",
+                        src: ["**/*"],
+                        dest: "test/templates"
+                    }]
             }
         },
         concat: {

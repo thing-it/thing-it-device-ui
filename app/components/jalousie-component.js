@@ -71,6 +71,10 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
+                if (!changes || !changes.state || !changes.state.currentValue) {
+                    return;
+                }
+
                 vm.state = changes.state.currentValue;
 
                 openJalousie();

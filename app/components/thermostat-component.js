@@ -139,7 +139,7 @@ angular.module('thing-it-device-ui')
             };
 
             this.$onChanges = function (changes) {
-                if (!changes || !changes.state) {
+                if (!changes || !changes.state || !changes.state.currentValue.temperature || !changes.state.currentValue.setpoint) {
                     return;
                 }
 

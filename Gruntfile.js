@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: "app/assets",
                         src: ["**/*"],
-                        dest: "dist/assets"
+                        dest: "dist/"
                     }]
             },
             templates: {
@@ -50,7 +50,8 @@ module.exports = function (grunt) {
             },
             css: {
                 src: [
-                    "app/styles/style.css"
+                    "app/styles/style.css",
+                    "app/assets/icons.css"
                 ],
                 dest: "dist/thing-it-device-ui.css"
             }

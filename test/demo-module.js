@@ -1,7 +1,7 @@
 let main = angular.module('DemoApp', ['thing-it-device-ui'])
     .controller('PortalController', function ($interval, $timeout) {
         this.thermostat = {
-            _state: {setpoint: 22, temperature: 22},
+            _state: {setpoint: 22, temperature: 18},
             setState: function (state) {
                 if (this.control) {
                     $interval.cancel(this.control);
@@ -12,46 +12,48 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this.controlLoop();
             },
             controlLoop: function () {
-                if (this.control) {
-                    $interval.cancel(this.control);
-                }
-
-                var step = this._state.setpoint > this._state.temperature ? 0.1 : -0.1;
-
-                this.control = $interval(() => {
-                    this._state.temperature += step;
-
-                    console.log('Temp >>>', this._state.temperature);
-
-                    this._state = {
-                        setpoint: this._state.setpoint,
-                        temperature: this._state.temperature
-                    };
-
-                    if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
-                        $interval.cancel(this.control);
-                    }
-                }, 200);
+                // if (this.control) {
+                //     $interval.cancel(this.control);
+                // }
+                //
+                // var step = this._state.setpoint > this._state.temperature ? 0.1 : -0.1;
+                //
+                // this.control = $interval(() => {
+                //     this._state.temperature += step;
+                //
+                //     console.log('Temp >>>', this._state.temperature);
+                //
+                //     this._state = {
+                //         setpoint: this._state.setpoint,
+                //         temperature: this._state.temperature
+                //     };
+                //
+                //     if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
+                //         $interval.cancel(this.control);
+                //     }
+                // }, 200);
             }
         };
 
-        $interval(() => {
-            if (this.thermostat._state.setpoint == 18) {
-                this.thermostat._state = {
-                    setpoint: 22,
-                    temperature: this.thermostat._state.temperature
-                };
+        this.thermostat.controlLoop();
 
-                this.thermostat.controlLoop();
-            } else {
-                this.thermostat._state = {
-                    setpoint: 18,
-                    temperature: this.thermostat._state.temperature
-                };
-
-                this.thermostat.controlLoop();
-            }
-        }, 10000);
+        // $interval(() => {
+        //     if (this.thermostat._state.setpoint == 18) {
+        //         this.thermostat._state = {
+        //             setpoint: 22,
+        //             temperature: this.thermostat._state.temperature
+        //         };
+        //
+        //         this.thermostat.controlLoop();
+        //     } else {
+        //         this.thermostat._state = {
+        //             setpoint: 18,
+        //             temperature: this.thermostat._state.temperature
+        //         };
+        //
+        //         this.thermostat.controlLoop();
+        //     }
+        // }, 10000);
 
         this.jalousie = {
             _state: {percentage: 50, rotation: 90},

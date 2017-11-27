@@ -59,23 +59,9 @@ angular.module('thing-it-device-ui')
 
             const preview =  $element.find('.jalousie-preview');
 
-            console.log('Preview', preview);
-
             for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
                 $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');
             }
-
-            // TODO Remove
-
-            // vm.onPercentageChange = function () {
-            //     openJalousie();
-            //     vm.change();
-            // };
-            //
-            // vm.onRotationChange = function () {
-            //     rotateJalousie();
-            //     vm.change();
-            // };
 
             vm.openJalousie = openJalousie;
             vm.rotateJalousie = rotateJalousie;
@@ -88,10 +74,6 @@ angular.module('thing-it-device-ui')
                 let newStateScale = Math.abs(rotation - 50) / 50;
 
                 newStateScale = newStateScale < 0.15 ? 0.15 : newStateScale;
-                //
-                // for (let i = 0; i < vm.jalousieData.slatsCount; i++) {
-                //     vm.slats[i].state.transform = `skew(${newStateSkew}deg, 0deg) scaleY(${newStateScale})`;
-                // }
 
                 $element.find('.jalousie-slat').css('transform', 'skew(' + newStateSkew + 'deg, 0deg) scaleY(' + newStateScale +')');
             }
@@ -102,8 +84,6 @@ angular.module('thing-it-device-ui')
                 const numOfOpenedBars = vm.state.percentage / barInterval;
                 const barOpenedHeight = 7;
                 const slats = $element.find('.jalousie-slat');
-
-                console.log('slats', slats);
 
                 for (let i = numberOfBars - 1; i > 0; i--) {
                     let barOpened = numOfOpenedBars - (numberOfBars - i);
@@ -123,9 +103,6 @@ angular.module('thing-it-device-ui')
 
             hammer.get('pan').set({threshold: 5, direction: Hammer.DIRECTION_ALL});
 
-            hammer.on('panstart', function ($event) {
-            });
-
             var THROTTLING = 0.3;
 
             hammer.on('panmove', function ($event) {
@@ -142,12 +119,8 @@ angular.module('thing-it-device-ui')
                 vm.change();
             });
 
-            hammer.on('panend', function ($event) {
-            });
 
             this.$onChanges = function (changes) {
-                console.log('Changes Jalousie >>>', changes);
-
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }
@@ -333,15 +306,12 @@ angular.module('thing-it-device-ui')
                 var val = -230 + parseInt(val * 7.5);
 
                 $('.rs-gradient').css({
-                    //background: 'hsl(' + val + ', 100%, 57%)'
                     background: 'hsl(' + val + ', 40%, 50%)'
                 });
             }
 
             function tooltip(args) {
                 var setTemperature = Number(args.value);
-
-
                 var html = '<div class="setTemperature"><span>' + setTemperature + '°C</span></div>';
 
                 html += '<div class="currentTemperature"><span>' + currentTemperature + '°C</span></div>';
@@ -358,8 +328,6 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
-                console.log('State change', changes);
-
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }

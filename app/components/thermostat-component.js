@@ -139,6 +139,5 @@ angular.module('thing-it-device-ui')
                     setState(0)
                 }
             };
-
         }
     });

@@ -1,199 +1,172 @@
-.thermostat-plugin {
-  overflow: hidden;
-  position: relative;
-  height: 82px;
-  background-size: 20px 100%;
-  -moz-user-select: none;
-  -o-user-select:none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+body {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
+}
 
-  .title {
-    .text;
-    font-weight: bold;
-    padding-left: 12px;
-    padding-top: 9px;
-    position: relative;
+.flexContainer {
+  width: 400px;
+  height: 260px;
+  background: white;
+}
+
+.flexHeader {
+  padding: 10px;
+  background: #333333;
+  color: white;
+}
+
+.flexHeader .icon {
+  float: left;
+  font-size: 1.4em;
+}
+
+.flexHeader .heading {
+  float:left;
+  margin-left: 10px;
+  font-size: 1.2em;
+}
+
+.flexContent{
+  padding: 10px;
+  background: white;
+}
+
+/* start tooltip styles */
+
+@heating: #ff8e8e;
+@cooling: #8a8aff;
+
+.rs-tooltip-text {
+  font-family: 'Titillium Web', sans-serif;
+  pointer-events: none;
+  transition: background .02s ease-in-out;
+  transform: translateY(24px);
+  color: #fff;
+
+  .setTemperature {
+    font-size: 2.4em;
+  }
+
+  .currentTemperature {
+    margin-top: -6px;
+    font-size: 1.4em;
+    color: lightgrey;
+  }
+
+  .state {
+    margin-top: 22px;
+    font-size: 1.4em;
+
+    .neutral {
+      visibility: hidden;
+    }
+  }
+
+}
+
+/*
+.rs-tooltip-text:before {
+  position: absolute;
+  left: 3px;
+  top: -11px;
+  content: 'HEATING';
+  font-size: 12px;
+}
+*/
+
+/* end tooltip styles */
+
+/* start slider styles */
+
+#slider {
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    background: #FFFFFF; // Was black
+    border-radius: 50%;
     z-index: 1;
   }
 
-  &:not(.cool):not(.heat) {
-    .odds {
-      opacity: 0;
-    }
-  }
-
-  @keyframes temperature-change {
-    @color: #fff;
-
-    0% {
-      box-shadow: 0 0 82px -82px @color inset,
-      0 0 82px -82px fade(@color, 30%) inset,
-      0 0 82px -82px @color inset;
-    }
-
-    100% {
-      box-shadow: 0 -164px 82px -82px fade(@color, 0) inset,
-      0 -328px 82px -82px fade(@color, 0) inset,
-      0 -164px 82px -82px fade(@color, 0) inset;
-    }
-  }
-
-  &.heat,
-  &.cool {
-    animation: temperature-change infinite 3s;
-    background-size: 100%;
-
-    .title {
-      color: #fff;
-    }
-
-    .setpoint {
-      color: #fff;
-    }
-
-    .temperature {
-      color: #fff;
-    }
-
-    .current-temperature {
-      color: #fff;
-    }
-
-    .pointer {
-      polygon {
-        fill: #fff;
-      }
-    }
-
-    .scale {
-      background-image: linear-gradient(90deg,
-        rgba(255, 255, 255, .3) 0%,
-        rgba(255, 255, 255, .3) 5%,
-        rgba(255, 255, 255, 0) 5%,
-        rgba(255, 255, 255, 0) 100%);
-
-      .odds {
-        border-color: #fff !important;
-        background-image: linear-gradient(90deg,
-          rgba(255, 255, 255, .7) 0%,
-          rgba(255, 255, 255, .7) 50%,
-          rgba(255, 255, 255, 0) 50%,
-          rgba(255, 255, 255, 0) 100%);
-      }
-    }
-  }
-
-  &.cool {
-    background-image: linear-gradient(-45deg, #00C1E0 0%, #4B76FF 100%);
-
-    .odds {
-      border-right: 3px solid #000;
-
-      .current-temperature {
-        left: 100%;
-        margin-left: 5px;
-      }
-    }
-  }
-
-  &.heat {
-    background-image: linear-gradient(-45deg, #FF9E55 0%, #FF6D4B 100%);
-
-    .odds {
-      border-left: 3px solid #000;
-
-      .current-temperature {
-        right: 100%;
-        margin-right: 5px;
-      }
-    }
-  }
-
-  .current-temperature {
-    position: absolute;
-    top: -3px;
-    font-size: @general-text;
-    line-height: @general-line-height;
-    font-weight: bold;
-  }
-
-  .setpoint {
-  	font-size: 30px;
-  	font-weight: 700;
-  	color: #999999;
-    text-align: center;
-
-    span {
-      position: relative;
-
-      &.negative:before {
-        content: "−";
-        position: absolute;
-        right: 100%;
-      }
-
-      &:after {
-        content: "°";
-        position: absolute;
-        left: 100%;
-      }
-    }
-  }
-
-  .pointer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-
-    polygon {
-      fill: #999999;
-    }
-  }
-
-  .scale {
-    width: 4000px;
-    height: 13px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(90deg,
-      rgba(0, 0, 0, .2) 0%,
-      rgba(0, 0, 0, .2) 5%,
-      rgba(0, 0, 0, 0) 5%,
-      rgba(0, 0, 0, 0) 100%);
-    background-size: 20px 100%;
-
-    .odds {
-      position: absolute;
-      bottom: 0;
-      height: 13px;
-      transition: .4s opacity;
-      background: linear-gradient(90deg,
-        rgba(0, 0, 0, .5) 0%,
-        rgba(0, 0, 0, .5) 50%,
-        rgba(0, 0, 0, 0) 50%,
-        rgba(0, 0, 0, 0) 100%);
-      background-size: 2px 100%;
-    }
-  }
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    z-index: 1;
-  }
-
-  &.heat {
-
+  &::after {
+    z-index: 2;
+    box-shadow: inset 0 0 5px #FFFFFF; // Was black
+    background: linear-gradient(-190deg, rgba(255, 255, 255, .3),  rgba(255, 255, 255, 0) 50%);
   }
 }
+
+#animation1.rs-animation .rs-transition  {
+  transition: all .1s ease-in-out;
+}
+
+.rs-gradient, .rs-gradient:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 170px;
+  background: hsl(209, 100%, 42%);
+  // box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .2), inset 0 3px 5px rgba(0, 0, 0, .1), 0 0 3px #000;
+  border-radius: 50%;
+  z-index: 3;
+  opacity: .8
+}
+
+.rs-gradient:after {
+  background: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, .4));
+}
+
+.rs-path-color {
+  background: #444;
+}
+
+.rs-range-color {
+  background: #fff;
+  transition: background .02s ease-in-out;
+}
+
+.rs-border {
+  border: 1px solid #FFFFFF;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .3);
+}
+
+.rs-seperator {
+  border: none;
+}
+
+.rs-border, .rs-bg-color {
+  background: #FFFFFF;
+}
+
+.rs-handle {
+
+}
+
+.rs-handle {
+  border: none;
+  background: none;
+  width: 60px;
+  height: 60px;
+
+  &::after  {
+    background: #fff;
+    border-radius: 0;
+    border: none;
+    height: 1px;
+    width: 14px;
+    margin: 8px 0 0 3px;
+  }
+}
+
+.rs-handle.rs-move {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+/* end slider styles */

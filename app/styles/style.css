@@ -58,185 +58,176 @@ ul li {
 .slider-with-icons .slider {
   flex-grow: 1;
 }
-.thermostat-plugin {
-  overflow: hidden;
-  position: relative;
-  height: 82px;
-  background-size: 20px 100%;
-  -moz-user-select: none;
-  -o-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+body {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
 }
-.thermostat-plugin .title {
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: bold;
-  padding-left: 12px;
-  padding-top: 9px;
-  position: relative;
+.flexContainer {
+  width: 400px;
+  height: 260px;
+  background: white;
+}
+.flexHeader {
+  padding: 10px;
+  background: #333333;
+  color: white;
+}
+.flexHeader .icon {
+  float: left;
+  font-size: 1.4em;
+}
+.flexHeader .heading {
+  float: left;
+  margin-left: 10px;
+  font-size: 1.2em;
+}
+.flexContent {
+  padding: 10px;
+  background: white;
+}
+/* start tooltip styles */
+.rs-tooltip-text {
+  font-family: 'Titillium Web', sans-serif;
+  pointer-events: none;
+  transition: background 0.02s ease-in-out;
+  transform: translateY(24px);
+  color: #fff;
+}
+.rs-tooltip-text .setTemperature {
+  font-size: 2.4em;
+}
+.rs-tooltip-text .currentTemperature {
+  margin-top: -6px;
+  font-size: 1.4em;
+  color: lightgrey;
+}
+.rs-tooltip-text .state {
+  margin-top: 22px;
+  font-size: 1.4em;
+}
+.rs-tooltip-text .state .neutral {
+  visibility: hidden;
+}
+/*
+.rs-tooltip-text:before {
+  position: absolute;
+  left: 3px;
+  top: -11px;
+  content: 'HEATING';
+  font-size: 12px;
+}
+*/
+/* end tooltip styles */
+/* start slider styles */
+#slider::before,
+#slider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  background: #FFFFFF;
+  border-radius: 50%;
   z-index: 1;
 }
-.thermostat-plugin:not(.cool):not(.heat) .odds {
-  opacity: 0;
+#slider::after {
+  z-index: 2;
+  box-shadow: inset 0 0 5px #FFFFFF;
+  background: linear-gradient(-190deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%);
 }
-@keyframes temperature-change {
-  0% {
-    box-shadow: 0 0 82px -82px #fff inset, 0 0 82px -82px rgba(255, 255, 255, 0.3) inset, 0 0 82px -82px #fff inset;
-  }
-  100% {
-    box-shadow: 0 -164px 82px -82px rgba(255, 255, 255, 0) inset, 0 -328px 82px -82px rgba(255, 255, 255, 0) inset, 0 -164px 82px -82px rgba(255, 255, 255, 0) inset;
-  }
+#animation1.rs-animation .rs-transition {
+  transition: all 0.1s ease-in-out;
 }
-.thermostat-plugin.heat,
-.thermostat-plugin.cool {
-  animation: temperature-change infinite 3s;
-  background-size: 100%;
-}
-.thermostat-plugin.heat .title,
-.thermostat-plugin.cool .title {
-  color: #fff;
-}
-.thermostat-plugin.heat .setpoint,
-.thermostat-plugin.cool .setpoint {
-  color: #fff;
-}
-.thermostat-plugin.heat .temperature,
-.thermostat-plugin.cool .temperature {
-  color: #fff;
-}
-.thermostat-plugin.heat .current-temperature,
-.thermostat-plugin.cool .current-temperature {
-  color: #fff;
-}
-.thermostat-plugin.heat .pointer polygon,
-.thermostat-plugin.cool .pointer polygon {
-  fill: #fff;
-}
-.thermostat-plugin.heat .scale,
-.thermostat-plugin.cool .scale {
-  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 5%, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, 0) 100%);
-}
-.thermostat-plugin.heat .scale .odds,
-.thermostat-plugin.cool .scale .odds {
-  border-color: #fff !important;
-  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
-}
-.thermostat-plugin.cool {
-  background-image: linear-gradient(-45deg, #00C1E0 0%, #4B76FF 100%);
-}
-.thermostat-plugin.cool .odds {
-  border-right: 3px solid #000;
-}
-.thermostat-plugin.cool .odds .current-temperature {
-  left: 100%;
-  margin-left: 5px;
-}
-.thermostat-plugin.heat {
-  background-image: linear-gradient(-45deg, #FF9E55 0%, #FF6D4B 100%);
-}
-.thermostat-plugin.heat .odds {
-  border-left: 3px solid #000;
-}
-.thermostat-plugin.heat .odds .current-temperature {
-  right: 100%;
-  margin-right: 5px;
-}
-.thermostat-plugin .current-temperature {
+.rs-gradient,
+.rs-gradient:after {
+  content: '';
   position: absolute;
-  top: -3px;
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 170px;
+  background: #006fd6;
+  border-radius: 50%;
+  z-index: 3;
+  opacity: 0.8;
 }
-.thermostat-plugin .setpoint {
-  font-size: 30px;
-  font-weight: 700;
-  color: #999999;
-  text-align: center;
+.rs-gradient:after {
+  background: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
 }
-.thermostat-plugin .setpoint span {
-  position: relative;
+.rs-path-color {
+  background: #444;
 }
-.thermostat-plugin .setpoint span.negative:before {
-  content: "−";
-  position: absolute;
-  right: 100%;
+.rs-range-color {
+  background: #fff;
+  transition: background 0.02s ease-in-out;
 }
-.thermostat-plugin .setpoint span:after {
-  content: "°";
-  position: absolute;
-  left: 100%;
+.rs-border {
+  border: 1px solid #FFFFFF;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
 }
-.thermostat-plugin .pointer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+.rs-seperator {
+  border: none;
 }
-.thermostat-plugin .pointer polygon {
-  fill: #999999;
+.rs-border,
+.rs-bg-color {
+  background: #FFFFFF;
 }
-.thermostat-plugin .scale {
-  width: 4000px;
-  height: 13px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 100%);
-  background-size: 20px 100%;
+.rs-handle {
+  border: none;
+  background: none;
+  width: 60px;
+  height: 60px;
 }
-.thermostat-plugin .scale .odds {
-  position: absolute;
-  bottom: 0;
-  height: 13px;
-  transition: .4s opacity;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 100%);
-  background-size: 2px 100%;
+.rs-handle::after {
+  background: #fff;
+  border-radius: 0;
+  border: none;
+  height: 1px;
+  width: 14px;
+  margin: 8px 0 0 3px;
 }
-.thermostat-plugin:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  z-index: 1;
+.rs-handle.rs-move {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
 }
+/* end slider styles */
 .jalousie-plugin {
-  position: relative;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 }
-.jalousie-plugin .title {
-  line-height: 13px;
-  font-size: 13px;
-  font-weight: bold;
-  padding-left: 12px;
-  padding-top: 8px;
+.jalousie-plugin .start-icon,
+.jalousie-plugin .end-icon {
+  color: #888888;
 }
 .jalousie-plugin .jalousie-preview {
-  width: 74px;
-  height: 104px;
-  position: absolute;
-  left: 8px;
-  top: 8px;
+  display: block;
+  width: 200px;
+  height: 300px;
+  position: relative !important;
 }
-.jalousie-plugin .jalousie-preview div {
+.jalousie-plugin .jalousie-preview .jalousie-slat {
   position: relative;
-  height: 7px;
+  height: 25px;
   transform: skew(15deg, 0deg);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background: #1c4d75;
+  background-image: -ms-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
+  background-image: -moz-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
+  background-image: -o-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #F8F8F8), color-stop(100, #BBBBBB));
+  background-image: -webkit-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
+  background-image: linear-gradient(to top, #F8F8F8 0%, #BBBBBB 100%);
 }
-.jalousie-plugin .jalousie-preview div:first-child {
+.jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
 }
 .jalousie-plugin .controls {
-  margin-left: 82px;
+  margin-left: 1rem;
+  flex-grow: 1;
 }
 .area-plugin ul {
   padding: 6px 0px 8px 6px;

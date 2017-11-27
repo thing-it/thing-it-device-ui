@@ -31,7 +31,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 //     if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
                 //         $interval.cancel(this.control);
                 //     }
-                // }, 200);
+                // }, 1000);
             }
         };
 
@@ -56,7 +56,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         // }, 10000);
 
         this.jalousie = {
-            _state: {percentage: 50, rotation: 90},
+            _state: {percentage: 100, rotation: 90},
             setState: function (state) {
                 // $timeout(() => {
                 //     this._state = {percentage: 0, rotation: 0};
@@ -73,7 +73,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             } else {
                 this.jalousie._state = {
                     rotation: 90,
-                    percentage: 0
+                    percentage: 50
                 };
             }
         }, 5000);

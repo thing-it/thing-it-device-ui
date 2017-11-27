@@ -6,7 +6,7 @@ angular.module('thing-it-device-ui')
             change: '&'
         },
         controllerAs: 'vm',
-        controller: function () {
+        controller: function ($element) {
             const vm = this;
 
             vm.state = {rotation: 0, percentage: 100};
@@ -15,30 +15,20 @@ angular.module('thing-it-device-ui')
                 jalousieOpened: 0,
                 rotation: 0
             };
-            vm.slats = Array.apply(0, Array(+vm.jalousieData.slatsCount)).map(function (item) {
-                return {
-                    state: {
-                        transform: 'skew(15deg, 0deg) scaleY(1)',
-                        marginTop: '0px'
-                    }
-                };
-            });
 
-            vm.onPercentageChange = function () {
-                openJalousie();
-                vm.change();
-            };
+            // Create slats
 
-            vm.onRotationChange = function () {
-                rotateJalousie();
-                vm.change();
-            };
+            const preview =  $element.find('.jalousie-preview');
+
+            for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
+                $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');
+            }
 
             vm.openJalousie = openJalousie;
             vm.rotateJalousie = rotateJalousie;
 
             function rotateJalousie() {
-                //var rotation = vm.state.rotation;
+                var rotation = vm.state.rotation;
                 var rotation = (vm.state.rotation + 90) * 100 / 180;
 
                 let newStateSkew = -(rotation * 30 / 100) + 15;
@@ -46,9 +36,7 @@ angular.module('thing-it-device-ui')
 
                 newStateScale = newStateScale < 0.15 ? 0.15 : newStateScale;
 
-                for (let i = 0; i < vm.jalousieData.slatsCount; i++) {
-                    vm.slats[i].state.transform = `skew(${newStateSkew}deg, 0deg) scaleY(${newStateScale})`;
-                }
+                $element.find('.jalousie-slat').css('transform', 'skew(' + newStateSkew + 'deg, 0deg) scaleY(' + newStateScale +')');
             }
 
             function openJalousie() {
@@ -56,6 +44,7 @@ angular.module('thing-it-device-ui')
                 const barInterval = 100 / numberOfBars;
                 const numOfOpenedBars = vm.state.percentage / barInterval;
                 const barOpenedHeight = 7;
+                const slats = $element.find('.jalousie-slat');
 
                 for (let i = numberOfBars - 1; i > 0; i--) {
                     let barOpened = numOfOpenedBars - (numberOfBars - i);
@@ -66,13 +55,33 @@ angular.module('thing-it-device-ui')
                         barOpened = 0;
                     }
 
-                    vm.slats[i].state.marginTop = -barOpenedHeight * barOpened + 'px';
+                    $(slats[i]).css('margin-top', -barOpenedHeight * barOpened + 'px');
                 }
             }
 
-            this.$onChanges = function (changes) {
-                console.log('Changes Jalousie >>>', changes);
+            var plugin = $element[0].querySelector('.jalousie-plugin');
+            var hammer = new Hammer(plugin);
 
+            hammer.get('pan').set({threshold: 5, direction: Hammer.DIRECTION_ALL});
+
+            var THROTTLING = 0.3;
+
+            hammer.on('panmove', function ($event) {
+                if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
+                    vm.state.rotation = Math.min(90, Math.max(-90, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width()));
+
+                    rotateJalousie();
+                } else if ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN) {
+                    vm.state.percentage = Math.min(100, Math.max(0, vm.state.percentage - THROTTLING * 100 * $event.deltaY / $(plugin).height()));
+
+                    openJalousie();
+                }
+
+                vm.change();
+            });
+
+
+            this.$onChanges = function (changes) {
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }

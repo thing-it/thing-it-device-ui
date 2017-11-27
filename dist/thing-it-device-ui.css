@@ -205,9 +205,10 @@ body {
   color: #888888;
 }
 .jalousie-plugin .jalousie-preview {
+  position: relative;
   display: block;
-  width: 200px;
-  height: 300px;
+  width: 30%;
+  height: 300rem;
   position: relative !important;
 }
 .jalousie-plugin .jalousie-preview .jalousie-slat {

@@ -77,6 +77,10 @@ angular.module('thing-it-device-ui')
             var THROTTLING = 0.3;
 
             hammer.on('panmove', function ($event) {
+                if (!vm.state) {
+                    vm.state = {rotation: 0, percentage: 100};
+                }
+
                 if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
                     vm.state.rotation = Math.min(90, Math.max(-90, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width()));
 

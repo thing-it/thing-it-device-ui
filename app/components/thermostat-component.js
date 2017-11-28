@@ -61,7 +61,11 @@ angular.module('thing-it-device-ui')
             function setCurrentTemperature(val) {
                 currentTemperature = Number(val).toFixed(1);
 
-                tooltip.find(".currentTemperature").html(currentTemperature + "°C");
+                tooltip.find(".currentTemperature").html(currentTemperature + "°C").addClass('growAnimation');
+
+                window.setTimeout(function () {
+                    tooltip.find(".currentTemperature").removeClass('growAnimation');
+                }, 2000);
             }
 
             function setState(val) {

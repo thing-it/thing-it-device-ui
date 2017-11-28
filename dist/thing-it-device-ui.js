@@ -57,7 +57,7 @@ angular.module('thing-it-device-ui')
 
             // Create slats
 
-            const preview =  $element.find('.jalousie-preview');
+            const preview = $element.find('.jalousie-preview');
 
             for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
                 $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');
@@ -67,7 +67,7 @@ angular.module('thing-it-device-ui')
             vm.rotateJalousie = rotateJalousie;
 
             function rotateJalousie() {
-                var rotation = vm.state.rotation;
+                //var rotation = vm.state.rotation;
                 var rotation = (vm.state.rotation + 90) * 100 / 180;
 
                 let newStateSkew = -(rotation * 30 / 100) + 15;
@@ -75,7 +75,12 @@ angular.module('thing-it-device-ui')
 
                 newStateScale = newStateScale < 0.15 ? 0.15 : newStateScale;
 
-                $element.find('.jalousie-slat').css('transform', 'skew(' + newStateSkew + 'deg, 0deg) scaleY(' + newStateScale +')');
+                $element.find('.jalousie-slat').css('transform', 'skew(' + newStateSkew + 'deg, 0deg) scaleY(' + newStateScale + ')');
+
+                const rotationDiv = $element.find('.jalousie-overlay .rotation');
+
+                rotationDiv.empty();
+                rotationDiv.append('<span class="value">' + vm.state.rotation.toFixed(0) + '</span><span class="unit">&deg;</span>');
             }
 
             function openJalousie() {
@@ -96,6 +101,11 @@ angular.module('thing-it-device-ui')
 
                     $(slats[i]).css('margin-top', -barOpenedHeight * barOpened + 'px');
                 }
+
+                const percentageDiv = $element.find('.jalousie-overlay .percentage');
+
+                percentageDiv.empty();
+                percentageDiv.append('<span class="value">' + (100 - vm.state.percentage.toFixed(0)) + '</span><span class="unit">%</span>');
             }
 
             var plugin = $element[0].querySelector('.jalousie-plugin');
@@ -118,7 +128,6 @@ angular.module('thing-it-device-ui')
 
                 vm.change();
             });
-
 
             this.$onChanges = function (changes) {
                 if (!changes || !changes.state || !changes.state.currentValue) {
@@ -265,7 +274,11 @@ angular.module('thing-it-device-ui')
             function setCurrentTemperature(val) {
                 currentTemperature = Number(val).toFixed(1);
 
-                tooltip.find(".currentTemperature").html(currentTemperature + "°C");
+                tooltip.find(".currentTemperature").html(currentTemperature + "°C").addClass('growAnimation');
+
+                window.setTimeout(function () {
+                    tooltip.find(".currentTemperature").removeClass('growAnimation');
+                }, 2000);
             }
 
             function setState(val) {
@@ -343,6 +356,5 @@ angular.module('thing-it-device-ui')
                     setState(0)
                 }
             };
-
         }
     });

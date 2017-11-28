@@ -1,172 +1,34 @@
-body {
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 400;
-}
-
-.flexContainer {
-  width: 400px;
-  height: 260px;
-  background: white;
-}
-
-.flexHeader {
-  padding: 10px;
-  background: #333333;
-  color: white;
-}
-
-.flexHeader .icon {
-  float: left;
-  font-size: 1.4em;
-}
-
-.flexHeader .heading {
-  float:left;
-  margin-left: 10px;
-  font-size: 1.2em;
-}
-
-.flexContent{
-  padding: 10px;
-  background: white;
-}
-
-/* start tooltip styles */
-
-@heating: #ff8e8e;
-@cooling: #8a8aff;
-
-.rs-tooltip-text {
-  font-family: 'Titillium Web', sans-serif;
-  pointer-events: none;
-  transition: background .02s ease-in-out;
-  transform: translateY(24px);
-  color: #fff;
-
-  .setTemperature {
-    font-size: 2.4em;
+.thermostat {
+  .growAnimation {
+    animation-name: grow;
+    -webkit-animation-name: grow;
+    animation-duration: 2s;
+    -webkit-animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
   }
 
-  .currentTemperature {
-    margin-top: -6px;
-    font-size: 1.4em;
-    color: lightgrey;
-  }
-
-  .state {
-    margin-top: 22px;
-    font-size: 1.4em;
-
-    .neutral {
-      visibility: hidden;
+  @keyframes grow {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(2);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 
-}
-
-/*
-.rs-tooltip-text:before {
-  position: absolute;
-  left: 3px;
-  top: -11px;
-  content: 'HEATING';
-  font-size: 12px;
-}
-*/
-
-/* end tooltip styles */
-
-/* start slider styles */
-
-#slider {
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 220px;
-    height: 220px;
-    background: #FFFFFF; // Was black
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  &::after {
-    z-index: 2;
-    box-shadow: inset 0 0 5px #FFFFFF; // Was black
-    background: linear-gradient(-190deg, rgba(255, 255, 255, .3),  rgba(255, 255, 255, 0) 50%);
+  @-webkit-keyframes grow {
+    0% {
+      -webkit-transform: scale(0);
+    }
+    50% {
+      -webkit-transform: scale(2);
+    }
+    100% {
+      -webkit-transform: scale(1);
+    }
   }
 }
-
-#animation1.rs-animation .rs-transition  {
-  transition: all .1s ease-in-out;
-}
-
-.rs-gradient, .rs-gradient:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 170px;
-  height: 170px;
-  background: hsl(209, 100%, 42%);
-  // box-shadow: inset 0 -2px 5px rgba(0, 0, 0, .2), inset 0 3px 5px rgba(0, 0, 0, .1), 0 0 3px #000;
-  border-radius: 50%;
-  z-index: 3;
-  opacity: .8
-}
-
-.rs-gradient:after {
-  background: linear-gradient(0, rgba(0, 0, 0, 0), rgba(0, 0, 0, .4));
-}
-
-.rs-path-color {
-  background: #444;
-}
-
-.rs-range-color {
-  background: #fff;
-  transition: background .02s ease-in-out;
-}
-
-.rs-border {
-  border: 1px solid #FFFFFF;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .3);
-}
-
-.rs-seperator {
-  border: none;
-}
-
-.rs-border, .rs-bg-color {
-  background: #FFFFFF;
-}
-
-.rs-handle {
-
-}
-
-.rs-handle {
-  border: none;
-  background: none;
-  width: 60px;
-  height: 60px;
-
-  &::after  {
-    background: #fff;
-    border-radius: 0;
-    border: none;
-    height: 1px;
-    width: 14px;
-    margin: 8px 0 0 3px;
-  }
-}
-
-.rs-handle.rs-move {
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
-}
-
-/* end slider styles */

@@ -14,11 +14,31 @@
     width: 70%;
     height: 300px;
 
+    .jalousie-overlay {
+      position: absolute;
+      z-index: 999;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      color: rgba(30, 30, 30, 0.5);
+      transform: none !important;
+      background: rgba(0, 0, 0, 0) !important;
+
+      .value {
+        font-size: 8rem;
+      }
+
+      .unit {
+        font-size: 3rem;
+      }
+    }
+
     .jalousie-slat {
       position: relative;
       height: 25px;
       transform: skew(15deg, 0deg);
-      border-top: 1px solid rgba(0,0,0,.1);
+      border-top: 1px solid rgba(0, 0, 0, .1);
       background-image: -ms-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
       background-image: -moz-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
       background-image: -o-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);

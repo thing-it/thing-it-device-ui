@@ -12,26 +12,26 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this.controlLoop();
             },
             controlLoop: function () {
-                // if (this.control) {
-                //     $interval.cancel(this.control);
-                // }
-                //
-                // var step = this._state.setpoint > this._state.temperature ? 0.1 : -0.1;
-                //
-                // this.control = $interval(() => {
-                //     this._state.temperature += step;
-                //
-                //     console.log('Temp >>>', this._state.temperature);
-                //
-                //     this._state = {
-                //         setpoint: this._state.setpoint,
-                //         temperature: this._state.temperature
-                //     };
-                //
-                //     if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
-                //         $interval.cancel(this.control);
-                //     }
-                // }, 1000);
+                if (this.control) {
+                    $interval.cancel(this.control);
+                }
+
+                var step = this._state.setpoint > this._state.temperature ? 0.1 : -0.1;
+
+                this.control = $interval(() => {
+                    this._state.temperature += step;
+
+                    console.log('Temp >>>', this._state.temperature);
+
+                    this._state = {
+                        setpoint: this._state.setpoint,
+                        temperature: this._state.temperature
+                    };
+
+                    if (Math.abs(this._state.temperature - this._state.setpoint) < 0.05) {
+                        $interval.cancel(this.control);
+                    }
+                }, 5000);
             }
         };
 

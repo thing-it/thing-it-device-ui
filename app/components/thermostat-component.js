@@ -49,7 +49,11 @@ angular.module('thing-it-device-ui')
             setBackgroundColor(setTemperature);
 
             function setSetTemperature(val) {
-                setTemperature = Number(val).toFixed(1);
+                if (val == null || val == undefined) {
+                    val = '--'
+                } else {
+                    setTemperature = Number(val).toFixed(1);
+                }
 
                 sliderData.setValue(val);
             }
@@ -59,9 +63,15 @@ angular.module('thing-it-device-ui')
             }
 
             function setCurrentTemperature(val) {
-                currentTemperature = Number(val).toFixed(1);
+                if (val == null || val == undefined) {
+                    val = '--'
+                } else {
+                    currentTemperature = Number(val).toFixed(1);
+                }
 
                 tooltip.find(".currentTemperature").html(currentTemperature + "°C").addClass('growAnimation');
+
+                // Seems to be necessary to allow repeated animations
 
                 window.setTimeout(function () {
                     tooltip.find(".currentTemperature").removeClass('growAnimation');

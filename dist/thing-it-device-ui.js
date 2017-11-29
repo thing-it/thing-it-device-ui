@@ -116,6 +116,12 @@ angular.module('thing-it-device-ui')
             var THROTTLING = 0.3;
 
             hammer.on('panmove', function ($event) {
+                // In case that state has been overwritten with a null state
+
+                if (!vm.state) {
+                    vm.state = {rotation: 0, percentage: 100};
+                }
+
                 if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
                     vm.state.rotation = Math.min(90, Math.max(-90, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width()));
 
@@ -262,7 +268,11 @@ angular.module('thing-it-device-ui')
             setBackgroundColor(setTemperature);
 
             function setSetTemperature(val) {
-                setTemperature = Number(val).toFixed(1);
+                if (val == null || val == undefined) {
+                    val = '--'
+                } else {
+                    setTemperature = Number(val).toFixed(1);
+                }
 
                 sliderData.setValue(val);
             }
@@ -272,9 +282,15 @@ angular.module('thing-it-device-ui')
             }
 
             function setCurrentTemperature(val) {
-                currentTemperature = Number(val).toFixed(1);
+                if (val == null || val == undefined) {
+                    val = '--'
+                } else {
+                    currentTemperature = Number(val).toFixed(1);
+                }
 
                 tooltip.find(".currentTemperature").html(currentTemperature + "°C").addClass('growAnimation');
+
+                // Seems to be necessary to allow repeated animations
 
                 window.setTimeout(function () {
                     tooltip.find(".currentTemperature").removeClass('growAnimation');

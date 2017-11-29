@@ -77,6 +77,8 @@ angular.module('thing-it-device-ui')
             var THROTTLING = 0.3;
 
             hammer.on('panmove', function ($event) {
+                // In case that state has been overwritten with a null state
+
                 if (!vm.state) {
                     vm.state = {rotation: 0, percentage: 100};
                 }

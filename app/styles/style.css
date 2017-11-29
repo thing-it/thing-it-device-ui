@@ -244,15 +244,15 @@ ul li {
   top: 0;
   left: 0;
   right: 0;
-  color: rgba(30, 30, 30, 0.35);
+  color: rgba(80, 80, 80, 0.35);
   transform: none !important;
   background: rgba(0, 0, 0, 0) !important;
 }
 .jalousie-plugin .jalousie-preview .jalousie-overlay .value {
-  font-size: 7rem;
+  font-size: 5rem;
 }
 .jalousie-plugin .jalousie-preview .jalousie-overlay .unit {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 .jalousie-plugin .jalousie-preview .jalousie-slat {
   position: relative;

@@ -258,11 +258,14 @@ angular.module('thing-it-device-ui')
                 }
             });
 
-            tooltip = sliderDiv.find(".rs-tooltip-text");
-            sliderData = sliderDiv.data("roundSlider");
+            console.log('Slider ===> ', slider);
 
-            var sliderData;
+            tooltip = sliderDiv.find(".rs-tooltip-text");
+
+            var sliderData = sliderDiv.data("roundSlider");
             var tooltip;
+
+            console.log('Slider Data ===> ', sliderData);
 
             setTooltipPosition(-56, -48);
             setBackgroundColor(setTemperature);
@@ -332,10 +335,20 @@ angular.module('thing-it-device-ui')
             }
 
             function setBackgroundColor(val) {
-                var val = -230 + parseInt(val * 7.5);
+                var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 70%, 0.1)'
+
+                // console.log('===>', color);
+                //
+                // color = tinycolor(color);
+                //
+                // console.log('===>', color);
+                //
+                // color = color.setAlpha(0.5);
+                //
+                // console.log('===>', color);
 
                 $('.rs-gradient').css({
-                    background: 'hsl(' + val + ', 40%, 50%)'
+                    background: color
                 });
             }
 

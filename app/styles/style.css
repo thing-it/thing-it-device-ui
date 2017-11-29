@@ -244,7 +244,7 @@ ul li {
   top: 0;
   left: 0;
   right: 0;
-  color: rgba(80, 80, 80, 0.35);
+  color: rgba(80, 80, 80, 0.35) !important;
   transform: none !important;
   background: rgba(0, 0, 0, 0) !important;
 }

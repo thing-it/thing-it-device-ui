@@ -94,6 +94,7 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.change();
+                $event.srcEvent.stopPropagation();
             });
 
             this.$onChanges = function (changes) {

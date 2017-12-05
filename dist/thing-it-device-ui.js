@@ -133,6 +133,7 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.change();
+                $event.srcEvent.stopPropagation();
             });
 
             this.$onChanges = function (changes) {
@@ -335,7 +336,8 @@ angular.module('thing-it-device-ui')
             }
 
             function setBackgroundColor(val) {
-                var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 70%, 0.1)'
+                //var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 70%, 0.1)'
+                //var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 0%, 0.0)'
 
                 // console.log('===>', color);
                 //
@@ -347,9 +349,9 @@ angular.module('thing-it-device-ui')
                 //
                 // console.log('===>', color);
 
-                $('.rs-gradient').css({
-                    background: color
-                });
+                // $('.rs-gradient').css({
+                //     background: color
+                // });
             }
 
             function tooltip(args) {

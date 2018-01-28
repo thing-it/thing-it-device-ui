@@ -84,11 +84,11 @@ angular.module('thing-it-device-ui')
                 }
 
                 if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
-                    vm.state.rotation = Math.min(90, Math.max(-90, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width())).toFixed(0);
+                    vm.state.rotation = Math.round(Math.min(90, Math.max(0, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width())));
 
                     rotateJalousie();
                 } else if ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN) {
-                    vm.state.position = Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / $(plugin).height())).toFixed(0);
+                    vm.state.position = Math.round(Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / $(plugin).height())));
 
                     openJalousie();
                 }

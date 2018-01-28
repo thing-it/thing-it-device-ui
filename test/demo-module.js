@@ -56,10 +56,10 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         // }, 10000);
 
         this.jalousie = {
-            _state: {percentage: 100, rotation: 90},
+            _state: {position: 100, rotation: 90},
             setState: function (state) {
                 // $timeout(() => {
-                //     this._state = {percentage: 0, rotation: 0};
+                //     this._state = {position: 0, rotation: 0};
                 // }, 2000);
             }
         };
@@ -68,12 +68,12 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             if (this.jalousie._state.rotation == 90) {
                 this.jalousie._state = {
                     rotation: 0,
-                    percentage: 0
+                    position: 100
                 };
             } else {
                 this.jalousie._state = {
                     rotation: 90,
-                    percentage: 50
+                    position: 50
                 };
             }
         }, 5000);

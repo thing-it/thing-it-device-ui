@@ -9,7 +9,7 @@ angular.module('thing-it-device-ui')
         controller: function ($element) {
             const vm = this;
 
-            vm.state = {rotation: 0, percentage: 100};
+            vm.state = {rotation: 0, position: 100};
             vm.jalousieData = {slatsCount: 12};
             vm.jalousieControls = {
                 jalousieOpened: 0,
@@ -47,7 +47,7 @@ angular.module('thing-it-device-ui')
             function openJalousie() {
                 const numberOfBars = vm.jalousieData.slatsCount;
                 const barInterval = 100 / numberOfBars;
-                const numOfOpenedBars = vm.state.percentage / barInterval;
+                const numOfOpenedBars = (100 - vm.state.position) / barInterval;
                 const barOpenedHeight = 7;
                 const slats = $element.find('.jalousie-slat');
 
@@ -66,7 +66,7 @@ angular.module('thing-it-device-ui')
                 const percentageDiv = $element.find('.jalousie-overlay .percentage');
 
                 percentageDiv.empty();
-                percentageDiv.append('<span class="value">' + (100 - vm.state.percentage.toFixed(0)) + '</span><span class="unit">%</span>');
+                percentageDiv.append('<span class="value">' + vm.state.position.toFixed(0) + '</span><span class="unit">%</span>');
             }
 
             var plugin = $element[0].querySelector('.jalousie-plugin');
@@ -80,7 +80,7 @@ angular.module('thing-it-device-ui')
                 // In case that state has been overwritten with a null state
 
                 if (!vm.state) {
-                    vm.state = {rotation: 0, percentage: 100};
+                    vm.state = {rotation: 0, position: 100};
                 }
 
                 if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
@@ -88,7 +88,7 @@ angular.module('thing-it-device-ui')
 
                     rotateJalousie();
                 } else if ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN) {
-                    vm.state.percentage = Math.min(100, Math.max(0, vm.state.percentage - THROTTLING * 100 * $event.deltaY / $(plugin).height()));
+                    vm.state.position = Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / $(plugin).height()));
 
                     openJalousie();
                 }
@@ -104,6 +104,7 @@ angular.module('thing-it-device-ui')
 
                 vm.state = changes.state.currentValue;
 
+                console.log('State >>>>>>>>>>>>>>>>>>>', vm.state);
                 openJalousie();
                 rotateJalousie();
             };

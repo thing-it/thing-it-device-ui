@@ -69,8 +69,22 @@ angular.module('thing-it-device-ui')
                 percentageDiv.append('<span class="value">' + vm.state.position.toFixed(0) + '</span><span class="unit">%</span>');
             }
 
-            var plugin = $element[0].querySelector('.jalousie-plugin');
-            var hammer = new Hammer(plugin);
+            var plugin = $($element[0].querySelector('.jalousie-plugin'));
+
+            plugin.dblclick(function (event) {
+                event.offsetY / plugin.height();
+
+                if (event.offsetY / plugin.height() > 0.5) {
+                    vm.state.position = 100;
+                } else {
+                    vm.state.position = 0;
+                }
+
+                openJalousie();
+                vm.change();
+            });
+
+            var hammer = new Hammer(plugin[0]);
 
             hammer.get('pan').set({threshold: 5, direction: Hammer.DIRECTION_ALL});
 
@@ -84,17 +98,20 @@ angular.module('thing-it-device-ui')
                 }
 
                 if ($event.offsetDirection === Hammer.DIRECTION_RIGHT || $event.offsetDirection === Hammer.DIRECTION_LEFT) {
-                    vm.state.rotation = Math.round(Math.min(90, Math.max(0, vm.state.rotation + THROTTLING * 180 * $event.deltaX / $(plugin).width())));
+                    vm.state.rotation = Math.round(Math.min(90, Math.max(0, vm.state.rotation + THROTTLING * 180 * $event.deltaX / plugin.width())));
 
                     rotateJalousie();
                 } else if ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN) {
-                    vm.state.position = Math.round(Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / $(plugin).height())));
+                    vm.state.position = Math.round(Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / plugin.height())));
 
                     openJalousie();
                 }
 
-                vm.change();
                 $event.srcEvent.stopPropagation();
+            });
+
+            hammer.on('panend', function ($event) {
+                vm.change();
             });
 
             this.$onChanges = function (changes) {

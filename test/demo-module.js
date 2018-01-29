@@ -78,6 +78,44 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             }
         }, 5000);
 
+        this.dimmer = {
+            _state: {brightness: 0},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            if (this.dimmer._state.brightness == 100) {
+                this.dimmer._state = {
+                    brightness: 0
+                };
+            } else {
+                this.dimmer._state = {
+                    brightness: 100
+                };
+            }
+        }, 7000);
+
+        this.light = {
+            _state: {switch: false},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            if (this.light._state.switch) {
+                this.light._state = {
+                    switch: false
+                };
+            } else {
+                this.light._state = {
+                    switch: true
+                };
+            }
+        }, 5000);
+
         this.callActorService = function (component, service, parameters) {
             console.log('Actor Service ' + service + ' called with ' + JSON.stringify(parameters));
 

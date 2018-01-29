@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="./libs/roundslider/roundslider.min.css" rel="stylesheet" type="text/css">
     <link href="http://localhost:3000/thing-it/css/thing-it-portal.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:3000/thing-it/css/fonts/streamline.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../dist/thing-it-device-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
@@ -33,38 +34,16 @@
                  change="portal.callActorService(portal.jalousie, 'setState', portal.jalousie._state)"></ti-jalousie>
 </div>
 
-<div wraper-directive title="Area plugin">
+<div wraper-directive title="Area">
     <ti-area></ti-area>
 </div>
 
-<div wraper-directive title="Light plugin">
-    <ti-light></ti-light>
+<div wraper-directive title="Light">
+    <ti-light state="portal.light._state" change="portal.callActorService(portal.dimmer, 'setState', portal.light._state)"></ti-light>
 </div>
 
-<div wraper-directive title="Room control plugin">
-    <ti-room-control></ti-room-control>
-    <ti-light></ti-light>
-</div>
-
-<div wraper-directive title="Bacnet plugin">
-    <ti-bacnet></ti-bacnet>
-</div>
-
-<div wraper-directive title="Binary plugin">
-    <ti-binary></ti-binary>
-</div>
-
-<div wraper-directive title="Multi state plugin">
-    <ti-multi-state></ti-multi-state>
-</div>
-
-<div wraper-directive title="All plugins">
-    <ti-area></ti-area>
-    <ti-light></ti-light>
-    <ti-room-control></ti-room-control>
-    <ti-bacnet></ti-bacnet>
-    <ti-binary></ti-binary>
-    <ti-multi-state></ti-multi-state>
+<div wraper-directive title="Dimmer">
+    <ti-dimmer state="portal.dimmer._state" change="portal.callActorService(portal.dimmer, 'setState', portal.dimmer._state)"></ti-dimmer>
 </div>
 
 </body>

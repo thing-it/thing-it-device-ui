@@ -143,6 +143,11 @@ this._state.rotation = 90;
 
 # Dimmer
 
+```
+<ti-dimmer state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-dimmer>
+```
+
 ## State Fields
 
 * **switch**, boolean for switch state
@@ -152,11 +157,17 @@ this._state.rotation = 90;
 ## Functions
 
 * **change**
+
 ## UI
 
 <p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="50%" height="50%"></a></p>
 
 # Switch
+
+```
+<ti-switch state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-switch>
+```
 
 ## State Fields
 
@@ -173,6 +184,11 @@ this._state.rotation = 90;
 
 # Temperature Sensor
 
+```
+<ti-temperature-sensor state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-temperature-sensor>
+```
+
 ## State Fields
 
 * **temperature**, temperature value
@@ -186,6 +202,11 @@ this._state.rotation = 90;
 <p align="center"><a href="./doc/images/temperature-sensor.png"><img src="./doc/images/temperature-sensor.png" width="50%" height="50%"></a></p>
 
 # Motion Sensor
+
+```
+<ti-motion-sensor state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-motion-sensor>
+```
 
 ## State Fields
 

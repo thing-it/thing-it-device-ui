@@ -1,51 +1,51 @@
 .motion-sensor-plugin {
-}
-
-.motion-sensor-plugin .icon {
-  font-size: 40px !important;
-  transform: scale(.8);
-}
-
-.motion-sensor-plugin .motion {
-  animation-name: motionPulse;
-  -webkit-animation-name: motionPulse;
-
-  animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-
-  animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-}
-
-@keyframes motionPulse {
-  0% {
-    opacity: 1.0;
-    transform: scale(.8);
+  .peopleIcon {
+    font-size: 50px !important;
+    transform: scale(.8) !important;
   }
-  50% {
-    opacity: 0.3;
-    transform: scale(1.0);
-  }
-  100% {
-    opacity: 1.0;
-    transform: scale(0.8);
-  }
-}
 
-@-webkit-keyframes motionPulse {
-  0% {
-    opacity: 1.0;
-    transform: scale(.8);
+  .motion {
+    color: red !important;
+    animation-name: motionPulse;
+    -webkit-animation-name: motionPulse;
+
+    animation-duration: 3s;
+    -webkit-animation-duration: 3s;
+
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
   }
-  50% {
-    opacity: 0.3;
-    transform: scale(1.0);
+
+  @keyframes motionPulse {
+    0% {
+      opacity: 1.0;
+      transform: scale(.8);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.0);
+    }
+    100% {
+      opacity: 1.0;
+      transform: scale(0.8);
+    }
   }
-  100% {
-    opacity: 1.0;
-    transform: scale(0.8);
+
+  @-webkit-keyframes motionPulse {
+    0% {
+      opacity: 1.0;
+      transform: scale(.8);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.0);
+    }
+    100% {
+      opacity: 1.0;
+      transform: scale(0.8);
+    }
   }
 }

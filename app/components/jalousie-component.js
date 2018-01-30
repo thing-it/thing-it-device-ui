@@ -3,6 +3,7 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/jalousie-component.html',
         bindings: {
             state: '<',
+            options: '<',
             change: '&',
             up: '&',
             down: '&',
@@ -13,6 +14,7 @@ angular.module('thing-it-device-ui')
             const vm = this;
 
             vm.state = {rotation: 0, position: 100};
+            vm.options = {allowPositionPan: false};
             vm.jalousieData = {slatsCount: 12};
             vm.jalousieControls = {
                 jalousieOpened: 0,
@@ -89,18 +91,18 @@ angular.module('thing-it-device-ui')
 
             var plugin = $($element[0].querySelector('.jalousie-plugin'));
 
-            plugin.dblclick(function (event) {
-                event.offsetY / plugin.height();
-
-                if (event.offsetY / plugin.height() > 0.5) {
-                    vm.state.position = 100;
-                } else {
-                    vm.state.position = 0;
-                }
-
-                openJalousie();
-                vm.change();
-            });
+            // plugin.dblclick(function (event) {
+            //     event.offsetY / plugin.height();
+            //
+            //     if (event.offsetY / plugin.height() > 0.5) {
+            //         vm.state.position = 100;
+            //     } else {
+            //         vm.state.position = 0;
+            //     }
+            //
+            //     openJalousie();
+            //     vm.change();
+            // });
 
             var hammer = new Hammer(plugin[0]);
 
@@ -119,7 +121,7 @@ angular.module('thing-it-device-ui')
                     vm.state.rotation = Math.round(Math.min(90, Math.max(0, vm.state.rotation + THROTTLING * 180 * $event.deltaX / plugin.width())));
 
                     rotateJalousie();
-                } else if ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN) {
+                } else if (vm.options.allowPositionPan && ($event.offsetDirection === Hammer.DIRECTION_UP || $event.offsetDirection === Hammer.DIRECTION_DOWN)) {
                     vm.state.position = Math.round(Math.min(100, Math.max(0, vm.state.position + THROTTLING * 100 * $event.deltaY / plugin.height())));
 
                     openJalousie();

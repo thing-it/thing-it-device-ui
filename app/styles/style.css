@@ -102,11 +102,11 @@ ul li {
   transform: translateY(24px);
   color: #fff;
 }
-.thermostat-plugin .rs-tooltip-text .setTemperature {
+.thermostat-plugin .rs-tooltip-text .setpoint {
   font-size: 2.4em;
   color: black;
 }
-.thermostat-plugin .rs-tooltip-text .currentTemperature {
+.thermostat-plugin .rs-tooltip-text .temperature {
   margin-top: -6px;
   font-size: 1.4em;
   color: grey;
@@ -200,7 +200,7 @@ ul li {
     transform: scale(0);
   }
   50% {
-    transform: scale(1.6);
+    transform: scale(1.5);
   }
   100% {
     transform: scale(1);
@@ -211,7 +211,7 @@ ul li {
     -webkit-transform: scale(0);
   }
   50% {
-    -webkit-transform: scale(2);
+    -webkit-transform: scale(1.5);
   }
   100% {
     -webkit-transform: scale(1);
@@ -265,33 +265,48 @@ ul li {
 .jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
 }
-.area-plugin ul {
-  padding: 6px 0px 8px 6px;
-  flex-wrap: wrap;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
+.motion-sensor-plugin .peopleIcon {
+  font-size: 50px !important;
+  transform: scale(0.8) !important;
 }
-.area-plugin ul li {
-  padding: 4px 6px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
+.motion-sensor-plugin .motion {
+  color: red !important;
+  animation-name: motionPulse;
+  -webkit-animation-name: motionPulse;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
-.area-plugin ul li .title {
-  font-family: OpenSans-Bold;
-  font-size: 13px;
-  color: #99CBE9;
-  letter-spacing: 0;
-  line-height: 20px;
-  padding-right: 4px;
+@keyframes motionPulse {
+  0% {
+    opacity: 1.0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1.0;
+    transform: scale(0.8);
+  }
 }
-.area-plugin ul li .value {
-  font-size: 20px;
-  line-height: 20px;
-}
-.area-plugin ul li .value .icon-cross {
-  color: #D2D2D2;
+@-webkit-keyframes motionPulse {
+  0% {
+    opacity: 1.0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1.0;
+    transform: scale(0.8);
+  }
 }
 .on {
   background-color: #FFFFFF;
@@ -301,136 +316,6 @@ ul li {
   background-color: #DDDDDD;
   color: #B3B3B1;
 }
-.room-control-plugin .values-list {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  padding: 4px 0 0 6px;
-}
-.room-control-plugin .values-list li {
-  padding: 4px 8px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.room-control-plugin .values-list li .icon-title {
-  font-size: 20px;
-  color: #549cd6;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  padding-right: 4px;
-}
-.room-control-plugin .values-list li .value {
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: bold;
-  line-height: 20px;
-}
-.room-control-plugin .values-list li .value span {
-  font-size: 20px;
-}
-.group-component {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  padding: 12px 12px 14px;
-}
-.group-component .call-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  color: #fff;
-  border-radius: 50%;
-  background: #1c4d75;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12), 0 6px 6px 0 rgba(0, 0, 0, 0.24);
-}
-.group-component .description {
-  font-size: 13px;
-  line-height: 16px;
-  color: rgba(0, 0, 0, 0.4);
-  font-weight: bold;
-  line-height: 40px;
-  padding-left: 12px;
-}
-.group-component.in-call .call-btn {
-  transform: rotate(135deg);
-}
-.group-component.in-call .description {
-  display: none;
-}
-.multi-state-component {
-  flex-wrap: wrap;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.multi-state-component button {
-  border-radius: 2px;
-  border: none;
-  line-height: 36px;
-  padding: 0 20px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-}
-.multi-state-component button.active-button {
-  background: #1c4d75;
-  color: #fff;
-}
-.multi-state-component button:not(.active-button) {
-  background: #f8f8f8;
-}
-.multi-state-component {
-  padding: 8px 8px 12px;
-}
-.multi-state-component div {
-  padding: 4px;
-}
-.multi-state-component div button {
-  font-size: 13px;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.56);
-  outline: none;
-}
-.bacnet-component {
-  padding: 6px 12px 10px;
-}
-.bacnet-component table {
-  font-size: 13px;
-  line-height: 16px;
-  border-collapse: collapse;
-}
-.bacnet-component table tr,
-.bacnet-component table td {
-  padding: 3px 0;
-  vertical-align: top;
-}
-.bacnet-component table .title {
-  font-weight: bold;
-  white-space: nowrap;
-  padding-right: 4px;
-  color: #549cd6;
-}
-.binary-component {
-  padding: 8px 0 10px;
-}
-.binary-component md-switch.md-default-theme.md-checked .md-thumb,
-.binary-component md-switch.md-checked .md-thumb {
-  background: #1c4d75;
-}
-.binary-component md-switch.md-default-theme.md-checked .md-bar,
-.binary-component md-switch.md-checked .md-bar {
-  background: #549cd6;
-}
-.binary-component md-switch {
-  margin: 0;
-  padding-left: 12px;
-}
-.binary-component .md-label {
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.4);
-}
-.binary-component .binary-active .md-label {
-  color: #1c4d75;
+.temperature-sensor-plugin {
+  font-size: 40px !important;
 }

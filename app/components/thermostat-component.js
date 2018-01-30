@@ -3,23 +3,22 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/thermostat-component.html',
         bindings: {
             state: '<',
+            options: '<',
             change: '&'
         },
         controllerAs: 'vm',
         controller: function ($element) {
             var that = this;
 
-            var minTemperature = 17;
-            var maxTemperature = 26;
-            var interval = 0.5;
-            var currentTemperature = 21;
-            var setTemperature = 23;
-            var state = 1;
+            that.state = {setpoint: 22, temperature: 22}
+            that.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
+            that.mode = 0;
+            that.setpoint = 26;
 
             var sliderDiv = $("#slider");
             var slider = sliderDiv.roundSlider({
-                value: setTemperature,
-                step: interval,
+                value: that.setpoint,
+                step: 0.5,
                 circleShape: "pie",
                 startAngle: 315,
                 radius: 80,
@@ -27,91 +26,85 @@ angular.module('thing-it-device-ui')
                 handleSize: "+16",
                 handleShape: "dot",
                 sliderType: "min-range",
-                min: minTemperature,
-                max: maxTemperature,
-                tooltipFormat: tooltip,
+                min: 17,
+                max: 26,
+                tooltipFormat: function () {
+                    return '<div class="setpoint"><span>--' + that.options.units + '</span></div>' +
+                        '<div class="temperature"><span>--' + that.options.units + '</span></div>' +
+                        '<div class="state"></div>';
+                },
                 editableTooltip: false,
                 mouseScrollAction: true,
                 change: update,
                 drag: update,
                 create: function () {
-                    insertGradient();
+                    $('<div class="rs-gradient" />').insertBefore($('.rs-tooltip'));
                 }
             });
 
-            console.log('Slider ===> ', slider);
-
-            tooltip = sliderDiv.find(".rs-tooltip-text");
-
+            var tooltip = sliderDiv.find(".rs-tooltip-text");
             var sliderData = sliderDiv.data("roundSlider");
-            var tooltip;
 
-            console.log('Slider Data ===> ', sliderData);
-
-            setTooltipPosition(-56, -48);
-            setBackgroundColor(setTemperature);
-
-            function setSetTemperature(val) {
-                if (val == null || val == undefined) {
-                    val = '--'
-                } else {
-                    setTemperature = Number(val).toFixed(1);
-                }
-
-                sliderData.setValue(val);
-            }
-
-            function getSetTemperature() {
-                return sliderData.getValue();
-            }
-
-            function setCurrentTemperature(val) {
-                if (val == null || val == undefined) {
-                    val = '--'
-                } else {
-                    currentTemperature = Number(val).toFixed(1);
-                }
-
-                tooltip.find(".currentTemperature").html(currentTemperature + "°C").addClass('growAnimation');
-
-                // Seems to be necessary to allow repeated animations
-
-                window.setTimeout(function () {
-                    tooltip.find(".currentTemperature").removeClass('growAnimation');
-                }, 2000);
-            }
-
-            function setState(val) {
-                state = val;
-
-                if (state == 1) {
-                    tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
-                } else if (state == -1) {
-                    tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
-                } else {
-                    tooltip.find(".state").html('<span class="neutral"><i class="fa fa-fire"></i></span>');
-                }
-            }
-
-            function setTooltipPosition(marginTop, marginLeft) {
+            function adjustTooltipPosition() {
                 tooltip.css(
                     {
-                        "margin-top": marginTop,
-                        "margin-left": marginLeft
+                        "margin-top": -56,
+                        "margin-left": -48
                     }
                 );
             }
 
-            function insertGradient() {
-                $('<div class="rs-gradient" />').insertBefore($('.rs-tooltip'));
+            // Wait until Slider is created
+
+            window.setTimeout(function () {
+                adjustTooltipPosition();
+                setBackgroundColor();
+                renderState();
+            }, 500);
+
+
+            function renderState() {
+                sliderData.setValue(that.state.setpoint);
+
+                var element = tooltip.find(".temperature").html('<span>' + that.state.temperature.toFixed(1) + that.options.units + '</span>');
+
+                if (that.options.animateTemperatureChange) {
+                    element.addClass('growAnimation');
+
+                    window.setTimeout(function () {
+                        element.removeClass('growAnimation');
+                    }, 2000);
+                }
+
+                tooltip.find(".setpoint").html('<span>' + that.state.setpoint.toFixed(1) + that.options.units + '</span>');
+
+                // Seems to be necessary to allow repeated animations
+
+                if (that.mode == 1) {
+                    tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
+                } else if (that.mode == -1) {
+                    tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
+                } else {
+                    tooltip.find(".state").html('<span class="neutral"></i></span>');
+                }
+
+                adjustTooltipPosition();
             }
 
             function update(args) {
-                that.state.setpoint = Number(args.value).toFixed(1);
+                var newSetpoint = Number(args.value);
 
-                setTemperature = args.value;
-                setBackgroundColor(setTemperature);
+                // Changes are limited to options.maximumSetpointChange
 
+                if (that.state.setpoint - newSetpoint > 0) {
+                    that.state.setpoint = that.state.setpoint - Math.min(that.state.setpoint - newSetpoint, that.options.maximumSetpointChange);
+                } else {
+                    that.state.setpoint = that.state.setpoint + Math.min(newSetpoint - that.state.setpoint, that.options.maximumSetpointChange);
+                }
+
+                that.setpoint = that.state.setpoint;
+
+                renderState();
                 that.change();
             }
 
@@ -134,38 +127,24 @@ angular.module('thing-it-device-ui')
                 // });
             }
 
-            function tooltip(args) {
-                var setTemperature = Number(args.value);
-                var html = '<div class="setTemperature"><span>' + setTemperature + '°C</span></div>';
-
-                html += '<div class="currentTemperature"><span>' + currentTemperature + '°C</span></div>';
-
-                if (state == 1) {
-                    html += '<div class="state"><span class="heating"><i class="fa fa-fire"></i></span></div>';
-                } else if (state == -1) {
-                    html += '<div class="state"><span class="cooling"><i class="fa fa-snowflake-o"></i></span></div>';
-                } else {
-                    html += '<div class="state"><span class="neutral"></i></span></div>';
-                }
-
-                return html;
-            }
-
             this.$onChanges = function (changes) {
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }
 
-                setSetTemperature(changes.state.currentValue.setpoint);
-                setCurrentTemperature(changes.state.currentValue.temperature);
-
                 if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
-                    setState(1);
+                    that.mode = 1;
                 } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
-                    setState(-1);
+                    that.mode = -1;
                 } else {
-                    setState(0)
+                    that.mode = 0;
                 }
+
+                that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
+                that.setpoint = that.state.setpoint;
+                that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
+
+                renderState();
             };
         }
     });

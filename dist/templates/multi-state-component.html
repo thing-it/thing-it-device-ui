@@ -1,0 +1,5 @@
+<div class="multi-state-component">
+  <div ng-repeat="button in vm.items">
+      <button ng-class="{'active-button': button.active}" ng-click="vm.changeMethod($index)">{{button.name}}</button>
+  </div>
+</div>

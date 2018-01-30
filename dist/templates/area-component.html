@@ -1,0 +1,8 @@
+<div class="area-plugin">
+  <ul>
+    <li ng-repeat="item in vm.items" ng-class="item.active ? 'present' : 'absent'">
+      <div class="title">{{item.name}}</div>
+      <div class="value"><span ng-class="item.active ? 'icon-checkmark' : 'icon-cross'"></span></div>
+    </li>
+  </ul>
+</div>

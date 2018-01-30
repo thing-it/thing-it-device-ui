@@ -1,0 +1,8 @@
+<div class="switch-plugin flexGrow1 flexLayout flexJustifyCenter padding2"
+     ng-click="vm._toggle()">
+    <div class="flexLayout flexDirectionColumn flexAlignCenter">
+        <md-switch ng-model="vm.state.switch" ng-click="vm._toggle()">
+        </md-switch>
+        <div class="primaryColor">{{vm.state.power.toFixed(1)}} {{vm.options.units}}</div>
+    </div>
+</div>

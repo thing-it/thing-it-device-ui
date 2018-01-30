@@ -32,6 +32,17 @@ http://localhost:3333/test/index.html
 
 # Components
 
+# General
+
+## Options
+
+All components can be configured in behavior and appearance via options, e.g.
+
+```
+<ti-thermostat options="{maximumSetpointChange: 4, units: 'F'}" ...
+```
+
+
 # Thermostat
 
 ```
@@ -53,6 +64,10 @@ as opposed to
 this._state.temperature = 27;
 ```
 
+## UI
+
+<p align="center"><a href="./doc/images/thermostat.png"><img src="./doc/images/thermostat.png" width="70%" height="70%"></a></p>
+
 # Jalousie
 
 ```
@@ -65,7 +80,7 @@ this._state.temperature = 27;
 Changes to the state object are only detected if the reference is changes, i.e.
 
 ```
-this._state = {percentage: this._state.percentage, rotation: 90};
+this._state = {position: this._state.percentage, rotation: 90};
 ```
 
 as opposed to
@@ -74,10 +89,42 @@ as opposed to
 this._state.rotation = 90;
 ```
 
+## UI
+
+<p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="70%" height="70%"></a></p>
+
 # Light
 
-# RGB Light
+## UI
 
-# Door Lock
+<p align="center"><a href="./doc/images/light.png"><img src="./doc/images/light.png" width="70%" height="70%"></a></p>
 
-# Gate
+# Dimmer
+
+## UI
+
+<p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="70%" height="70%"></a></p>
+
+# Switch
+
+## UI
+
+<p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="70%" height="70%"></a></p>
+
+# Temperature Sensor
+
+## UI
+
+<p align="center"><a href="./doc/images/temperature-sensor.png"><img src="./doc/images/temperature-sensor.png" width="70%" height="70%"></a></p>
+
+# Motion Sensor
+
+## UI
+
+<p align="center"><a href="./doc/images/motion-sensor.png"><img src="./doc/images/motion-sensor.png" width="70%" height="70%"></a></p>
+
+# Humidity Sensor
+
+## UI
+
+<p align="center"><a href="./doc/images/humidity-sensor.png"><img src="./doc/images/humidity-sensor.png" width="70%" height="70%"></a></p>

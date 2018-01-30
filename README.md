@@ -48,7 +48,7 @@ All components can be configured in behavior and appearance via options, e.g.
 # Thermostat
 
 ```
-<ti-thermostat state="portal.thermostat._state"
+<ti-thermostat state="component._state"
                    change="portal.callActorService(component, 'setState', component._state)"></ti-thermostat>
 ```
 
@@ -66,6 +66,15 @@ as opposed to
 this._state.temperature = 27;
 ```
 
+## State Fields
+
+* **setpoint**
+* **temperature**
+
+## Functions
+
+* **change**
+
 ## UI
 
 <p align="center"><a href="./doc/images/thermostat.png"><img src="./doc/images/thermostat.png" width="50%" height="50%"></a></p>
@@ -73,8 +82,9 @@ this._state.temperature = 27;
 # Jalousie
 
 ```
-<ti-jalousie state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-jalousie>
+<ti-jalousie state="component._state" change="portal.callActorService(component, 'setState', component._state)"
+                   up="portal.callActorService(component, 'up', component._state)"
+                   down="portal.callActorService(component, 'down', component._state)"></ti-jalousie>
 ```
 
 *state* must contain the fields *percentage* and *rotation*.
@@ -91,11 +101,34 @@ as opposed to
 this._state.rotation = 90;
 ```
 
+## State Fields
+
+* **position**, integer between 0 and 100
+* **rotation** integer between 0 and 90 indicating degree of rotation, 0 being closed
+
+## Functions
+
+* **change**
+
 ## UI
 
 <p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="50%" height="50%"></a></p>
 
 # Light
+
+```
+<ti-light state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-thermostat>
+```
+
+## State Fields
+
+* **switch**, boolean for switch state
+* **power** current power consumption
+
+## Functions
+
+* **change**
 
 ## UI
 
@@ -103,11 +136,29 @@ this._state.rotation = 90;
 
 # Dimmer
 
+## State Fields
+
+* **switch**, boolean for switch state
+* **brightness**, boolean for switch state
+* **power** current power consumption
+
+## Functions
+
+* **change**
 ## UI
 
 <p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="50%" height="50%"></a></p>
 
 # Switch
+
+## State Fields
+
+* **switch**, boolean for switch state
+* **power** current power consumption
+
+## Functions
+
+* **change**
 
 ## UI
 
@@ -115,17 +166,42 @@ this._state.rotation = 90;
 
 # Temperature Sensor
 
+## State Fields
+
+* **temperature**, temperature value
+
+## Functions
+
+* **change**
+
 ## UI
 
 <p align="center"><a href="./doc/images/temperature-sensor.png"><img src="./doc/images/temperature-sensor.png" width="50%" height="50%"></a></p>
 
 # Motion Sensor
 
+## State Fields
+
+* **motion**, boolean indicating whether any motion is detected
+* **ticks** measured tick counts correlated with movements
+
+## Functions
+
+* **change**
+
 ## UI
 
 <p align="center"><a href="./doc/images/motion-sensor.png"><img src="./doc/images/motion-sensor.png" width="50%" height="50%"></a></p>
 
 # Humidity Sensor
+
+## State Fields
+
+* **humidity**, integer in percent
+
+## Functions
+
+* **change**
 
 ## UI
 

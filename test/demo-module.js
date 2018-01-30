@@ -203,6 +203,33 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 temperature: 5 + Math.round(Math.random() * 15)
             };
         }, 10000);
+
+        this.humiditySensor = {
+            _state: {humidity: 75},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            this.humiditySensor._state = {
+                humidity: 70 + Math.round(Math.random() * 20)
+            };
+        }, 8000);
+
+        this.multiSensor = {
+            _state: {temperature: 20, humidity: 80},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            this.multiSensor._state = {
+                temperature: 5 + Math.round(Math.random() * 15),
+                humidity: 70 + Math.round(Math.random() * 20)
+            };
+        }, 11000);
     })
     .directive('titleDirective', function () {
         return {

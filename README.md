@@ -119,6 +119,8 @@ this._state.rotation = 90;
 
 ## UI
 
+Rotation can be adjusted with a pan gesture.
+
 <p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="50%" height="50%"></a></p>
 
 # Light

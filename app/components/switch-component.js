@@ -1,34 +1,30 @@
 angular.module('thing-it-device-ui')
-    .component('tiLight', {
-        templateUrl: 'templates/light-component.html',
+    .component('tiSwitch', {
+        templateUrl: 'templates/switch-component.html',
         bindings: {
             state: '<',
-            change: '&'
+            options: '<',
+            change: '&',
+            toggle: '&'
         },
         controllerAs: 'vm',
         controller: function ($element) {
             const vm = this;
-            const plugin = $($element[0].querySelector('.light-plugin'));
+            const plugin = $($element[0].querySelector('.switch-plugin'));
 
-            vm.state = {switch: false};
+            vm.options = {units: 'kWh'};
+            vm.state = {switch: false, power: 0};
+
             vm.render = render;
-            vm.toggle = toggle;
+            vm._toggle = _toggle;
 
             function render() {
-                if (vm.state.switch) {
-                    plugin.removeClass('off');
-                    plugin.addClass('on');
-                } else {
-                    plugin.addClass('off');
-                    plugin.removeClass('on');
-                }
             }
 
-            function toggle() {
+            function _toggle() {
                 vm.state.switch = !vm.state.switch;
-
                 vm.render();
-                vm.change();
+                vm.toggle();
             }
 
             this.$onChanges = function (changes) {

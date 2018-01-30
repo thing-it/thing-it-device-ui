@@ -3,7 +3,10 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/jalousie-component.html',
         bindings: {
             state: '<',
-            change: '&'
+            change: '&',
+            up: '&',
+            down: '&',
+            stop: '&',
         },
         controllerAs: 'vm',
         controller: function ($element) {
@@ -19,6 +22,21 @@ angular.module('thing-it-device-ui')
             // Create slats
 
             const preview = $element.find('.jalousie-preview');
+            const upButton = $($element.find('#upButton'));
+            const stopButton = $($element.find('#stopButton'));
+            const downButton = $($element.find('#downButton'));
+
+            upButton.click(function(){
+                vm.up();
+            });
+
+            stopButton.click(function(){
+                vm.stop();
+            });
+
+            downButton.click(function(){
+                vm.down();
+            });
 
             for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
                 $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');
@@ -48,7 +66,7 @@ angular.module('thing-it-device-ui')
                 const numberOfBars = vm.jalousieData.slatsCount;
                 const barInterval = 100 / numberOfBars;
                 const numOfOpenedBars = (100 - vm.state.position) / barInterval;
-                const barOpenedHeight = 7;
+                const barOpenedHeight = 10;
                 const slats = $element.find('.jalousie-slat');
 
                 for (let i = numberOfBars - 1; i > 0; i--) {
@@ -115,6 +133,8 @@ angular.module('thing-it-device-ui')
             });
 
             this.$onChanges = function (changes) {
+                console.log('Changes >>>', changes);
+
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }

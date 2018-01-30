@@ -1,6 +1,6 @@
 angular.module('thing-it-device-ui')
-    .component('tiLight', {
-        templateUrl: 'templates/light-component.html',
+    .component('tiMotionSensor', {
+        templateUrl: 'templates/motion-sensor-component.html',
         bindings: {
             state: '<',
             change: '&'
@@ -8,27 +8,22 @@ angular.module('thing-it-device-ui')
         controllerAs: 'vm',
         controller: function ($element) {
             const vm = this;
-            const plugin = $($element[0].querySelector('.light-plugin'));
+            const plugin = $($element[0].querySelector('.motion-sensor-plugin'));
 
-            vm.state = {switch: false};
+            vm.state = {motion: false, ticks: 0};
+
             vm.render = render;
-            vm.toggle = toggle;
 
             function render() {
-                if (vm.state.switch) {
-                    plugin.removeClass('off');
-                    plugin.addClass('on');
+                console.log('Render >>>', vm.state);
+
+                if (vm.state.motion) {
+                    plugin.addClass('motion');
+                    plugin.addClass('alertColor');
                 } else {
-                    plugin.addClass('off');
-                    plugin.removeClass('on');
+                    plugin.removeClass('motion');
+                    plugin.removeClass('alertColor');
                 }
-            }
-
-            function toggle() {
-                vm.state.switch = !vm.state.switch;
-
-                vm.render();
-                vm.change();
             }
 
             this.$onChanges = function (changes) {

@@ -30,17 +30,35 @@
 </div>
 
 <div wraper-directive title="Jalousie">
-    <ti-jalousie state="portal.jalousie._state"
+    <ti-jalousie state="portal.jalousie._state" up="portal.callActorService(portal.jalousie, 'up', null)"
+                 stop="portal.callActorService(portal.jalousie, 'stop', null)"
+                 down="portal.callActorService(portal.jalousie, 'down', null)"
                  change="portal.callActorService(portal.jalousie, 'setState', portal.jalousie._state)"></ti-jalousie>
 </div>
 
 <div wraper-directive title="Light">
-    <ti-light state="portal.light._state" change="portal.callActorService(portal.dimmer, 'setState', portal.light._state)"></ti-light>
+    <ti-light state="portal.light._state"
+              change="portal.callActorService(portal.dimmer, 'setState', portal.light._state)"></ti-light>
 </div>
 
 <div wraper-directive title="Dimmer">
-    <ti-dimmer state="portal.dimmer._state" change="portal.callActorService(portal.dimmer, 'setState', portal.dimmer._state)"></ti-dimmer>
+    <ti-dimmer state="portal.dimmer._state"
+               change="portal.callActorService(portal.dimmer, 'setState', portal.dimmer._state)"></ti-dimmer>
 </div>
 
+<div wraper-directive title="Motion Sensor">
+    <ti-motion-sensor state="portal.motionSensor._state"
+                      change="portal.callActorService(portal.motionSensor, 'setState', portal.motionSensor._state)"></ti-motion-sensor>
+</div>
+
+<div wraper-directive title="Switch">
+    <ti-switch state="portal.switch._state"
+               change="portal.callActorService(portal.switch, 'setState', portal.switch._state)"
+               toggle="portal.callActorService(portal.switch, 'toggle', null)"></ti-switch>
+</div>
+
+<div wraper-directive title="Temperature Sensor">
+    <ti-temperature-sensor state="portal.temperatureSensor._state"></ti-temperature-sensor>
+</div>
 </body>
 </html>

@@ -42,33 +42,54 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/dimmer-component.html',
         bindings: {
             state: '<',
-            change: '&'
+            change: '&',
+            up: '&',
+            down: '&',
         },
         controllerAs: 'vm',
         controller: function ($element) {
             const plugin = $($element[0].querySelector('.dimmer-plugin'));
             const vm = this;
 
-            vm.state = {brightness: 0};
+            vm.state = {
+                switch: false,
+                brightness: 0
+            };
 
-            vm.changeBrightness = changeBrightness;
             vm.render = render;
+            vm.changeBrightness = changeBrightness;
+            vm.toggle = toggle;
 
             // Initial rendering
 
             vm.render();
+
+            function render() {
+                if (vm.state.switch) {
+                    var color = tinycolor('#FFFF00').desaturate(100 - vm.state.brightness).lighten((100 - vm.state.brightness) / 5);
+                    var backgroundColor = tinycolor('#DDDDDD').lighten(vm.state.brightness);
+
+                    console.log('Color >>>', color.toString());
+                    console.log('Background Color >>>', backgroundColor.toString());
+
+                    plugin.css('color', color.toString());
+                    plugin.css('background-color', backgroundColor.toString());
+                } else {
+                    plugin.css('color', '#B3B3B1');
+                    plugin.css('background-color', '#DDDDDD');
+                }
+            }
 
             function changeBrightness($event) {
                 vm.render();
                 vm.change();
             }
 
-            function render() {
-                var color = tinycolor('#FFFF00').desaturate(100 - vm.state.brightness).lighten((100 - vm.state.brightness) / 5);
-                var backgroundColor = tinycolor('#DDDDDD').lighten(vm.state.brightness);
+            function toggle() {
+                vm.state.switch = !vm.state.switch;
 
-                plugin.css('color', color.toString());
-                plugin.css('background-color', backgroundColor.toString());
+                vm.render();
+                vm.change();
             }
 
             this.$onChanges = function (changes) {
@@ -89,7 +110,10 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/jalousie-component.html',
         bindings: {
             state: '<',
-            change: '&'
+            change: '&',
+            up: '&',
+            down: '&',
+            stop: '&',
         },
         controllerAs: 'vm',
         controller: function ($element) {
@@ -105,6 +129,21 @@ angular.module('thing-it-device-ui')
             // Create slats
 
             const preview = $element.find('.jalousie-preview');
+            const upButton = $($element.find('#upButton'));
+            const stopButton = $($element.find('#stopButton'));
+            const downButton = $($element.find('#downButton'));
+
+            upButton.click(function(){
+                vm.up();
+            });
+
+            stopButton.click(function(){
+                vm.stop();
+            });
+
+            downButton.click(function(){
+                vm.down();
+            });
 
             for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
                 $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');
@@ -134,7 +173,7 @@ angular.module('thing-it-device-ui')
                 const numberOfBars = vm.jalousieData.slatsCount;
                 const barInterval = 100 / numberOfBars;
                 const numOfOpenedBars = (100 - vm.state.position) / barInterval;
-                const barOpenedHeight = 7;
+                const barOpenedHeight = 10;
                 const slats = $element.find('.jalousie-slat');
 
                 for (let i = numberOfBars - 1; i > 0; i--) {
@@ -201,6 +240,8 @@ angular.module('thing-it-device-ui')
             });
 
             this.$onChanges = function (changes) {
+                console.log('Changes >>>', changes);
+
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }
@@ -225,15 +266,8 @@ angular.module('thing-it-device-ui')
             const plugin = $($element[0].querySelector('.light-plugin'));
 
             vm.state = {switch: false};
-
-            plugin.click(() => {
-                vm.state.switch = !vm.state.switch;
-
-                vm.render();
-                vm.change();
-            });
-
             vm.render = render;
+            vm.toggle = toggle;
 
             function render() {
                 if (vm.state.switch) {
@@ -242,6 +276,54 @@ angular.module('thing-it-device-ui')
                 } else {
                     plugin.addClass('off');
                     plugin.removeClass('on');
+                }
+            }
+
+            function toggle() {
+                vm.state.switch = !vm.state.switch;
+
+                vm.render();
+                vm.change();
+            }
+
+            this.$onChanges = function (changes) {
+                if (!changes || !changes.state || !changes.state.currentValue) {
+                    return;
+                }
+
+                vm.state = changes.state.currentValue;
+
+                vm.render();
+            };
+        }
+
+    });
+
+angular.module('thing-it-device-ui')
+    .component('tiMotionSensor', {
+        templateUrl: 'templates/motion-sensor-component.html',
+        bindings: {
+            state: '<',
+            change: '&'
+        },
+        controllerAs: 'vm',
+        controller: function ($element) {
+            const vm = this;
+            const plugin = $($element[0].querySelector('.motion-sensor-plugin'));
+
+            vm.state = {motion: false, ticks: 0};
+
+            vm.render = render;
+
+            function render() {
+                console.log('Render >>>', vm.state);
+
+                if (vm.state.motion) {
+                    plugin.addClass('motion');
+                    plugin.addClass('alertColor');
+                } else {
+                    plugin.removeClass('motion');
+                    plugin.removeClass('alertColor');
                 }
             }
 
@@ -308,6 +390,80 @@ angular.module('thing-it-device-ui')
             };
         }
     });
+angular.module('thing-it-device-ui')
+    .component('tiSwitch', {
+        templateUrl: 'templates/switch-component.html',
+        bindings: {
+            state: '<',
+            options: '<',
+            change: '&',
+            toggle: '&'
+        },
+        controllerAs: 'vm',
+        controller: function ($element) {
+            const vm = this;
+            const plugin = $($element[0].querySelector('.switch-plugin'));
+
+            vm.options = {units: 'kWh'};
+            vm.state = {switch: false, power: 0};
+
+            vm.render = render;
+            vm._toggle = _toggle;
+
+            function render() {
+            }
+
+            function _toggle() {
+                vm.state.switch = !vm.state.switch;
+                vm.render();
+                vm.toggle();
+            }
+
+            this.$onChanges = function (changes) {
+                if (!changes || !changes.state || !changes.state.currentValue) {
+                    return;
+                }
+
+                vm.state = changes.state.currentValue;
+
+                vm.render();
+            };
+        }
+
+    });
+
+angular.module('thing-it-device-ui')
+    .component('tiTemperatureSensor', {
+        templateUrl: 'templates/temperature-sensor-component.html',
+        bindings: {
+            state: '<'
+        },
+        controllerAs: 'vm',
+        controller: function ($element) {
+            const vm = this;
+            const plugin = $($element[0].querySelector('.temperature-sensor-plugin'));
+
+            vm.options = {units: 'C'};
+            vm.state = {temperature: null};
+
+            vm.render = render;
+
+            function render() {
+            }
+
+            this.$onChanges = function (changes) {
+                if (!changes || !changes.state || !changes.state.currentValue) {
+                    return;
+                }
+
+                vm.state = changes.state.currentValue;
+
+                vm.render();
+            };
+        }
+
+    });
+
 angular.module('thing-it-device-ui')
     .component('tiThermostat', {
         templateUrl: 'templates/thermostat-component.html',

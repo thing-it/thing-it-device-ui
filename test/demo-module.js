@@ -61,22 +61,45 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 // $timeout(() => {
                 //     this._state = {position: 0, rotation: 0};
                 // }, 2000);
+            },
+            up: function () {
+                this.stop();
+
+                this.__upInterval = $interval(() => {
+                    this._state = {
+                        position: Math.max(0, this._state.position - 10),
+                        rotation: this._state.rotation
+                    };
+
+                    if (this._state.position <= 0) {
+                        $interval.cancel(this.__upInterval);
+                    }
+                }, 500);
+            },
+            down: function () {
+                this.stop();
+
+                this.__downInterval = $interval(() => {
+                    this._state = {
+                        position: Math.min(100, this._state.position + 10),
+                        rotation: this._state.rotation
+                    };
+
+                    if (this._state.position >= 100) {
+                        $interval.cancel(this.__downInterval);
+                    }
+                }, 500);
+            },
+            stop: function () {
+                if (this.__upInterval) {
+                    $interval.cancel(this.__upInterval);
+                }
+
+                if (this.__downInterval) {
+                    $interval.cancel(this.__downInterval);
+                }
             }
         };
-
-        $interval(() => {
-            if (this.jalousie._state.rotation == 90) {
-                this.jalousie._state = {
-                    rotation: 0,
-                    position: 100
-                };
-            } else {
-                this.jalousie._state = {
-                    rotation: 90,
-                    position: 50
-                };
-            }
-        }, 5000);
 
         this.dimmer = {
             _state: {brightness: 0},
@@ -85,17 +108,17 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             }
         };
 
-        $interval(() => {
-            if (this.dimmer._state.brightness == 100) {
-                this.dimmer._state = {
-                    brightness: 0
-                };
-            } else {
-                this.dimmer._state = {
-                    brightness: 100
-                };
-            }
-        }, 7000);
+        // $interval(() => {
+        //     if (this.dimmer._state.brightness == 100) {
+        //         this.dimmer._state = {
+        //             brightness: 0
+        //         };
+        //     } else {
+        //         this.dimmer._state = {
+        //             brightness: 100
+        //         };
+        //     }
+        // }, 7000);
 
         this.light = {
             _state: {switch: false},
@@ -121,6 +144,65 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
             component[service](parameters);
         }
+
+        this.motionSensor = {
+            _state: {motion: false},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            if (this.motionSensor._state.motion) {
+                this.motionSensor._state = {
+                    motion: false,
+                    ticks: 0
+                };
+            } else {
+                this.motionSensor._state = {
+                    motion: true,
+                    ticks: 4
+                };
+            }
+        }, 7000);
+
+        this.switch = {
+            _state: {switch: false, power: 0},
+            setState: function (state) {
+                this._state = state;
+            },
+            toggle: function () {
+                console.log('Toggle >>>', this._state);
+
+                if (this._state.switch) {
+                    this.__interval = $interval(() => {
+                        this._state = {
+                            power: this._state.power + 0.1,
+                            switch: this._state.switch
+                        };
+
+                        console.log('Power >>>', this._state.power);
+                    }, 2000);
+                } else {
+                    if (this.__interval) {
+                        $interval.cancel(this.__interval);
+                    }
+                }
+            }
+        };
+
+        this.temperatureSensor = {
+            _state: {temperature: 18},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            this.temperatureSensor._state = {
+                temperature: 5 + Math.round(Math.random() * 15)
+            };
+        }, 10000);
     })
     .directive('titleDirective', function () {
         return {

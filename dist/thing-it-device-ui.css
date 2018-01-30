@@ -229,8 +229,6 @@ ul li {
 }
 .jalousie-plugin .jalousie-preview {
   position: relative;
-  display: block;
-  width: 70%;
   height: 300px;
 }
 .jalousie-plugin .jalousie-preview .jalousie-overlay {
@@ -254,13 +252,15 @@ ul li {
   position: relative;
   height: 25px;
   transform: skew(15deg, 0deg);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background-image: -ms-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
-  background-image: -moz-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
-  background-image: -o-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #F8F8F8), color-stop(100, #BBBBBB));
-  background-image: -webkit-linear-gradient(bottom, #F8F8F8 0%, #BBBBBB 100%);
-  background-image: linear-gradient(to top, #F8F8F8 0%, #BBBBBB 100%);
+  border: 0.5px solid #CCCCCC;
+  border-radius: 2px;
+  background-image: none !important;
+  background-image: -ms-linear-gradient(bottom, #F8F8F8 0%, #E0E0E0 100%) !important;
+  background-image: -moz-linear-gradient(bottom, #F8F8F8 0%, #E0E0E0 100%) !important;
+  background-image: -o-linear-gradient(bottom, #F8F8F8 0%, #E0E0E0 100%) !important;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #F8F8F8), color-stop(100, #E0E0E0));
+  background-image: -webkit-linear-gradient(bottom, #F8F8F8 0%, #E0E0E0 100%) !important;
+  background-image: linear-gradient(to top, #F8F8F8 0%, #E0E0E0 100%) !important;
 }
 .jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
@@ -298,8 +298,8 @@ ul li {
   color: yellow;
 }
 .off {
-  background-color: #E0E0E0;
-  color: lightgray;
+  background-color: #DDDDDD;
+  color: #B3B3B1;
 }
 .room-control-plugin .values-list {
   display: -webkit-flex;

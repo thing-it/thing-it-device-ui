@@ -6,9 +6,11 @@ Supports complex UIs such as
 * Thermostats
 * Jalousies
 * Light
-* RGB Light
-* Door Lock
-* Gate
+* Dimmer 
+* Switch
+* Motion Sensor
+* Temperature Sensor
+* Humidity Sensor
 
 # Setup
 
@@ -47,7 +49,7 @@ All components can be configured in behavior and appearance via options, e.g.
 
 ```
 <ti-thermostat state="portal.thermostat._state"
-                   change="portal.callActorService(portal.thermostat, 'setState', portal.thermostat._state)"></ti-thermostat>
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-thermostat>
 ```
 
 *state* must contain the fields *setpoint* and *temperature*.
@@ -66,13 +68,13 @@ this._state.temperature = 27;
 
 ## UI
 
-<p align="center"><a href="./doc/images/thermostat.png"><img src="./doc/images/thermostat.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/thermostat.png"><img src="./doc/images/thermostat.png" width="50%" height="50%"></a></p>
 
 # Jalousie
 
 ```
-<ti-jalousie state="portal.jalousie._state"
-                   change="portal.callActorService(portal.jalousie, 'setState', portal.jalousie._state)"></ti-jalousie>
+<ti-jalousie state="component._state"
+                   change="portal.callActorService(component, 'setState', component._state)"></ti-jalousie>
 ```
 
 *state* must contain the fields *percentage* and *rotation*.
@@ -91,40 +93,54 @@ this._state.rotation = 90;
 
 ## UI
 
-<p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="50%" height="50%"></a></p>
 
 # Light
 
 ## UI
 
-<p align="center"><a href="./doc/images/light.png"><img src="./doc/images/light.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/light.png"><img src="./doc/images/light.png" width="50%" height="50%"></a></p>
 
 # Dimmer
 
 ## UI
 
-<p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="50%" height="50%"></a></p>
 
 # Switch
 
 ## UI
 
-<p align="center"><a href="./doc/images/jalousie.png"><img src="./doc/images/jalousie.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/switch.png"><img src="./doc/images/switch.png" width="50%" height="50%"></a></p>
 
 # Temperature Sensor
 
 ## UI
 
-<p align="center"><a href="./doc/images/temperature-sensor.png"><img src="./doc/images/temperature-sensor.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/temperature-sensor.png"><img src="./doc/images/temperature-sensor.png" width="50%" height="50%"></a></p>
 
 # Motion Sensor
 
 ## UI
 
-<p align="center"><a href="./doc/images/motion-sensor.png"><img src="./doc/images/motion-sensor.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/motion-sensor.png"><img src="./doc/images/motion-sensor.png" width="50%" height="50%"></a></p>
 
 # Humidity Sensor
 
 ## UI
 
-<p align="center"><a href="./doc/images/humidity-sensor.png"><img src="./doc/images/humidity-sensor.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./doc/images/humidity-sensor.png"><img src="./doc/images/humidity-sensor.png" width="50%" height="50%"></a></p>
+
+# Combining UI Components
+
+You can easily combine plugins like
+
+```
+<ti-temperature-sensor state="component._state"></ti-temperature-sensor>
+<ti-humidity-sensor state="component._state"></ti-humidity-sensor>
+```
+
+assuming that the **component** provides the state fields **temperature** and **humidity**,
+resulting in a UI like
+
+<p align="center"><a href="./doc/images/multi-sensor.png"><img src="./doc/images/multi-sensor.png" width="50%" height="50%"></a></p>

@@ -139,6 +139,8 @@ this._state.rotation = 90;
 
 ## UI
 
+Users can click everywhere in the component to toggle the light state.
+
 <p align="center"><a href="./doc/images/light.png"><img src="./doc/images/light.png" width="50%" height="50%"></a></p>
 
 # Dimmer
@@ -160,9 +162,13 @@ this._state.rotation = 90;
 
 ## UI
 
+Users can click everywhere in the component to toggle the light state. Light will be switched on in the brightness adjusted via the slider.
+
 <p align="center"><a href="./doc/images/dimmer.png"><img src="./doc/images/dimmer.png" width="50%" height="50%"></a></p>
 
 # Switch
+
+To represent an on/off plug or switch which can also optionally measure/display power consumption.
 
 ```
 <ti-switch state="component._state"

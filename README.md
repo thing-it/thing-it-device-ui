@@ -75,6 +75,11 @@ this._state.temperature = 27;
 
 * **change**
 
+## Options
+
+* **maximumSetpointChange** maximal value the setpoint can changed by in one gesture
+* **units**, string with e.g. F or °C
+
 ## UI
 
 <p align="center"><a href="./doc/images/thermostat.png"><img src="./doc/images/thermostat.png" width="50%" height="50%"></a></p>
@@ -92,7 +97,7 @@ this._state.temperature = 27;
 Changes to the state object are only detected if the reference is changes, i.e.
 
 ```
-this._state = {position: this._state.percentage, rotation: 90};
+this._state = {position: this._state.position, rotation: 90};
 ```
 
 as opposed to
@@ -109,6 +114,8 @@ this._state.rotation = 90;
 ## Functions
 
 * **change**
+* **up**
+* **down**
 
 ## UI
 

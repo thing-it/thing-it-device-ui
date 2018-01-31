@@ -4,8 +4,8 @@ UI Components for [thing-it] Device, Actor and Sensor UIs
 
 Supports complex UIs such as
 
-* Thermostats
-* Jalousies
+* Thermostat
+* Jalousy
 * Light
 * Dimmer 
 * Switch
@@ -47,6 +47,10 @@ http://localhost:3333/test/index.html
 # Components
 
 # General
+
+## DOM Embedding
+
+The components are expected to live in a flex layout container.
 
 ## Options
 

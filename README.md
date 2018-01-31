@@ -60,6 +60,18 @@ All components can be configured in behavior and appearance via options, e.g.
 <ti-thermostat options="{maximumSetpointChange: 4, units: 'F'}" ...
 ```
 
+## State Field IDs
+
+The UI components expect state variables to have specific IDs such as **temperature** or **switch**, however if your plugin state fields
+do not match the prescribed IDs, you can provide a mapping table in **options** like so:
+
+```
+<ti-light state="portal.light._state"
+              change="portal.callActorService(portal.light, 'setState', portal.light._state)"
+              options="{fieldMappings: {switch: 'mySwitch'}}"></ti-light>
+```
+
+assuming the state field representing the **switch** state is named **mySwitch** in your Plugin.
 
 # Thermostat
 

@@ -121,20 +121,22 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         // }, 7000);
 
         this.light = {
-            _state: {switch: false},
+            _state: {pseudoSwitch: false},
             setState: function (state) {
+                console.log('Light state set to >>>', state);
+
                 this._state = state;
             }
         };
 
         $interval(() => {
-            if (this.light._state.switch) {
+            if (this.light._state.pseudoSwitch) {
                 this.light._state = {
-                    switch: false
+                    pseudoSwitch: false
                 };
             } else {
                 this.light._state = {
-                    switch: true
+                    pseudoSwitch: true
                 };
             }
         }, 5000);
@@ -172,16 +174,12 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this._state = state;
             },
             toggle: function () {
-                console.log('Toggle >>>', this._state);
-
                 if (this._state.switch) {
                     this.__interval = $interval(() => {
                         this._state = {
                             power: this._state.power + 0.1,
                             switch: this._state.switch
                         };
-
-                        console.log('Power >>>', this._state.power);
                     }, 2000);
                 } else {
                     if (this.__interval) {

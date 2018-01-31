@@ -37,7 +37,8 @@
 
 <div wraper-directive title="Light">
     <ti-light state="portal.light._state"
-              change="portal.callActorService(portal.dimmer, 'setState', portal.light._state)"></ti-light>
+              change="portal.callActorService(portal.light, 'setState', portal.light._state)"
+              options="{fieldMappings: {switch: 'pseudoSwitch'}}"></ti-light>
 </div>
 
 <div wraper-directive title="Dimmer">

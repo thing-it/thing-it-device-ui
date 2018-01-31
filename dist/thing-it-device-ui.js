@@ -609,7 +609,7 @@ angular.module('thing-it-device-ui')
                 } else {
                     tooltip.find(".state").html('<span class="neutral"></i></span>');
                 }
-                
+
                 setBackgroundColor(that.state.setpoint);
                 adjustTooltipPosition();
             }

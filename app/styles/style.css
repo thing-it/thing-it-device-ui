@@ -308,11 +308,11 @@ ul li {
     transform: scale(0.8);
   }
 }
-.on {
+.light-plugin .on {
   background-color: #FFFFFF;
   color: yellow;
 }
-.off {
+.light-plugin .off {
   background-color: #DDDDDD;
   color: #B3B3B1;
 }

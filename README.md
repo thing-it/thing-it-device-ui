@@ -66,12 +66,12 @@ The UI components expect state variables to have specific IDs such as **temperat
 do not match the prescribed IDs, you can provide a mapping table in **options** like so:
 
 ```
-<div wraper-directive title="Light">
-    <ti-light state="portal.light._state"
+<ti-light state="portal.light._state"
               change="portal.callActorService(portal.light, 'setState', portal.light._state)"
-              options="{fieldMappings: {switch: 'pseudoSwitch'}}"></ti-light>
+              options="{fieldMappings: {switch: 'mySwitch'}}"></ti-light>
 ```
 
+assuming the state field representing the **switch** state is named **mySwitch** in your Plugin.
 
 # Thermostat
 

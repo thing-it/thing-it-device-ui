@@ -35,7 +35,7 @@ npm install
 Run server via 
 
 ```
-npm server
+node server
 ```
 
 UI can be tested under

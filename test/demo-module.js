@@ -37,23 +37,23 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
         this.thermostat.controlLoop();
 
-        // $interval(() => {
-        //     if (this.thermostat._state.setpoint == 18) {
-        //         this.thermostat._state = {
-        //             setpoint: 22,
-        //             temperature: this.thermostat._state.temperature
-        //         };
-        //
-        //         this.thermostat.controlLoop();
-        //     } else {
-        //         this.thermostat._state = {
-        //             setpoint: 18,
-        //             temperature: this.thermostat._state.temperature
-        //         };
-        //
-        //         this.thermostat.controlLoop();
-        //     }
-        // }, 10000);
+        $interval(() => {
+            if (this.thermostat._state.setpoint == 18) {
+                this.thermostat._state = {
+                    setpoint: 22,
+                    temperature: this.thermostat._state.temperature
+                };
+
+                this.thermostat.controlLoop();
+            } else {
+                this.thermostat._state = {
+                    setpoint: 18,
+                    temperature: this.thermostat._state.temperature
+                };
+
+                this.thermostat.controlLoop();
+            }
+        }, 10000);
 
         this.jalousie = {
             _state: {position: 100, rotation: 90},

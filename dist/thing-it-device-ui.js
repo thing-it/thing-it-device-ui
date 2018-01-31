@@ -292,6 +292,7 @@ angular.module('thing-it-device-ui')
         templateUrl: 'templates/light-component.html',
         bindings: {
             state: '<',
+            options: '<',
             change: '&'
         },
         controllerAs: 'vm',
@@ -308,7 +309,17 @@ angular.module('thing-it-device-ui')
             vm.render();
 
             function render() {
-                if (vm.state.switch) {
+                var value;
+
+                if (vm.options && vm.options.fieldMappings) {
+                    value = vm.state[vm.options.fieldMappings.switch];
+                } else {
+                    value = vm.state.switch;
+                }
+
+                console.log('VM (render)', vm);
+
+                if (value) {
                     plugin.removeClass('off');
                     plugin.addClass('on');
                 } else {
@@ -318,7 +329,13 @@ angular.module('thing-it-device-ui')
             }
 
             function toggle() {
-                vm.state.switch = !vm.state.switch;
+                if (vm.options && vm.options.fieldMappings) {
+                    vm.state[vm.options.fieldMappings.switch] = !vm.state[vm.options.fieldMappings.switch];
+                } else {
+                    vm.state.switch = !vm.state.switch;
+                }
+
+                console.log('VM', vm);
 
                 vm.render();
                 vm.change();
@@ -330,6 +347,8 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.state = changes.state.currentValue;
+
+                console.log('VM (change)', vm);
 
                 vm.render();
             };

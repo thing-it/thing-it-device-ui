@@ -1,4 +1,5 @@
 # thing-it-device-ui
+
 UI Components for [thing-it] Device, Actor and Sensor UIs
 
 Supports complex UIs such as
@@ -12,7 +13,18 @@ Supports complex UIs such as
 * Temperature Sensor
 * Humidity Sensor
 
+You can use components to implement UIs for [thing-it-node](https://www.npmjs.com/package/thing-it-device-node) Device Plugins quickly and safely.
+
+You can see the use components e.g. in the UIs of
+
+* [thing-it-device-bacnet](https://www.npmjs.com/package/thing-it-device-bacnet) 
+* [thing-it-device-ubisys](https://www.npmjs.com/package/thing-it-device-ubisys) 
+
+(check the **web/** folder of these repositories).
+
 # Setup
+
+You only need to explicitly install this package if you intend to add more components or adjust functionality in the existing ones.
 
 ```
 npm install
@@ -26,7 +38,7 @@ Run server via
 npm server
 ```
 
-UI can be found under
+UI can be tested under
 
 ```
 http://localhost:3333/test/index.html
@@ -256,3 +268,5 @@ assuming that the **component** provides the state fields **temperature** and **
 resulting in a UI like
 
 <p align="center"><a href="./doc/images/multi-sensor.png"><img src="./doc/images/multi-sensor.png" width="50%" height="50%"></a></p>
+
+against a single Device Plugin UI.

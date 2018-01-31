@@ -121,8 +121,10 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         // }, 7000);
 
         this.light = {
-            _state: {switch: false},
+            _state: {pseudoSwitch: false},
             setState: function (state) {
+                console.log('Light state set to >>>', state);
+
                 this._state = state;
             }
         };

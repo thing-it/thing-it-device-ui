@@ -14,6 +14,10 @@ angular.module('thing-it-device-ui')
             vm.render = render;
             vm.toggle = toggle;
 
+            // Initial render
+
+            vm.render();
+
             function render() {
                 if (vm.state.switch) {
                     plugin.removeClass('off');

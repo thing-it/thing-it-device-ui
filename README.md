@@ -35,7 +35,7 @@ npm install
 Run server via 
 
 ```
-npm server
+node server
 ```
 
 UI can be tested under
@@ -51,6 +51,18 @@ http://localhost:3333/test/index.html
 ## DOM Embedding
 
 The components are expected to live in a flex layout container.
+
+## State Field IDs
+
+The UI components expect state variables to have specific IDs such as **temperature** or **switch**, however if your plugin state fields
+do not match the prescribed IDs, you can map like so:
+
+```
+<div wraper-directive title="Light">
+    <ti-light state="{switch: portal.light._state.pseudoSwitch}"
+              change="portal.callActorService(portal.dimmer, 'setState', {pseudoSwitch: portal.light._state.switch})"></ti-light>
+</div>
+```
 
 ## Options
 

@@ -586,7 +586,8 @@ angular.module('thing-it-device-ui')
                 } else {
                     tooltip.find(".state").html('<span class="neutral"></i></span>');
                 }
-
+                
+                setBackgroundColor(that.state.setpoint);
                 adjustTooltipPosition();
             }
 
@@ -624,6 +625,11 @@ angular.module('thing-it-device-ui')
                 // $('.rs-gradient').css({
                 //     background: color
                 // });
+                var color = 'hsla(' + (245 + parseInt((val - 16) * 10)) + ', 100%, 50%, 1)';
+
+                $('.rs-range-color').css({
+                    background: color
+                });
             }
 
             this.$onChanges = function (changes) {

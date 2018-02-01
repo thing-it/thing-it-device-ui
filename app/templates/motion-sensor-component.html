@@ -1,7 +1,7 @@
 <div class="motion-sensor-plugin flexGrow1 flexLayout flexJustifyCenter padding2">
     <div class="flexLayout flexDirectionColumn flexAlignCenter flexJustifyCenter">
-        <i ng-if="vm.state.occupied" class="sl-contacts-2 occupied"></i>
-        <i ng-if="!vm.state.occupied" class="sl-user-block-2 notOccupied"></i>
+        <i id="occupiedIcon" ng-show="vm.state.occupied" class="sl-contacts-2 occupied"></i>
+        <i ng-show="!vm.state.occupied" class="sl-user-block-2 notOccupied"></i>
         <div ng-if="vm.options.showLastMotionTimestamp" class="primaryColor">Last Motion
             {{vm.lastMotionTimestamp}}
         </div>

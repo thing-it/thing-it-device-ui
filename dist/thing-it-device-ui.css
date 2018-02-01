@@ -265,15 +265,17 @@ ul li {
 .jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
 }
-.occupied-sensor-plugin .notOccupied {
+.motion-sensor-plugin .notOccupied {
   font-size: 4rem !important;
   color: lightgrey !important;
 }
-.occupied-sensor-plugin .occupied {
+.motion-sensor-plugin .occupied {
   font-size: 4rem !important;
   color: red !important;
-  animation-name: occupiedPulse;
-  -webkit-animation-name: occupiedPulse;
+}
+.motion-sensor-plugin .motion {
+  animation-name: motionPulse;
+  -webkit-animation-name: motionPulse;
   animation-duration: 3s;
   -webkit-animation-duration: 3s;
   animation-timing-function: ease-in-out;
@@ -281,7 +283,7 @@ ul li {
   animation-iteration-count: infinite;
   -webkit-animation-iteration-count: infinite;
 }
-@keyframes occupiedPulse {
+@keyframes motionPulse {
   0% {
     opacity: 1.0;
     transform: scale(0.8);
@@ -295,7 +297,7 @@ ul li {
     transform: scale(0.8);
   }
 }
-@-webkit-keyframes occupiedPulse {
+@-webkit-keyframes motionPulse {
   0% {
     opacity: 1.0;
     transform: scale(0.8);

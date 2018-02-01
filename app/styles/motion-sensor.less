@@ -1,4 +1,4 @@
-.occupied-sensor-plugin {
+.motion-sensor-plugin {
   .notOccupied {
     font-size: 4rem !important;
     color: lightgrey !important;
@@ -7,8 +7,11 @@
   .occupied {
     font-size: 4rem !important;
     color: red !important;
-    animation-name: occupiedPulse;
-    -webkit-animation-name: occupiedPulse;
+  }
+
+  .motion {
+    animation-name: motionPulse;
+    -webkit-animation-name: motionPulse;
 
     animation-duration: 3s;
     -webkit-animation-duration: 3s;
@@ -20,7 +23,7 @@
     -webkit-animation-iteration-count: infinite;
   }
 
-  @keyframes occupiedPulse {
+  @keyframes motionPulse {
     0% {
       opacity: 1.0;
       transform: scale(.8);
@@ -35,7 +38,7 @@
     }
   }
 
-  @-webkit-keyframes occupiedPulse {
+  @-webkit-keyframes motionPulse {
     0% {
       opacity: 1.0;
       transform: scale(.8);

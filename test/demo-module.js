@@ -41,14 +41,16 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             if (this.thermostat._state.setpoint == 18) {
                 this.thermostat._state = {
                     setpoint: 22,
-                    temperature: this.thermostat._state.temperature
+                    temperature: this.thermostat._state.temperature,
+                    mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
                 };
 
                 this.thermostat.controlLoop();
             } else {
                 this.thermostat._state = {
                     setpoint: 18,
-                    temperature: this.thermostat._state.temperature
+                    temperature: this.thermostat._state.temperature,
+                    mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
                 };
 
                 this.thermostat.controlLoop();
@@ -236,10 +238,10 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 isolatedBindingFoo: '=bindingFoo'
             }
         }
-    }).directive('wraperDirective', function () {
+    }).directive('wrapperDirective', function () {
         return {
             restrict: 'A',
-            templateUrl: 'templates/wraper-directive.html',
+            templateUrl: 'templates/wrapper-directive.html',
             transclude: true,
             scope: {
                 title: '@'
@@ -248,20 +250,6 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
             }
         }
-    })
-    .constant('BACNET_DATA', {
-        name: 'Intel Pentium',
-        description: 'All models support: MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AVX, Enhanced Intel SpeedStep Technology (EIST), Intel 64, XD bit (an NX bit implementation), Intel VT-x, Intel VT-d, Hyper-threading, Turbo Boost, AES-NI, Smart Cache',
-        vendor: 'Intel',
-        model: 'Core i7',
-        softwareVersion: '7'
-    })
-    .constant('ROOM_CONTROL_DATA', {
-        checkmark: false,
-        temperature: 19.8,
-        lightBright: 2,
-        contrast: 3.8,
-        plug: 1
     });
 //     .config(function ($sceDelegateProvider) {
 //     $sceDelegateProvider.resourceUrlWhitelist([

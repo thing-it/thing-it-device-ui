@@ -98,6 +98,7 @@ this._state.temperature = 27;
 
 * **setpoint**
 * **temperature**
+* **mode** string containing "HEAT" or "COOL" resulting in mode icons (flame, snowflake or none if string is null). If not provided **mode** is calculated from difference between **setpoint** and **temperature**
 
 ## Functions
 

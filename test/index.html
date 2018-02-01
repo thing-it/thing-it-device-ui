@@ -23,49 +23,49 @@
     <script src="../dist/thing-it-device-ui.js"></script>
 </head>
 <body ng-controller="PortalController as portal">
-<div wraper-directive title="Thermostat">
+<div wrapper-directive title="Thermostat">
     <ti-thermostat state="portal.thermostat._state"
                    change="portal.callActorService(portal.thermostat, 'setState', portal.thermostat._state)"></ti-thermostat>
 </div>
 
-<div wraper-directive title="Jalousie">
+<div wrapper-directive title="Jalousie">
     <ti-jalousie state="portal.jalousie._state" up="portal.callActorService(portal.jalousie, 'up', null)"
                  stop="portal.callActorService(portal.jalousie, 'stop', null)"
                  down="portal.callActorService(portal.jalousie, 'down', null)"
                  change="portal.callActorService(portal.jalousie, 'setState', portal.jalousie._state)"></ti-jalousie>
 </div>
 
-<div wraper-directive title="Light">
+<div wrapper-directive title="Light">
     <ti-light state="portal.light._state"
               change="portal.callActorService(portal.light, 'setState', portal.light._state)"
               options="{fieldMappings: {switch: 'pseudoSwitch'}}"></ti-light>
 </div>
 
-<div wraper-directive title="Dimmer">
+<div wrapper-directive title="Dimmer">
     <ti-dimmer state="portal.dimmer._state"
                change="portal.callActorService(portal.dimmer, 'setState', portal.dimmer._state)"></ti-dimmer>
 </div>
 
-<div wraper-directive title="Motion Sensor">
+<div wrapper-directive title="Motion Sensor">
     <ti-motion-sensor state="portal.motionSensor._state"
                       change="portal.callActorService(portal.motionSensor, 'setState', portal.motionSensor._state)"></ti-motion-sensor>
 </div>
 
-<div wraper-directive title="Switch">
+<div wrapper-directive title="Switch">
     <ti-switch state="portal.switch._state"
                change="portal.callActorService(portal.switch, 'setState', portal.switch._state)"
                toggle="portal.callActorService(portal.switch, 'toggle', null)"></ti-switch>
 </div>
 
-<div wraper-directive title="Temperature Sensor">
+<div wrapper-directive title="Temperature Sensor">
     <ti-temperature-sensor state="portal.temperatureSensor._state"></ti-temperature-sensor>
 </div>
 
-<div wraper-directive title="Humidity Sensor">
+<div wrapper-directive title="Humidity Sensor">
     <ti-humidity-sensor state="portal.humiditySensor._state"></ti-humidity-sensor>
 </div>
 
-<div wraper-directive title="Multi-Sensor">
+<div wrapper-directive title="Multi-Sensor">
     <ti-temperature-sensor state="portal.multiSensor._state"></ti-temperature-sensor>
     <ti-humidity-sensor state="portal.multiSensor._state"></ti-humidity-sensor>
 </div>

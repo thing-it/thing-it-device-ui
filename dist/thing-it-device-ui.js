@@ -534,7 +534,7 @@ angular.module('thing-it-device-ui')
 
             that.state = {setpoint: 22, temperature: 22}
             that.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
-            that.mode = 0;
+            that.mode = null;
             that.setpoint = 26;
 
             var sliderDiv = $("#slider");
@@ -576,6 +576,8 @@ angular.module('thing-it-device-ui')
                 );
             }
 
+            renderState();
+
             // Wait until Slider is created
 
             window.setTimeout(function () {
@@ -583,7 +585,6 @@ angular.module('thing-it-device-ui')
                 setBackgroundColor();
                 renderState();
             }, 500);
-
 
             function renderState() {
                 sliderData.setValue(that.state.setpoint);
@@ -602,9 +603,9 @@ angular.module('thing-it-device-ui')
 
                 // Seems to be necessary to allow repeated animations
 
-                if (that.mode == 1) {
+                if (that.mode === 'HEAT') {
                     tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
-                } else if (that.mode == -1) {
+                } else if (that.mode === 'COOL') {
                     tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
                 } else {
                     tooltip.find(".state").html('<span class="neutral"></i></span>');
@@ -660,17 +661,24 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
-                if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
-                    that.mode = 1;
-                } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
-                    that.mode = -1;
-                } else {
-                    that.mode = 0;
-                }
-
                 that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
                 that.setpoint = that.state.setpoint;
                 that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
+                that.state.mode = changes.state.currentValue.mode;
+
+                // Calculate mode
+
+                if (that.state.mode) {
+                    that.mode = that.state.mode;
+                } else {
+                    if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
+                        that.mode = 'HEAT';
+                    } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
+                        that.mode = 'COOL';
+                    } else {
+                        that.mode = null;
+                    }
+                }
 
                 renderState();
             };

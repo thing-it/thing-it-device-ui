@@ -150,22 +150,24 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         }
 
         this.motionSensor = {
-            _state: {motion: false},
+            _state: {occupied: false, lastMotionTimestamp: null, ticksPerMinute: 0},
             setState: function (state) {
                 this._state = state;
             }
         };
 
         $interval(() => {
-            if (this.motionSensor._state.motion) {
+            if (this.motionSensor._state.occupied) {
                 this.motionSensor._state = {
-                    motion: false,
-                    ticks: 0
+                    occupied: false,
+                    lastMotionTimestamp: this.motionSensor._state.lastMotionTimestamp,
+                    ticksPerMinute: 0
                 };
             } else {
                 this.motionSensor._state = {
-                    motion: true,
-                    ticks: 4
+                    occupied: true,
+                    lastMotionTimestamp: moment().toISOString(),
+                    ticksPerMinute: 4
                 };
             }
         }, 7000);

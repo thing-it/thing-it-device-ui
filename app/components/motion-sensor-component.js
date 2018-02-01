@@ -10,19 +10,13 @@ angular.module('thing-it-device-ui')
         controller: function ($element) {
             const vm = this;
             const plugin = $($element[0].querySelector('.motion-sensor-plugin'));
-            const icon = $(plugin.find('.peopleIcon'));
 
-            vm.state = {motion: false, ticks: 0};
-            vm.options = {showTicks: true};
+            vm.state = {occupied: false, lastMotionTimestamp: null, ticksPerMinute: 0};
+            vm.options = {showLastMotionTimestamp: true, showTicksPerMinute: true};
 
             vm.render = render;
 
             function render() {
-                if (vm.state.motion) {
-                    icon.addClass('motion');
-                } else {
-                    icon.removeClass('motion');
-                }
             }
 
             this.$onChanges = function (changes) {
@@ -31,6 +25,12 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.state = changes.state.currentValue;
+
+                if (vm.state.lastMotionTimestamp) {
+                    vm.lastMotionTimestamp = moment(vm.state.lastMotionTimestamp).format('ll') + ' ' + moment(vm.state.lastMotionTimestamp).format('LT');
+                } else {
+                    vm.lastMotionTimestamp = '-';
+                }
 
                 vm.render();
             };

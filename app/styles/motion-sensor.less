@@ -1,13 +1,14 @@
-.motion-sensor-plugin {
-  .peopleIcon {
-    font-size: 50px !important;
-    transform: scale(.8) !important;
+.occupied-sensor-plugin {
+  .notOccupied {
+    font-size: 4rem !important;
+    color: lightgrey !important;
   }
 
-  .motion {
+  .occupied {
+    font-size: 4rem !important;
     color: red !important;
-    animation-name: motionPulse;
-    -webkit-animation-name: motionPulse;
+    animation-name: occupiedPulse;
+    -webkit-animation-name: occupiedPulse;
 
     animation-duration: 3s;
     -webkit-animation-duration: 3s;
@@ -19,14 +20,14 @@
     -webkit-animation-iteration-count: infinite;
   }
 
-  @keyframes motionPulse {
+  @keyframes occupiedPulse {
     0% {
       opacity: 1.0;
       transform: scale(.8);
     }
     50% {
       opacity: 0.3;
-      transform: scale(1.0);
+      transform: scale(1.2);
     }
     100% {
       opacity: 1.0;
@@ -34,14 +35,14 @@
     }
   }
 
-  @-webkit-keyframes motionPulse {
+  @-webkit-keyframes occupiedPulse {
     0% {
       opacity: 1.0;
       transform: scale(.8);
     }
     50% {
       opacity: 0.3;
-      transform: scale(1.0);
+      transform: scale(1.2);
     }
     100% {
       opacity: 1.0;

@@ -251,8 +251,14 @@ To represent an on/off plug or switch which can also optionally measure/display 
 
 ## State Fields
 
-* **motion**, boolean indicating whether any motion is detected
-* **ticks** measured tick counts correlated with movements
+* **occupied**, boolean indicating whether any motion is currently detected
+* **lastMotionTimestamp**, boolean indicating whether any motion is detected
+* **ticksPerMinute** measured tick counts/minute correlated with movements
+
+## Options
+
+* **showLastMotionTimestamp**, boolean indicating whether last motion timestamp should be displayed
+* **showTicksPerMinute**, boolean indicating whether ticks per minute should be displayed
 
 ## Functions
 

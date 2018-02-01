@@ -44,6 +44,7 @@ module.exports = function (grunt) {
                     "app/module.js",
                     "app/filters/*.js",
                     "app/components/*.js",
+                    "node_modules/moment/moment.js"
                     //"app/templates/*.js"
                 ],
                 dest: "dist/thing-it-device-ui.js"

@@ -1,6 +1,12 @@
 <div class="motion-sensor-plugin flexGrow1 flexLayout flexJustifyCenter padding2">
-    <div class="flexLayout flexDirectionColumn flexAlignCenter">
-        <i class="sl-contacts-2 peopleIcon"></i>
-        <div class="primaryColor">{{vm.state.ticks.toFixed(0)}} Ticks</div>
+    <div class="flexLayout flexDirectionColumn flexAlignCenter flexJustifyCenter">
+        <i ng-if="vm.state.occupied" class="sl-contacts-2 occupied"></i>
+        <i ng-if="!vm.state.occupied" class="sl-user-block-2 notOccupied"></i>
+        <div ng-if="vm.options.showLastMotionTimestamp" class="primaryColor">Last Motion
+            {{vm.lastMotionTimestamp}}
+        </div>
+        <div ng-if="vm.options.showTicksPerMinute" class="primaryColor">{{vm.state.ticksPerMinute.toFixed(0)}}
+            Ticks/Min.
+        </div>
     </div>
 </div>

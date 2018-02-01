@@ -230,6 +230,10 @@ To represent an on/off plug or switch which can also optionally measure/display 
 
 * **temperature**, temperature value
 
+## Options
+
+* **units**, string with e.g. F or °C
+
 ## Functions
 
 * **change**

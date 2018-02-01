@@ -4,16 +4,18 @@ angular.module('thing-it-device-ui')
         bindings: {
             state: '<',
             options: '<',
-            change: '&'
+            change: '&',
+            toggle: '&'
         },
         controllerAs: 'vm',
         controller: function ($element) {
             const vm = this;
             const plugin = $($element[0].querySelector('.light-plugin'));
+            const container = $(plugin.find('#container'));
 
             vm.state = {switch: false};
             vm.render = render;
-            vm.toggle = toggle;
+            // vm._toggle = _toggle;
 
             // Initial render
 
@@ -28,28 +30,13 @@ angular.module('thing-it-device-ui')
                     value = vm.state.switch;
                 }
 
-                console.log('VM (render)', vm);
-
                 if (value) {
-                    plugin.removeClass('off');
-                    plugin.addClass('on');
+                    container.removeClass('off');
+                    container.addClass('on');
                 } else {
-                    plugin.addClass('off');
-                    plugin.removeClass('on');
+                    container.addClass('off');
+                    container.removeClass('on');
                 }
-            }
-
-            function toggle() {
-                if (vm.options && vm.options.fieldMappings) {
-                    vm.state[vm.options.fieldMappings.switch] = !vm.state[vm.options.fieldMappings.switch];
-                } else {
-                    vm.state.switch = !vm.state.switch;
-                }
-
-                console.log('VM', vm);
-
-                vm.render();
-                vm.change();
             }
 
             this.$onChanges = function (changes) {
@@ -58,8 +45,6 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.state = changes.state.currentValue;
-
-                console.log('VM (change)', vm);
 
                 vm.render();
             };

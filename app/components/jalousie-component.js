@@ -135,8 +135,6 @@ angular.module('thing-it-device-ui')
             });
 
             this.$onChanges = function (changes) {
-                console.log('Changes >>>', changes);
-
                 if (!changes || !changes.state || !changes.state.currentValue) {
                     return;
                 }

@@ -38,6 +38,7 @@
 <div wrapper-directive title="Light">
     <ti-light state="portal.light._state"
               change="portal.callActorService(portal.light, 'setState', portal.light._state)"
+              toggle="portal.callActorService(portal.light, 'toggle')"
               options="{fieldMappings: {switch: 'pseudoSwitch'}}"></ti-light>
 </div>
 

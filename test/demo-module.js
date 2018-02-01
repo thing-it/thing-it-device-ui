@@ -21,8 +21,6 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this.control = $interval(() => {
                     this._state.temperature += step;
 
-                    console.log('Temp >>>', this._state.temperature);
-
                     this._state = {
                         setpoint: this._state.setpoint,
                         temperature: this._state.temperature
@@ -125,23 +123,28 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         this.light = {
             _state: {pseudoSwitch: false},
             setState: function (state) {
-                console.log('Light state set to >>>', state);
+                console.log('Light.setState() >>>', state);
 
                 this._state = state;
+            },
+            toggle: function () {
+                console.log('Light.toggle()');
+
+                this._state = {pseudoSwitch: !this._state.pseudoSwitch};
             }
         };
 
-        $interval(() => {
-            if (this.light._state.pseudoSwitch) {
-                this.light._state = {
-                    pseudoSwitch: false
-                };
-            } else {
-                this.light._state = {
-                    pseudoSwitch: true
-                };
-            }
-        }, 5000);
+        // $interval(() => {
+        //     if (this.light._state.pseudoSwitch) {
+        //         this.light._state = {
+        //             pseudoSwitch: false
+        //         };
+        //     } else {
+        //         this.light._state = {
+        //             pseudoSwitch: true
+        //         };
+        //     }
+        // }, 5000);
 
         this.callActorService = function (component, service, parameters) {
             console.log('Actor Service ' + service + ' called with ' + JSON.stringify(parameters));

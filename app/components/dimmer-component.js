@@ -30,9 +30,6 @@ angular.module('thing-it-device-ui')
                     var color = tinycolor('#FFFF00').desaturate(100 - vm.state.brightness).lighten((100 - vm.state.brightness) / 5);
                     var backgroundColor = tinycolor('#DDDDDD').lighten(vm.state.brightness);
 
-                    console.log('Color >>>', color.toString());
-                    console.log('Background Color >>>', backgroundColor.toString());
-
                     plugin.css('color', color.toString());
                     plugin.css('background-color', backgroundColor.toString());
                 } else {

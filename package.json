@@ -1,6 +1,6 @@
 {
   "name": "thing-it-device-ui",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "",
   "scripts": {
     "start": "node server.js"

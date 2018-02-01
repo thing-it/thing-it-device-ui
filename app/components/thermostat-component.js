@@ -111,22 +111,6 @@ angular.module('thing-it-device-ui')
             }
 
             function setBackgroundColor(val) {
-                //var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 70%, 0.1)'
-                //var color = 'hsla(' + (-230 + parseInt(val * 7.5)) + ', 100%, 0%, 0.0)'
-
-                // console.log('===>', color);
-                //
-                // color = tinycolor(color);
-                //
-                // console.log('===>', color);
-                //
-                // color = color.setAlpha(0.5);
-                //
-                // console.log('===>', color);
-
-                // $('.rs-gradient').css({
-                //     background: color
-                // });
                 var color = 'hsla(' + (245 + parseInt((val - 16) * 10)) + ', 100%, 50%, 1)';
 
                 $('.rs-range-color').css({

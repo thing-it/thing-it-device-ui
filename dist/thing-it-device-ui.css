@@ -265,6 +265,59 @@ ul li {
 .jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
 }
+.jalousie-plugin .ripple {
+  position: relative;
+  cursor: pointer;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  font-size: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  transition: all 1s ease-in;
+  border-radius: 50%;
+  border: none !important;
+  background: transparent !important;
+}
+.jalousie-plugin .ripple i[class^='sl-'] {
+  position: relative;
+}
+.jalousie-plugin .ripple:before {
+  content: '';
+  background-color: red;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  transform: scale(0.001, 0.001);
+}
+.jalousie-plugin .ripple:focus {
+  outline: 0;
+  color: red;
+}
+.jalousie-plugin .ripple:focus:before {
+  animation: pulse 1.5s ease-out;
+}
+@keyframes pulse {
+  50% {
+    transform: scale(1.5, 1.5);
+    opacity: 0;
+  }
+  99% {
+    transform: scale(0.001, 0.001);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.001, 0.001);
+    opacity: 1;
+  }
+}
 .motion-sensor-plugin .notOccupied {
   font-size: 4rem !important;
   color: lightgrey !important;

@@ -62,4 +62,60 @@
       }
     }
   }
+
+  .ripple {
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+    font-size: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    transition: all 1s ease-in;
+    border-radius: 50%;
+    border: none !important;
+    background: transparent !important;
+    i[class^='sl-'] {
+      position: relative;
+    }
+    &:before {
+      content: '';
+      background-color: red;
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      transform: scale(0.001, 0.001);
+    }
+    &:focus {
+      outline: 0;
+      color: red;
+      &:before {
+        animation: pulse 1.5s ease-out;
+      }
+    }
+  }
+  @keyframes pulse {
+    50% {
+      transform: scale(1.5, 1.5);
+      opacity: 0;
+    }
+    99% {
+      transform: scale(0.001, 0.001);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(0.001, 0.001);
+      opacity: 1;
+    }
+  }
+
+
 }

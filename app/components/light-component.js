@@ -14,6 +14,7 @@ angular.module('thing-it-device-ui')
             const container = $(plugin.find('#container'));
 
             vm.state = {switch: false};
+            vm.switch = false;
             vm.render = render;
             // vm._toggle = _toggle;
 
@@ -22,15 +23,13 @@ angular.module('thing-it-device-ui')
             vm.render();
 
             function render() {
-                var value;
-
                 if (vm.options && vm.options.fieldMappings) {
-                    value = vm.state[vm.options.fieldMappings.switch];
+                    vm.switch = vm.state[vm.options.fieldMappings.switch];
                 } else {
-                    value = vm.state.switch;
+                    vm.switch = vm.state.switch;
                 }
 
-                if (value) {
+                if (vm.switch) {
                     container.removeClass('off');
                     container.addClass('on');
                 } else {

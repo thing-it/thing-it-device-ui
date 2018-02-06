@@ -1,6 +1,7 @@
 <div class="light-plugin flexGrow1 flexLayout"
      ng-click="vm.toggle()">
-    <div id="container" class="flexGrow1 padding2 flexLayout flexJustifyCenter">
-        <i class="fontSize4 sl-lightbulb-2"></i>
+    <div id="container" class="flexGrow1 padding2 flexLayout flexJustifyCenter flexAlignCenter" style="height: 7rem !important;">
+        <i ng-if="vm.switch" class="fontSize4 sl-lightbulb-2"></i>
+        <i ng-if="!vm.switch" class="fontSize3 sl-lightbulb-1"></i>
     </div>
 </div>

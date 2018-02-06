@@ -24,30 +24,6 @@ angular.module('thing-it-device-ui')
             // Create slats
 
             const preview = $element.find('.jalousie-preview');
-            const upButton = $($element.find('#upButton'));
-            const stopButton = $($element.find('#stopButton'));
-            const downButton = $($element.find('#downButton'));
-
-            upButton.click(function () {
-                upButton.addClass('ripple repeat');
-                stopButton.removeClass('ripple');
-                downButton.removeClass('ripple repeat');
-                vm.up();
-            });
-
-            stopButton.click(function () {
-                upButton.removeClass('ripple repeat');
-                stopButton.addClass('ripple');
-                downButton.removeClass('ripple repeat');
-                vm.stop();
-            });
-
-            downButton.click(function () {
-                upButton.removeClass('ripple repeat');
-                stopButton.removeClass('ripple');
-                downButton.addClass('ripple repeat');
-                vm.down();
-            });
 
             for (var n = 0; n < vm.jalousieData.slatsCount; ++n) {
                 $(preview).append('<div class="jalousie-slat" style="transform: skew(15deg, 0deg) scaleY(1); marginTop: 0px;"></div>');

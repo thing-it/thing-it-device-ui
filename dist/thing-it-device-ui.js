@@ -635,26 +635,42 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
-                if (!changes || !changes.state || !changes.state.currentValue) {
+                if (!changes) {
                     return;
                 }
 
-                that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
-                that.setpoint = that.state.setpoint;
-                that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
-                that.state.mode = changes.state.currentValue.mode;
+                if (changes.options && changes.options.currentValue) {
+                    if (changes.options.currentValue.units) {
+                        that.options.units = changes.options.currentValue.units;
+                    }
 
-                // Calculate mode
+                    if (changes.options.currentValue.maximumSetpointChange) {
+                        that.options.maximumSetpointChange = changes.options.currentValue.maximumSetpointChange;
+                    }
 
-                if (that.state.mode) {
-                    that.mode = that.state.mode;
-                } else {
-                    if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
-                        that.mode = 'HEAT';
-                    } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
-                        that.mode = 'COOL';
+                    if (changes.options.currentValue.animateTemperatureChange) {
+                        that.options.animateTemperatureChange = changes.options.currentValue.animateTemperatureChange;
+                    }
+                }
+
+                if (changes.state && changes.state.currentValue) {
+                    that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
+                    that.setpoint = that.state.setpoint;
+                    that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
+                    that.state.mode = changes.state.currentValue.mode;
+
+                    // Calculate mode
+
+                    if (that.state.mode) {
+                        that.mode = that.state.mode;
                     } else {
-                        that.mode = null;
+                        if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
+                            that.mode = 'HEAT';
+                        } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
+                            that.mode = 'COOL';
+                        } else {
+                            that.mode = null;
+                        }
                     }
                 }
 

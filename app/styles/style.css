@@ -294,12 +294,12 @@ ul li {
   height: 80px;
   transform: scale(0.001, 0.001);
   color: rgba(255, 0, 0, 0.3);
-  animation: pulse 1.5s ease-out;
+  animation: ripplePulse 1.5s ease-out;
 }
 .jalousie-plugin .repeat:before {
   animation-iteration-count: 5 !important;
 }
-@keyframes pulse {
+@keyframes ripplePulse {
   50% {
     transform: scale(1.5, 1.5);
     opacity: 0;

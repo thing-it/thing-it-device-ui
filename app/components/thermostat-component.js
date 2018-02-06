@@ -126,6 +126,9 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
+                console.log('State change >>>> ', changes);
+                console.log('VM >>>> ', vm);
+
                 if (changes.options && changes.options.currentValue) {
                     if (changes.options.currentValue.units) {
                         vm.options.units = changes.options.currentValue.units;
@@ -141,10 +144,6 @@ angular.module('thing-it-device-ui')
                 }
 
                 if (changes.state && changes.state.currentValue) {
-                    window.alert('State change >>>> ');
-
-                    console.log('State change >>>> ', changes);
-
                     vm.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
                     vm.setpoint = vm.state.setpoint;
                     vm.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
@@ -165,7 +164,7 @@ angular.module('thing-it-device-ui')
                     }
                 }
 
-                console.log('VM after State change >>>> ', changes);
+                console.log('VM after State change >>>> ', vm);
 
                 renderState();
             };

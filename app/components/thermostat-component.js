@@ -10,7 +10,7 @@ angular.module('thing-it-device-ui')
         controller: function ($element) {
             const vm = this;
 
-            vm.state = {setpoint: 22, temperature: 22}
+            vm.state = {setpoint: 22, temperature: 22};
             vm.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
             vm.mode = null;
             vm.setpoint = 26;
@@ -141,6 +141,10 @@ angular.module('thing-it-device-ui')
                 }
 
                 if (changes.state && changes.state.currentValue) {
+                    window.alert('State change >>>> ');
+
+                    console.log('State change >>>> ', changes);
+
                     vm.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
                     vm.setpoint = vm.state.setpoint;
                     vm.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
@@ -160,6 +164,8 @@ angular.module('thing-it-device-ui')
                         }
                     }
                 }
+
+                console.log('VM after State change >>>> ', changes);
 
                 renderState();
             };

@@ -8,7 +8,7 @@ angular.module('thing-it-device-ui')
         },
         controllerAs: 'vm',
         controller: function ($element) {
-            var that = this;
+            const that = this;
 
             that.state = {setpoint: 22, temperature: 22}
             that.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
@@ -29,6 +29,8 @@ angular.module('thing-it-device-ui')
                 min: 17,
                 max: 26,
                 tooltipFormat: function () {
+                    console.log('That >>>', that);
+
                     return '<div class="setpoint"><span>--' + that.options.units + '</span></div>' +
                         '<div class="temperature"><span>--' + that.options.units + '</span></div>' +
                         '<div class="state"></div>';
@@ -65,6 +67,7 @@ angular.module('thing-it-device-ui')
             }, 500);
 
             function renderState() {
+                console.log('That >>>', that);
                 sliderData.setValue(that.state.setpoint);
 
                 var element = tooltip.find(".temperature").html('<span>' + that.state.temperature.toFixed(1) + that.options.units + '</span>');

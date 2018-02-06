@@ -500,16 +500,16 @@ angular.module('thing-it-device-ui')
         },
         controllerAs: 'vm',
         controller: function ($element) {
-            const vm = this;
+            const that = this;
 
-            vm.state = {setpoint: 22, temperature: 22};
-            vm.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
-            vm.mode = null;
-            vm.setpoint = 26;
+            this.state = {setpoint: 22, temperature: 21};
+            this.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
+            this.mode = null;
+            this.setpoint = that.state.setpoint;
 
             var sliderDiv = $("#slider");
             var slider = sliderDiv.roundSlider({
-                value: vm.setpoint,
+                value: that.setpoint,
                 step: 0.5,
                 circleShape: "pie",
                 startAngle: 315,
@@ -521,10 +521,10 @@ angular.module('thing-it-device-ui')
                 min: 17,
                 max: 26,
                 tooltipFormat: function () {
-                    console.log('VM >>>', vm);
+                    console.log('VM >>>', that);
 
-                    return '<div class="setpoint"><span>--' + vm.options.units + '</span></div>' +
-                        '<div class="temperature"><span>--' + vm.options.units + '</span></div>' +
+                    return '<div class="setpoint"><span>--' + that.options.units + '</span></div>' +
+                        '<div class="temperature"><span>--' + that.options.units + '</span></div>' +
                         '<div class="state"></div>';
                 },
                 editableTooltip: false,
@@ -559,12 +559,12 @@ angular.module('thing-it-device-ui')
             }, 500);
 
             function renderState() {
-                console.log('VM >>>', vm);
-                sliderData.setValue(vm.state.setpoint);
+                console.log('VM >>>', that);
+                sliderData.setValue(that.state.setpoint);
 
-                var element = tooltip.find(".temperature").html('<span>' + vm.state.temperature.toFixed(1) + vm.options.units + '</span>');
+                var element = tooltip.find(".temperature").html('<span>' + that.state.temperature.toFixed(1) + that.options.units + '</span>');
 
-                if (vm.options.animateTemperatureChange) {
+                if (that.options.animateTemperatureChange) {
                     element.addClass('growAnimation');
 
                     window.setTimeout(function () {
@@ -572,37 +572,39 @@ angular.module('thing-it-device-ui')
                     }, 2000);
                 }
 
-                tooltip.find(".setpoint").html('<span>' + vm.state.setpoint.toFixed(1) + vm.options.units + '</span>');
+                tooltip.find(".setpoint").html('<span>' + that.state.setpoint.toFixed(1) + that.options.units + '</span>');
 
                 // Seems to be necessary to allow repeated animations
 
-                if (vm.mode === 'HEAT') {
+                if (that.mode === 'HEAT') {
                     tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
-                } else if (vm.mode === 'COOL') {
+                } else if (that.mode === 'COOL') {
                     tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
                 } else {
                     tooltip.find(".state").html('<span class="neutral"></i></span>');
                 }
 
-                setBackgroundColor(vm.state.setpoint);
+                setBackgroundColor(that.state.setpoint);
                 adjustTooltipPosition();
             }
 
             function update(args) {
                 var newSetpoint = Number(args.value);
 
+                console.log('Update >>>> ', changes);
+
                 // Changes are limited to options.maximumSetpointChange
 
-                if (vm.state.setpoint - newSetpoint > 0) {
-                    vm.state.setpoint = vm.state.setpoint - Math.min(vm.state.setpoint - newSetpoint, vm.options.maximumSetpointChange);
+                if (that.state.setpoint - newSetpoint > 0) {
+                    that.state.setpoint = that.state.setpoint - Math.min(that.state.setpoint - newSetpoint, that.options.maximumSetpointChange);
                 } else {
-                    vm.state.setpoint = vm.state.setpoint + Math.min(newSetpoint - vm.state.setpoint, vm.options.maximumSetpointChange);
+                    that.state.setpoint = that.state.setpoint + Math.min(newSetpoint - that.state.setpoint, that.options.maximumSetpointChange);
                 }
 
-                vm.setpoint = vm.state.setpoint;
+                that.setpoint = that.state.setpoint;
 
                 renderState();
-                vm.change();
+                that.change();
             }
 
             function setBackgroundColor(val) {
@@ -619,46 +621,44 @@ angular.module('thing-it-device-ui')
                 }
 
                 console.log('State change >>>> ', changes);
-                console.log('VM >>>> ', vm);
+                console.log('VM >>>> ', that);
 
                 if (changes.options && changes.options.currentValue) {
                     if (changes.options.currentValue.units) {
-                        vm.options.units = changes.options.currentValue.units;
+                        that.options.units = changes.options.currentValue.units;
                     }
 
                     if (changes.options.currentValue.maximumSetpointChange) {
-                        vm.options.maximumSetpointChange = changes.options.currentValue.maximumSetpointChange;
+                        that.options.maximumSetpointChange = changes.options.currentValue.maximumSetpointChange;
                     }
 
                     if (changes.options.currentValue.animateTemperatureChange) {
-                        vm.options.animateTemperatureChange = changes.options.currentValue.animateTemperatureChange;
+                        that.options.animateTemperatureChange = changes.options.currentValue.animateTemperatureChange;
                     }
                 }
 
                 if (changes.state && changes.state.currentValue) {
-                    vm.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
-                    vm.setpoint = vm.state.setpoint;
-                    vm.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
-                    vm.state.mode = changes.state.currentValue.mode;
+                    that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
+                    that.setpoint = that.state.setpoint;
+                    that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
+                    that.state.mode = changes.state.currentValue.mode;
 
                     // Calculate mode
 
-                    if (vm.state.mode) {
-                        vm.mode = vm.state.mode;
+                    if (that.state.mode) {
+                        that.mode = that.state.mode;
                     } else {
                         if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
-                            vm.mode = 'HEAT';
+                            that.mode = 'HEAT';
                         } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
-                            vm.mode = 'COOL';
+                            that.mode = 'COOL';
                         } else {
-                            vm.mode = null;
+                            that.mode = null;
                         }
                     }
+
+                    renderState();
                 }
-
-                console.log('VM after State change >>>> ', vm);
-
-                renderState();
             };
         }
     });

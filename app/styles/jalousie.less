@@ -63,7 +63,7 @@
     }
   }
 
-  .ripple {
+  button {
     position: relative;
     cursor: pointer;
     margin: 0 auto;
@@ -77,9 +77,9 @@
     border-radius: 50%;
     border: none !important;
     background: transparent !important;
-    i[class^='sl-'] {
-      position: relative;
-    }
+  }
+
+  .ripple {
     &:before {
       content: '';
       background-color: red;
@@ -93,15 +93,17 @@
       width: 80px;
       height: 80px;
       transform: scale(0.001, 0.001);
-    }
-    &:focus {
-      outline: 0;
       color: red;
-      &:before {
-        animation: pulse 1.5s ease-out;
-      }
+      animation: pulse 1.5s ease-out;
     }
   }
+
+  .repeat {
+    &:before {
+      animation-iteration-count: 5 !important;
+    }
+  }
+
   @keyframes pulse {
     50% {
       transform: scale(1.5, 1.5);
@@ -116,6 +118,5 @@
       opacity: 1;
     }
   }
-
 
 }

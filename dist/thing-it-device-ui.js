@@ -164,15 +164,24 @@ angular.module('thing-it-device-ui')
             const stopButton = $($element.find('#stopButton'));
             const downButton = $($element.find('#downButton'));
 
-            upButton.click(function(){
+            upButton.click(function () {
+                upButton.addClass('ripple repeat');
+                stopButton.removeClass('ripple');
+                downButton.removeClass('ripple repeat');
                 vm.up();
             });
 
-            stopButton.click(function(){
+            stopButton.click(function () {
+                upButton.removeClass('ripple repeat');
+                stopButton.addClass('ripple');
+                downButton.removeClass('ripple repeat');
                 vm.stop();
             });
 
-            downButton.click(function(){
+            downButton.click(function () {
+                upButton.removeClass('ripple repeat');
+                stopButton.removeClass('ripple');
+                downButton.addClass('ripple repeat');
                 vm.down();
             });
 
@@ -314,6 +323,8 @@ angular.module('thing-it-device-ui')
                     value = vm.state.switch;
                 }
 
+                console.log('Rendered Value >>>', value);
+
                 if (value) {
                     container.removeClass('off');
                     container.addClass('on');
@@ -329,6 +340,8 @@ angular.module('thing-it-device-ui')
                 }
 
                 vm.state = changes.state.currentValue;
+
+                console.log('Cached state >>>', vm.state);
 
                 vm.render();
             };

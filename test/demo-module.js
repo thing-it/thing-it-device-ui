@@ -128,9 +128,9 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this._state = state;
             },
             toggle: function () {
-                console.log('Light.toggle()');
-
                 this._state = {pseudoSwitch: !this._state.pseudoSwitch};
+
+                console.log('Light.toggle()', this._state);
             }
         };
 

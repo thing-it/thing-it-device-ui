@@ -265,7 +265,7 @@ ul li {
 .jalousie-plugin .jalousie-preview .jalousie-slat:first-child {
   margin-top: 0 !important;
 }
-.jalousie-plugin .ripple {
+.jalousie-plugin button {
   position: relative;
   cursor: pointer;
   margin: 0 auto;
@@ -280,9 +280,6 @@ ul li {
   border: none !important;
   background: transparent !important;
 }
-.jalousie-plugin .ripple i[class^='sl-'] {
-  position: relative;
-}
 .jalousie-plugin .ripple:before {
   content: '';
   background-color: red;
@@ -296,13 +293,11 @@ ul li {
   width: 80px;
   height: 80px;
   transform: scale(0.001, 0.001);
-}
-.jalousie-plugin .ripple:focus {
-  outline: 0;
   color: red;
-}
-.jalousie-plugin .ripple:focus:before {
   animation: pulse 1.5s ease-out;
+}
+.jalousie-plugin .repeat:before {
+  animation-iteration-count: 5 !important;
 }
 @keyframes pulse {
   50% {
@@ -364,11 +359,11 @@ ul li {
     transform: scale(0.8);
   }
 }
-light-plugin .on {
+.light-plugin .on {
   background-color: #FFFFFF;
   color: yellow !important;
 }
-light-plugin .off {
+.light-plugin .off {
   background-color: #DDDDDD;
   color: #B3B3B1 !important;
 }

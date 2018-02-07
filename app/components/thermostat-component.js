@@ -41,9 +41,9 @@ angular.module('thing-it-device-ui')
                 // Seems to be necessary to allow repeated animations
 
                 if (this.mode === 'HEAT') {
-                    this.tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
+                    this.tooltip.find(".state").html('<span class="heating"><i class="fal fa-fire"></i></span>');
                 } else if (this.mode === 'COOL') {
-                    this.tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
+                    this.tooltip.find(".state").html('<span class="cooling"><i class="fal fa-snowflake"></i></span>');
                 } else {
                     this.tooltip.find(".state").html('<span class="neutral"></i></span>');
                 }

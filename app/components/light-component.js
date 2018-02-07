@@ -43,7 +43,7 @@ angular.module('thing-it-device-ui')
                     return;
                 }
 
-                if (changes.state || !changes.state.currentValue) {
+                if (changes.state && changes.state.currentValue) {
                     vm.state = changes.state.currentValue;
                 } else {
                     vm.state = {};

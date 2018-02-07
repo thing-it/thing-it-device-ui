@@ -507,6 +507,8 @@ angular.module('thing-it-device-ui')
             this.mode = null;
             this.setpoint = that.state.setpoint;
 
+            console.log('VM beginning >>>', that);
+
             var sliderDiv = $("#slider");
             var slider = sliderDiv.roundSlider({
                 value: that.setpoint,
@@ -552,9 +554,12 @@ angular.module('thing-it-device-ui')
 
             // Wait until Slider is created
 
+            console.log('VM after initial render state >>>', that);
+
             window.setTimeout(function () {
                 adjustTooltipPosition();
                 setBackgroundColor();
+                console.log('VM in timeout >>>', that);
                 renderState();
             }, 500);
 

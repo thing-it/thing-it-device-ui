@@ -507,7 +507,8 @@ angular.module('thing-it-device-ui')
             this.mode = null;
             this.setpoint = that.state.setpoint;
 
-            console.log('VM beginning >>>', that);
+            console.log('VM beginning >>>', that.options.units);
+            console.log('VM beginning >>>', that.state.setpoint);
 
             var sliderDiv = $("#slider");
             var slider = sliderDiv.roundSlider({
@@ -564,7 +565,12 @@ angular.module('thing-it-device-ui')
             }, 500);
 
             function renderState() {
+                if (that.state.setpoint) {
+                    console.log('VM beginning >>>', that.state.setpoint);
+                }
+
                 console.log('VM >>>', that);
+
                 sliderData.setValue(that.state.setpoint);
 
                 var element = tooltip.find(".temperature").html('<span>' + that.state.temperature.toFixed(1) + that.options.units + '</span>');

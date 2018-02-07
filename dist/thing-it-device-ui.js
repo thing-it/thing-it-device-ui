@@ -308,11 +308,15 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
-                if (!changes || !changes.state || !changes.state.currentValue) {
+                if (!changes) {
                     return;
                 }
 
-                vm.state = changes.state.currentValue;
+                if (changes.state || !changes.state.currentValue) {
+                    vm.state = changes.state.currentValue;
+                } else {
+                    vm.state = {};
+                }
 
                 vm.render();
             };
@@ -518,7 +522,7 @@ angular.module('thing-it-device-ui')
 
                 this.sliderData.setValue(this.state.setpoint);
 
-                const element = this.tooltip.find(".temperature").html('<span>' + this.state.temperature.toFixed(1) + this.options.units + '</span>');
+                const element = this.tooltip.find(".temperature").html('<span>' + (this.state.temperature ? this.state.temperature.toFixed(1) : '--') + this.options.units + '</span>');
 
                 if (this.options.animateTemperatureChange) {
                     element.addClass('growAnimation');
@@ -528,7 +532,7 @@ angular.module('thing-it-device-ui')
                     }, 2000);
                 }
 
-                this.tooltip.find(".setpoint").html('<span>' + this.state.setpoint.toFixed(1) + this.options.units + '</span>');
+                this.tooltip.find(".setpoint").html('<span>' + (this.state.setpoint ? this.state.setpoint.toFixed(1) : '--') + this.options.units + '</span>');
 
                 // Seems to be necessary to allow repeated animations
 
@@ -622,7 +626,7 @@ angular.module('thing-it-device-ui')
                     } else {
                         // At least ensure that there is a state object
 
-                        this.state = {};
+                        this.state = {setpoint: 22};
                     }
                 }
 

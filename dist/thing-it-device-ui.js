@@ -500,50 +500,8 @@ angular.module('thing-it-device-ui')
         },
         controllerAs: 'vm',
         controller: function ($element) {
-            const that = this;
-
-            this.state = {setpoint: 22, temperature: 21};
-            this.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
-            this.mode = null;
-            this.setpoint = that.state.setpoint;
-
-            console.log('VM beginning >>>', that.options.units);
-            console.log('VM beginning >>>', that.state.setpoint);
-
-            var sliderDiv = $("#slider");
-            var slider = sliderDiv.roundSlider({
-                value: that.setpoint,
-                step: 0.5,
-                circleShape: "pie",
-                startAngle: 315,
-                radius: 80,
-                width: 14,
-                handleSize: "+16",
-                handleShape: "dot",
-                sliderType: "min-range",
-                min: 17,
-                max: 26,
-                tooltipFormat: function () {
-                    console.log('VM >>>', that);
-
-                    return '<div class="setpoint"><span>--' + that.options.units + '</span></div>' +
-                        '<div class="temperature"><span>--' + that.options.units + '</span></div>' +
-                        '<div class="state"></div>';
-                },
-                editableTooltip: false,
-                mouseScrollAction: true,
-                change: update,
-                drag: update,
-                create: function () {
-                    $('<div class="rs-gradient" />').insertBefore($('.rs-tooltip'));
-                }
-            });
-
-            var tooltip = sliderDiv.find(".rs-tooltip-text");
-            var sliderData = sliderDiv.data("roundSlider");
-
-            function adjustTooltipPosition() {
-                tooltip.css(
+            this.adjustTooltipPosition = function () {
+                this.tooltip.css(
                     {
                         "margin-top": -56,
                         "margin-left": -48
@@ -551,31 +509,18 @@ angular.module('thing-it-device-ui')
                 );
             }
 
-            renderState();
-
-            // Wait until Slider is created
-
-            console.log('VM after initial render state >>>', that);
-
-            window.setTimeout(function () {
-                adjustTooltipPosition();
-                setBackgroundColor();
-                console.log('VM in timeout >>>', that);
-                renderState();
-            }, 500);
-
-            function renderState() {
-                if (that.state.setpoint) {
-                    console.log('VM beginning >>>', that.state.setpoint);
+            this.renderState = function () {
+                if (this.state.setpoint) {
+                    console.log('VM beginning >>>', this.state.setpoint);
                 }
 
-                console.log('VM >>>', that);
+                console.log('VM >>>', this);
 
-                sliderData.setValue(that.state.setpoint);
+                this.sliderData.setValue(this.state.setpoint);
 
-                var element = tooltip.find(".temperature").html('<span>' + that.state.temperature.toFixed(1) + that.options.units + '</span>');
+                const element = this.tooltip.find(".temperature").html('<span>' + this.state.temperature.toFixed(1) + this.options.units + '</span>');
 
-                if (that.options.animateTemperatureChange) {
+                if (this.options.animateTemperatureChange) {
                     element.addClass('growAnimation');
 
                     window.setTimeout(function () {
@@ -583,42 +528,42 @@ angular.module('thing-it-device-ui')
                     }, 2000);
                 }
 
-                tooltip.find(".setpoint").html('<span>' + that.state.setpoint.toFixed(1) + that.options.units + '</span>');
+                this.tooltip.find(".setpoint").html('<span>' + this.state.setpoint.toFixed(1) + this.options.units + '</span>');
 
                 // Seems to be necessary to allow repeated animations
 
-                if (that.mode === 'HEAT') {
-                    tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
-                } else if (that.mode === 'COOL') {
-                    tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
+                if (this.mode === 'HEAT') {
+                    this.tooltip.find(".state").html('<span class="heating"><i class="fa fa-fire"></i></span>');
+                } else if (this.mode === 'COOL') {
+                    this.tooltip.find(".state").html('<span class="cooling"><i class="fa fa-snowflake-o"></i></span>');
                 } else {
-                    tooltip.find(".state").html('<span class="neutral"></i></span>');
+                    this.tooltip.find(".state").html('<span class="neutral"></i></span>');
                 }
 
-                setBackgroundColor(that.state.setpoint);
-                adjustTooltipPosition();
+                this.setBackgroundColor(this.state.setpoint);
+                this.adjustTooltipPosition();
             }
 
-            function update(args) {
-                var newSetpoint = Number(args.value);
+            this.update = function (args) {
+                const newSetpoint = Number(args.value);
 
-                console.log('Update >>>> ', changes);
+                console.log('Update >>>> ', args);
 
                 // Changes are limited to options.maximumSetpointChange
 
-                if (that.state.setpoint - newSetpoint > 0) {
-                    that.state.setpoint = that.state.setpoint - Math.min(that.state.setpoint - newSetpoint, that.options.maximumSetpointChange);
+                if (this.state.setpoint - newSetpoint > 0) {
+                    this.state.setpoint = this.state.setpoint - Math.min(this.state.setpoint - newSetpoint, this.options.maximumSetpointChange);
                 } else {
-                    that.state.setpoint = that.state.setpoint + Math.min(newSetpoint - that.state.setpoint, that.options.maximumSetpointChange);
+                    this.state.setpoint = this.state.setpoint + Math.min(newSetpoint - this.state.setpoint, this.options.maximumSetpointChange);
                 }
 
-                that.setpoint = that.state.setpoint;
+                this.setpoint = this.state.setpoint;
 
-                renderState();
-                that.change();
+                this.renderState();
+                this.change();
             }
 
-            function setBackgroundColor(val) {
+            this.setBackgroundColor = function (val) {
                 var color = 'hsla(' + (245 + parseInt((val - 16) * 10)) + ', 100%, 50%, 1)';
 
                 $('.rs-range-color').css({
@@ -632,45 +577,113 @@ angular.module('thing-it-device-ui')
                 }
 
                 console.log('State change >>>> ', changes);
-                console.log('VM >>>> ', that);
+                console.log('VM >>>> ', this);
 
-                if (changes.options && changes.options.currentValue) {
-                    if (changes.options.currentValue.units) {
-                        that.options.units = changes.options.currentValue.units;
-                    }
-
-                    if (changes.options.currentValue.maximumSetpointChange) {
-                        that.options.maximumSetpointChange = changes.options.currentValue.maximumSetpointChange;
-                    }
-
-                    if (changes.options.currentValue.animateTemperatureChange) {
-                        that.options.animateTemperatureChange = changes.options.currentValue.animateTemperatureChange;
-                    }
-                }
-
-                if (changes.state && changes.state.currentValue) {
-                    that.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
-                    that.setpoint = that.state.setpoint;
-                    that.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
-                    that.state.mode = changes.state.currentValue.mode;
-
-                    // Calculate mode
-
-                    if (that.state.mode) {
-                        that.mode = that.state.mode;
-                    } else {
-                        if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
-                            that.mode = 'HEAT';
-                        } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
-                            that.mode = 'COOL';
-                        } else {
-                            that.mode = null;
+                if (changes.options) {
+                    if (changes.options.currentValue) {
+                        if (changes.options.currentValue.units) {
+                            this.options.units = changes.options.currentValue.units;
                         }
-                    }
 
-                    renderState();
+                        if (changes.options.currentValue.maximumSetpointChange) {
+                            this.options.maximumSetpointChange = changes.options.currentValue.maximumSetpointChange;
+                        }
+
+                        if (changes.options.currentValue.animateTemperatureChange) {
+                            this.options.animateTemperatureChange = changes.options.currentValue.animateTemperatureChange;
+                        }
+                    } else {
+                        // Revert to defaults
+
+                        this.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
+                    }
                 }
+
+                if (changes.state) {
+                    if (changes.state.currentValue) {
+                        this.state.setpoint = Number(changes.state.currentValue.setpoint.toFixed(1));
+                        this.setpoint = this.state.setpoint;
+                        this.state.temperature = Number(changes.state.currentValue.temperature.toFixed(1));
+                        this.state.mode = changes.state.currentValue.mode;
+
+                        // Calculate mode
+
+                        if (this.state.mode) {
+                            this.mode = this.state.mode;
+                        } else {
+                            if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature > 0) {
+                                this.mode = 'HEAT';
+                            } else if (changes.state.currentValue.setpoint - changes.state.currentValue.temperature < 0) {
+                                this.mode = 'COOL';
+                            } else {
+                                this.mode = null;
+                            }
+                        }
+                    } else {
+                        // At least ensure that there is a state object
+
+                        this.state = {};
+                    }
+                }
+
+
+                this.renderState();
             };
+
+
+            //this.$onInit = function () {
+            this.state = {setpoint: 22, temperature: 21};
+            this.options = {maximumSetpointChange: 4, units: '°C', animateTemperatureChange: true};
+            this.mode = null;
+            this.setpoint = this.state.setpoint;
+
+            this.sliderDiv = $("#slider");
+            this.slider = this.sliderDiv.roundSlider({
+                value: this.setpoint,
+                step: 0.5,
+                circleShape: "pie",
+                startAngle: 315,
+                radius: 80,
+                width: 14,
+                handleSize: "+16",
+                handleShape: "dot",
+                sliderType: "min-range",
+                min: 17,
+                max: 26,
+                tooltipFormat: function () {
+                    console.log('VM >>>', this);
+
+                    return '<div class="setpoint"><span>--' + this.options.units + '</span></div>' +
+                        '<div class="temperature"><span>--' + this.options.units + '</span></div>' +
+                        '<div class="state"></div>';
+                }.bind(this),
+                editableTooltip: false,
+                mouseScrollAction: true,
+                change: function (args) {
+                    this.update(args);
+                }.bind(this),
+                drag: function (args) {
+                    this.update(args);
+                }.bind(this),
+                create: function () {
+                    $('<div class="rs-gradient" />').insertBefore($('.rs-tooltip'));
+                }
+            });
+
+            this.tooltip = this.sliderDiv.find(".rs-tooltip-text");
+            this.sliderData = this.sliderDiv.data("roundSlider");
+
+            this.renderState();
+
+            // Wait until Slider is created
+
+            window.setTimeout(function () {
+                this.adjustTooltipPosition();
+                this.setBackgroundColor();
+                console.log('VM in timeout >>>', this);
+                this.renderState();
+            }.bind(this), 500);
+            // };
         }
     });
 //! moment.js

@@ -39,11 +39,15 @@ angular.module('thing-it-device-ui')
             }
 
             this.$onChanges = function (changes) {
-                if (!changes || !changes.state || !changes.state.currentValue) {
+                if (!changes) {
                     return;
                 }
 
-                vm.state = changes.state.currentValue;
+                if (changes.state || !changes.state.currentValue) {
+                    vm.state = changes.state.currentValue;
+                } else {
+                    vm.state = {};
+                }
 
                 vm.render();
             };

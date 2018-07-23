@@ -1,21 +1,24 @@
-<div class="jalousie-plugin flexGrow1 flexLayout flexAlignCenter padding2 ">
-    <div class="jalousie-preview flexGrow1">
+<div class="jalousie-plugin flexGrow1 flexLayout flexAlignStart" style="position: relative;">
+    <div class="flexLayout flexDirectionColumn flexJustifyStart">
+        <img class="marginTop1" src="./images/jalousie-icon.png">
+    </div>
+    <div class="marginLeft2 flexLayout flexDirectionColumn flexJustifyCenter">
+        <md-button ng-click="vm.up()" class="md-fab">
+            <md-icon class="fontSize1_5" md-font-icon="fal fa-angle-double-up fa-3x"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.stop()" class="marginTop1 md-fab">
+            <md-icon class="fontSize1_5" md-font-icon="fal fa-stop fa-3x"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.down()" class="marginTop1 md-fab">
+            <md-icon class="fontSize1_5" md-font-icon="fal fa-angle-double-down fa-3x"></md-icon>
+        </md-button>
+    </div>
+    <div class="jalousie-preview flexGrow1 marginLeft1 marginRight1 marginBottom1">
         <div class="jalousie-overlay flexLayout flexAlignCenter flexJustifyCenter" style="padding-top: 2rem;">
             <div class="flexLayout flexAlignCenter">
                 <div class="percentage flexLayout flexAlignCenter"></div>
                 <div class="marginLeft2 rotation flexLayout flexAlignCenter"></div>
             </div>
         </div>
-    </div>
-    <div class="marginLeft2 flexLayout flexDirectionColumn flexJustifyCenter">
-        <md-button ng-click="vm.up()" class="md-fab">
-            <md-icon class="fontSize1_5 textColor" md-font-icon="fal fa-angle-double-up fa-3x"></md-icon>
-        </md-button>
-        <md-button ng-click="vm.stop()" class="marginTop1 md-fab">
-            <md-icon class="fontSize1_5 textColor" md-font-icon="fal fa-stop fa-3x"></md-icon>
-        </md-button>
-        <md-button ng-click="vm.down()" class="marginTop1 md-fab">
-            <md-icon class="fontSize1_5 textColor" md-font-icon="fal fa-angle-double-down fa-3x"></md-icon>
-        </md-button>
     </div>
 </div>

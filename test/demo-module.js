@@ -35,25 +35,25 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
         this.thermostat.controlLoop();
 
-        $interval(() => {
-            if (this.thermostat._state.setpoint == 18) {
-                this.thermostat._state = {
-                    setpoint: 22,
-                    temperature: this.thermostat._state.temperature,
-                    mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
-                };
-
-                this.thermostat.controlLoop();
-            } else {
-                this.thermostat._state = {
-                    setpoint: 18,
-                    temperature: this.thermostat._state.temperature,
-                    mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
-                };
-
-                this.thermostat.controlLoop();
-            }
-        }, 10000);
+        // $interval(() => {
+        //     if (this.thermostat._state.setpoint == 18) {
+        //         this.thermostat._state = {
+        //             setpoint: 22,
+        //             temperature: this.thermostat._state.temperature,
+        //             mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
+        //         };
+        //
+        //         this.thermostat.controlLoop();
+        //     } else {
+        //         this.thermostat._state = {
+        //             setpoint: 18,
+        //             temperature: this.thermostat._state.temperature,
+        //             mode: this.thermostat._state.mode === 'HEAT' ? 'COOL' : 'HEAT'
+        //         };
+        //
+        //         this.thermostat.controlLoop();
+        //     }
+        // }, 10000);
 
         this.jalousie = {
             _state: {position: 100, rotation: 90},
@@ -146,12 +146,6 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
         //     }
         // }, 5000);
 
-        this.callActorService = function (component, service, parameters) {
-            console.log('Actor Service ' + service + ' called with ' + JSON.stringify(parameters));
-
-            component[service](parameters);
-        }
-
         this.motionSensor = {
             _state: {occupied: false, lastMotionTimestamp: null, ticksPerMinute: 0},
             setState: function (state) {
@@ -235,6 +229,184 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 humidity: 70 + Math.round(Math.random() * 20)
             };
         }, 11000);
+
+        this.elevatorCallPanel = {
+            _state: {},
+            setState: function (state) {
+                this._state = state;
+            },
+            callElevator: function (parameters) {
+                console.log('Parameters', parameters);
+
+
+                if (parameters.pickupFloor) {
+                    this.currentCall = {
+                        elevator: 'Elevator D',
+                        currentFloor: -3, // Make random
+                        pickupFloor: parameters.pickupFloor,
+                    };
+
+                    // Force update
+
+                    this._state = {
+                        calls: {
+                            '4711': this.currentCall
+                        }
+                    };
+
+                    this.__pickupInterval = $interval(() => {
+                        if (this.currentCall.currentFloor != this.currentCall.pickupFloor) {
+                            if (this.currentCall.currentFloor < this.currentCall.pickupFloor) {
+                                this.currentCall.currentFloor++;
+                            } else {
+                                this.currentCall.currentFloor--;
+                            }
+
+                            // Force update
+
+                            this._state = {
+                                calls: {
+                                    '4711': this.currentCall
+                                }
+                            };
+
+                            console.log('Current Call >>> ', this.currentCall);
+                        } else {
+                            $interval.cancel(this.__pickupInterval);
+
+                            this.__pickupInterval = null;
+
+                            console.log('Completing pickup >>>');
+
+                            if (this.currentCall.destinationFloor && !this.__destinationInterval) {
+                                console.log('Start destination >>>');
+
+                                this.__destinationInterval = $interval(() => {
+                                    console.log('Current Call', this.currentFloor);
+
+                                    if (this.currentCall.currentFloor != this.currentCall.destinationFloor) {
+                                        if (this.currentCall.currentFloor < this.currentCall.destinationFloor) {
+                                            this.currentCall.direction = 1;
+                                            this.currentCall.currentFloor++;
+                                        } else {
+                                            this.currentCall.direction = -1;
+                                            this.currentCall.currentFloor--;
+                                        }
+
+                                        // Force update
+
+                                        this._state = {
+                                            calls: {
+                                                '4711': this.currentCall
+                                            }
+                                        };
+                                    } else {
+                                        $interval.cancel(this.__destinationInterval);
+
+                                        this.__destinationInterval = null;
+                                        this._state = {};
+                                    }
+                                }, 2000);
+                            }
+                        }
+                    }, 2000);
+                } else if (parameters.destinationFloor) {
+                    this.currentCall.destinationFloor = parameters.destinationFloor;
+
+                    // Force update
+
+                    this._state = {
+                        calls: {
+                            '4711': this.currentCall
+                        }
+                    };
+
+                    if (!this.__pickupInterval) {
+                        // Pickup is already complete
+
+                        this.__destinationInterval = $interval(() => {
+                            if (this.currentCall.currentFloor != this.currentCall.destinationFloor) {
+                                if (this.currentCall.currentFloor < this.currentCall.destinationFloor) {
+                                    this.currentCall.direction = 1;
+                                    this.currentCall.currentFloor++;
+                                } else {
+                                    this.currentCall.direction = -1;
+                                    this.currentCall.currentFloor--;
+                                }
+
+                                // Force update
+
+                                this._state = {
+                                    calls: {
+                                        '4711': this.currentCall
+                                    }
+                                };
+                            } else {
+                                $interval.cancel(this.__destinationInterval);
+
+                                this.__destinationInterval = null;
+                                this._state = {};
+                            }
+                        }, 2000);
+                    }
+                }
+            }
+        };
+
+        this.logicLink = {
+            _state: {},
+            setState: function (state) {
+                this._state = state;
+            }
+        };
+
+        $interval(() => {
+            if (this.logicLink._state.occupied) {
+                this.logicLink._state = {
+                    occupied: false,
+                    lastMotionTimestamp: this.motionSensor._state.lastMotionTimestamp,
+                    ticksPerMinute: 0,
+                    nfcCardId: null,
+                    bluetoothActive: true,
+                    usbActive: false,
+                    leftLedOn: false,
+                    rightLedOn: true
+                };
+            } else {
+                this.logicLink._state = {
+                    occupied: true,
+                    lastMotionTimestamp: moment().toISOString(),
+                    ticksPerMinute: 4,
+                    nfcCardId: 'R45-786-ZU6',
+                    bluetoothActive: false,
+                    usbActive: true,
+                    leftLedOn: true,
+                    rightLedOn: false
+                };
+            }
+        }, 7000);
+
+        this.callActorService = function (component, service, parameters) {
+            console.log('Actor Service ' + service + ' called with ' + JSON.stringify(parameters), component);
+
+            component[service](parameters);
+        }
+
+        this.loggedInUser = {_id: 4711};
+        this.getUserLocation = function () {
+            return {
+                done: function (callback) {
+                    callback({
+                        floor: '4477'
+                    });
+                    return {
+                        fail: function () {
+
+                        }
+                    }
+                }
+            };
+        }
     })
     .directive('titleDirective', function () {
         return {

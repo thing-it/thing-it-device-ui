@@ -6,18 +6,19 @@
     <link href="../dist/fonts/titillium-web.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="./libs/roundslider/roundslider.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/jquery.roundslider/1.3/roundslider.min.css" rel="stylesheet" type="text/css">
     <link href="../dist/fonts/streamline.css" rel="stylesheet" type="text/css">
     <link href="http://localhost:3000/thing-it/css/thing-it-portal.css" rel="stylesheet" type="text/css">
-    <script src="http://localhost:3000/thing-it/js/libs/font-awesome/fontawesome-all.min.js"></script>
-    <!--<link rel="stylesheet" href="../dist/thing-it-device-ui.css">-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+    <link rel="stylesheet" href="../dist/thing-it-device-ui.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-    <script src="./libs/roundslider/roundslider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.roundslider/1.3/roundslider.min.js"></script>
     <script src="../node_modules/hammerjs/hammer.min.js"></script>
     <script src="../node_modules/tinycolor2/dist/tinycolor-min.js"></script>
     <script src="./demo-module.js"></script>
@@ -26,7 +27,8 @@
 <body ng-controller="PortalController as portal">
 <div wrapper-directive title="Thermostat">
     <ti-thermostat state="portal.thermostat._state"
-                   change="portal.callActorService(portal.thermostat, 'setState', portal.thermostat._state)"></ti-thermostat>
+                   change="portal.callActorService(portal.thermostat, 'setState', portal.thermostat._state)"
+                   options="{units: 'C'}"></ti-thermostat>
 </div>
 
 <div wrapper-directive title="Jalousie">
@@ -69,6 +71,17 @@
 <div wrapper-directive title="Multi-Sensor">
     <ti-temperature-sensor state="portal.multiSensor._state"></ti-temperature-sensor>
     <ti-humidity-sensor state="portal.multiSensor._state"></ti-humidity-sensor>
+</div>
+
+<div wrapper-directive title="Elevator Call Panel">
+    <ti-elevator-call-panel state="portal.elevatorCallPanel._state"
+                            portal="portal"
+                            user="portal.loggedInUser"
+                            call="portal.callActorService(portal.elevatorCallPanel, 'callElevator', parameters)"></ti-elevator-call-panel>
+</div>
+
+<div wrapper-directive title="LOGICLINK">
+    <ti-logiclink state="portal.logicLink._state"></ti-logiclink>
 </div>
 
 </body>

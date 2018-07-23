@@ -4,8 +4,22 @@
   justify-content: center;
   flex-grow: 1;
 
+  //&:after {
+  //  content: "";
+  //  display: block;
+  //  width: 0;
+  //  height: 0;
+  //  margin-left: -500px;
+  //  border-bottom: 500px solid transparent;
+  //  border-left: 500px solid #EFEFEF;
+  //}
+
   .start-icon, .end-icon {
     color: #888888;
+  }
+
+  .textColor {
+    color: #333333 !important;
   }
 
   .jalousie-preview {
@@ -21,16 +35,16 @@
       top: 0;
       left: 0;
       right: 0;
-      color: rgba(80, 80, 80, 0.35) !important;
+      color: rgba(80, 80, 80, 0.50) !important;
       transform: none !important;
       background: rgba(0, 0, 0, 0) !important;
 
       .value {
-        font-size: 3rem;
+        font-size: 4rem;
       }
 
       .unit {
-        font-size: 2rem;
+        font-size: 3rem;
       }
     }
 
@@ -61,6 +75,20 @@
         margin-top: 0 !important;
       }
     }
+  }
+
+  .md-button.md-fab md-icon {
+    color: #333333;
+  }
+
+  //.md-button.md-fab:not([disabled]):active, .md-button.md-fab:not([disabled]):focus {
+  //  background-color: #1c4d75 !important;
+  //  color: #FFFFFF !important;
+  //  border: none !important;
+  //}
+
+  .md-button.md-fab:not([disabled]):active md-icon, .md-button.md-fab:not([disabled]):focus md-icon {
+    color: #FFFFFF !important;
   }
 
 }

@@ -1,0 +1,34 @@
+<div class="logiclink-plugin flexGrow1 flexLayout flexJustifyCenter padding2">
+    <div>
+        <div class="connections fontSize2 flexLayout"><i id="bluetoothIcon" class="margin0_5 fab fa-bluetooth-b"></i>
+            <div class="flexLayout flexGrow1 flexJustifyEnd"><i id="usbIcon" class="margin0_5 fab fa-usb"></i></div>
+        </div>
+        <div class="device">
+            <div class="state">
+                <div>
+                    <i id="occupiedIcon" ng-show="vm.state.occupied" class="sl-contacts-2 occupied"></i>
+                </div>
+                <div>
+                    <i ng-show="!vm.state.occupied" class="sl-user-block-2 notOccupied"></i>
+                </div>
+                <div ng-if="vm.options.showLastMotionTimestamp" class="primaryColor">Last Motion
+                    {{vm.lastMotionTimestamp}}
+                </div>
+                <div ng-if="vm.options.showTicksPerMinute" class="primaryColor">{{vm.state.ticksPerMinute.toFixed(0)}}
+                    Ticks/Min.
+                </div>
+                <div class="marginTop1 monospaceFontFamily">
+                    <span ng-if="!vm.state.nfcCardId">No NFC Card detected</span><span ng-if="vm.state.nfcCardId">NFC Card {{vm.state.nfcCardId}}</span>
+                </div>
+            </div>
+            <div id="leftButton" class="button left">
+            </div>
+            <div id="rightButton" class="button right">
+            </div>
+            <div id="leftLed" class="led red left">
+            </div>
+            <div id="rightLed" class="led green right">
+            </div>
+        </div>
+    </div>
+</div>

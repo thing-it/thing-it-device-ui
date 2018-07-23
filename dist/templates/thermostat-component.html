@@ -1,3 +1,21 @@
-<div class="thermostat-plugin flexLayout flexJustifyCenter flexAlignCenter flexGrow1" style="min-height: 230px;">
-    <div id="slider" class="rslider"></div>
+<div class="thermostat flexGrow1 flexLayout cooling"
+     style="min-height: 300px; position: relative;">
+    <div class="flexLayout flexAlignStart">
+        <div class="padding1"><img src="./images/thermostat-icon.png"></div>
+    </div>
+    <div class="flexGrow1 flexLayout flexAlignCenter flexJustifyCenter">
+        <div class="flexLayout flexDirectionColumn flexAlignCenter">
+            <div class="flexLayout flexAlignBaseline">
+                <div class="setpoint">{{vm.state.setpoint ? vm.state.setpoint.toFixed(1) : '--'}}&deg;{{vm.options.units}}
+                </div>
+            </div>
+            <div class="flexLayout flexAlignBaseline">
+                <div class="temperature">{{vm.state.temperature ? vm.state.temperature.toFixed(1) : '--'}}&deg;{{vm.options.units}}</div>
+            </div>
+        </div>
+    </div>
+    <div style="position: relative; width: 300px;">
+        <div id="slider"
+             style="position: absolute; border-radius: 50%; left: 40px; top: 40px; clip: rect(0, 260px, 260px, 0);"></div>
+    </div>
 </div>

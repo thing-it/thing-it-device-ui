@@ -1,0 +1,63 @@
+<div class="elevator-call-panel flexGrow1 flexLayout flexJustifyCenter">
+    <div class="calc">
+        <div id='elevatorDiv' class="result flexLayout flexAlignStart">
+            <div class="rendered">
+                <div>
+                    <div>
+                        <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.currentFloor != vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor">
+                            <div>Pickup Floor</div>
+                            <div class="flexLayout flexAlignCenter flexJustifyEnd fontSize3" style="min-width:100px;">
+                                <div class="flexLayout flexJustifyEnd monospaceFontFamily">
+                                    {{vm.currentCall.pickupFloor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.currentCall.elevator">
+                        <div>{{vm.currentCall.elevator}}</div>
+                        <div class="flexLayout flexAlignCenter fontSize3" style="min-width:100px;">
+                            <div ng-if="vm.currentCall.currentFloor != vm.currentCall.pickupFloor">
+                                <div ng-if="vm.currentCall.direction > 0"><i class="fas fa-angle-up"></i></div>
+                                <div ng-if="vm.currentCall.direction < 0"><i class="fas fa-angle-down"></i></div>
+                            </div>
+                            <div class="flexGrow1 flexLayout flexJustifyEnd monospaceFontFamily">
+                                {{vm.currentCall.currentFloor}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marginLeft1 flexGrow1 flexLayout flexJustifyEnd">
+                <div>
+                    <div ng-if="!vm.currentCall">Pickup Floor</div>
+                    <div ng-if="vm.currentCall">Destination Floor</div>
+                    <div class="flexLayout monospaceFontFamily fontSize4 flexJustifyEnd">
+                        <span ng-if="vm.selection == undefined && !vm.currentCall.destinationFloor"
+                              style="color: lightgrey;">--</span>
+                        <span ng-if="vm.selection != undefined && vm.selection < 10 && !vm.currentCall.destinationFloor"
+                              style="color: lightgrey;">-</span>
+                        <span>{{vm.selection}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div ng-click="vm.addNumber(1)">1</div>
+            <div ng-click="vm.addNumber(2)">2</div>
+            <div ng-click="vm.addNumber(3)">3</div>
+            <div ng-click="vm.backspace()"><i class="fas fa-arrow-left"></i></div>
+            <div ng-click="vm.addNumber(4)">4</div>
+            <div ng-click="vm.addNumber(5)">5</div>
+            <div ng-click="vm.addNumber(6)">6</div>
+            <div ng-click="vm.reset()">Reset</div>
+            <div ng-click="vm.addNumber(7)">7</div>
+            <div ng-click="vm.addNumber(8)">8</div>
+            <div ng-click="vm.addNumber(9)">9</div>
+            <div ng-click="vm.sendCall()">Call</div>
+            <div ng-click="vm.addNumber(0)">0</div>
+            <div ng-click="vm.addNumber(-1)">-1</div>
+            <div ng-click="vm.addNumber(-2)">-2</div>
+            <div ng-click="vm.addNumber(-3)">-3</div>
+        </div>
+    </div>
+</div>

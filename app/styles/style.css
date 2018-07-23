@@ -74,10 +74,18 @@ ul li {
 .thermostat.heating {
   background: url("/test/images/heating-background.jpg") no-repeat;
   background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .thermostat.cooling {
   background: url("/test/images/cooling-background.jpg") no-repeat;
   background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 @media only screen and (max-width: 600px) {
   .thermostat .setpoint {
@@ -119,7 +127,7 @@ ul li {
   stroke: #02b4ff;
 }
 .thermostat .rs-control .rs-border {
-  background-color: rgba(158, 158, 158, 0.1) !important;
+  background-color: rgba(158, 158, 158, 0.2) !important;
   border-color: transparent !important;
 }
 .thermostat .growAnimation {

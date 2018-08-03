@@ -66,8 +66,8 @@ The UI components expect state variables to have specific IDs such as **temperat
 do not match the prescribed IDs, you can provide a mapping table in **options** like so:
 
 ```
-<ti-light state="portal.light._state"
-              change="portal.callActorService(portal.light, 'setState', portal.light._state)"
+<ti-light state="panel.light._state"
+              change="panel.callActorService(panel.light, 'setState', panel.light._state)"
               options="{fieldMappings: {switch: 'mySwitch'}}"></ti-light>
 ```
 
@@ -77,7 +77,7 @@ assuming the state field representing the **switch** state is named **mySwitch**
 
 ```
 <ti-thermostat state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-thermostat>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-thermostat>
 ```
 
 *state* must contain the fields *setpoint* and *temperature*.
@@ -116,9 +116,9 @@ this._state.temperature = 27;
 # Jalousie
 
 ```
-<ti-jalousie state="component._state" change="portal.callActorService(component, 'setState', component._state)"
-                   up="portal.callActorService(component, 'up', component._state)"
-                   down="portal.callActorService(component, 'down', component._state)"></ti-jalousie>
+<ti-jalousie state="component._state" change="panel.callActorService(component, 'setState', component._state)"
+                   up="panel.callActorService(component, 'up', component._state)"
+                   down="panel.callActorService(component, 'down', component._state)"></ti-jalousie>
 ```
 
 *state* must contain the fields *percentage* and *rotation*.
@@ -156,7 +156,7 @@ Rotation can be adjusted with a pan gesture.
 
 ```
 <ti-light state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-thermostat>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-thermostat>
 ```
 
 ## State Fields
@@ -178,7 +178,7 @@ Users can click everywhere in the component to toggle the light state.
 
 ```
 <ti-dimmer state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-dimmer>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-dimmer>
 ```
 
 ## State Fields
@@ -203,7 +203,7 @@ To represent an on/off plug or switch which can also optionally measure/display 
 
 ```
 <ti-switch state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-switch>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-switch>
 ```
 
 ## State Fields
@@ -223,7 +223,7 @@ To represent an on/off plug or switch which can also optionally measure/display 
 
 ```
 <ti-temperature-sensor state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-temperature-sensor>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-temperature-sensor>
 ```
 
 ## State Fields
@@ -246,7 +246,7 @@ To represent an on/off plug or switch which can also optionally measure/display 
 
 ```
 <ti-motion-sensor state="component._state"
-                   change="portal.callActorService(component, 'setState', component._state)"></ti-motion-sensor>
+                   change="panel.callActorService(component, 'setState', component._state)"></ti-motion-sensor>
 ```
 
 ## State Fields

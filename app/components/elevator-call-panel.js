@@ -9,17 +9,18 @@ angular.module('thing-it-device-ui')
         },
         controllerAs: 'vm',
         controller: function ($element, $timeout) {
+
             const self = this;
-            const plugin = $($element[0].querySelector('.light-plugin'));
-            const container = $(plugin.find('#container'));
 
             self.$onInit = function () {
-                this.parent = jQuery($element).parent()
+
                 this.state = {};
                 this.selection = undefined;
                 this.currentCall = undefined;
 
-                console.log('Parent >>>', this.parent)
+                this.parent = jQuery($element).parent();
+
+                console.log('Parent >>>', this.parent);
             }
 
             self.render = function () {

@@ -238,12 +238,21 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             callElevator: function (parameters) {
                 console.log('Parameters', parameters);
 
-
                 if (parameters.pickupFloor) {
                     this.currentCall = {
-                        elevator: 'Elevator D',
+                        callId: "2583275664",
+                        callState: "served",
+                        lift: "1",
+                        elevator: 'D',
+                        movingDirection: 'none',
+                        movingState: 'standing',
+                        passengerGuidance: 'Wait',
+                        loadState: 'normal',
+                        loadPercent: 0,
                         currentFloor: -3, // Make random
+                        nextFloor: parameters.pickupFloor,
                         pickupFloor: parameters.pickupFloor,
+                        destinationFloor: parameters.destinationFloor
                     };
 
                     // Force update
@@ -255,11 +264,15 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                     };
 
                     this.__pickupInterval = $interval(() => {
-                        if (this.currentCall.currentFloor != this.currentCall.pickupFloor) {
-                            if (this.currentCall.currentFloor < this.currentCall.pickupFloor) {
+
+                        if (this.currentCall.currentFloor !== this.currentCall.nextFloor) {
+
+                            if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
                                 this.currentCall.currentFloor++;
+                                this.currentCall.movingDirection = 'up';
                             } else {
                                 this.currentCall.currentFloor--;
+                                this.currentCall.movingDirection = 'down';
                             }
 
                             // Force update
@@ -272,26 +285,32 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
 
                             console.log('Current Call >>> ', this.currentCall);
                         } else {
+
                             $interval.cancel(this.__pickupInterval);
 
                             this.__pickupInterval = null;
 
+                            this.nextFloor = parameters.destinationFloor;
+
                             console.log('Completing pickup >>>');
 
-                            if (this.currentCall.destinationFloor && !this.__destinationInterval) {
+                            if (parameters.destinationFloor && !this.__destinationInterval) {
                                 console.log('Start destination >>>');
 
                                 this.__destinationInterval = $interval(() => {
                                     console.log('Current Call', this.currentFloor);
 
-                                    if (this.currentCall.currentFloor != this.currentCall.destinationFloor) {
-                                        if (this.currentCall.currentFloor < this.currentCall.destinationFloor) {
-                                            this.currentCall.direction = 1;
+                                    if (this.currentCall.currentFloor != this.currentCall.nextFloor) {
+
+                                        if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
                                             this.currentCall.currentFloor++;
+                                            this.currentCall.movingDirection = 'up';
                                         } else {
-                                            this.currentCall.direction = -1;
                                             this.currentCall.currentFloor--;
+                                            this.currentCall.movingDirection = 'down';
                                         }
+
+                                        this.movingState = 'moving';
 
                                         // Force update
 
@@ -303,6 +322,8 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                                     } else {
                                         $interval.cancel(this.__destinationInterval);
 
+                                        this.currentCall.passengerGuidance = 'Enter';
+
                                         this.__destinationInterval = null;
                                         this._state = {};
                                     }
@@ -311,7 +332,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                         }
                     }, 2000);
                 } else if (parameters.destinationFloor) {
-                    this.currentCall.destinationFloor = parameters.destinationFloor;
+                    this.currentCall.nextFloor = parameters.destinationFloor;
 
                     // Force update
 
@@ -325,14 +346,18 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                         // Pickup is already complete
 
                         this.__destinationInterval = $interval(() => {
-                            if (this.currentCall.currentFloor != this.currentCall.destinationFloor) {
-                                if (this.currentCall.currentFloor < this.currentCall.destinationFloor) {
+                            if (this.currentCall.currentFloor != this.currentCall.nextFloor) {
+                                if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
                                     this.currentCall.direction = 1;
                                     this.currentCall.currentFloor++;
+                                    this.currentCall.movingDirection = 'up';
                                 } else {
                                     this.currentCall.direction = -1;
                                     this.currentCall.currentFloor--;
+                                    this.currentCall.movingDirection = 'down';
                                 }
+
+                                this.currentCall.passengerGuidance = 'Stay';
 
                                 // Force update
 
@@ -343,6 +368,8 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                                 };
                             } else {
                                 $interval.cancel(this.__destinationInterval);
+
+                                this.currentCall.passengerGuidance = 'Leave';
 
                                 this.__destinationInterval = null;
                                 this._state = {};

@@ -4,34 +4,54 @@
             <div class="rendered">
                 <div>
                     <div>
-                        <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.currentFloor != vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor">
+                        <div ng-if="vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor">
                             <div>Pickup Floor</div>
-                            <div class="flexLayout flexAlignCenter flexJustifyEnd fontSize3" style="min-width:100px;">
-                                <div class="flexLayout flexJustifyEnd monospaceFontFamily">
+                            <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart" style="min-width:125px;">
+                                <div>
                                     {{vm.currentCall.pickupFloor}}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div ng-if="vm.currentCall.elevator">
-                        <div>{{vm.currentCall.elevator}}</div>
-                        <div class="flexLayout flexAlignCenter fontSize3" style="min-width:100px;">
-                            <div ng-if="vm.currentCall.currentFloor != vm.currentCall.pickupFloor">
-                                <div ng-if="vm.currentCall.direction > 0"><i class="fas fa-angle-up"></i></div>
-                                <div ng-if="vm.currentCall.direction < 0"><i class="fas fa-angle-down"></i></div>
-                            </div>
-                            <div class="flexGrow1 flexLayout flexJustifyEnd monospaceFontFamily">
-                                {{vm.currentCall.currentFloor}}
+                        <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">
+                            <div>Current Floor</div>
+                            <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart" style="min-width:125px;">
+                                <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart">
+                                    {{vm.currentCall.currentFloor}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="marginLeft1 flexGrow1 flexLayout flexJustifyEnd">
+            <div ng-if="vm.currentCall.elevator">
+                <div class="flexLayout flexGrow1 fontSize3 flexJustifyCenter">
+                    <div>
+                        <span ng-if="vm.currentCall.movingDirection === 'up'"><i class="fas fa-angle-up"></i></span>
+                        <span ng-if="vm.currentCall.movingDirection === 'down'"><i class="fas fa-angle-down"></i></span>
+                        <span ng-if="vm.currentCall.movingDirection !== 'up'
+                            && vm.currentCall.movingDirection !== 'down'" style="color: lightgrey;">--</span>
+                    </div>
+                </div>
+                <div class="flexLayout flexGrow1 fontSize2 flexJustifyCenter">
+                    <div>
+                        {{vm.currentCall.elevator}}
+                    </div>
+                </div>
+                <div class="flexLayout flexGrow1 fontSize1 flexJustifyCenter">
+                    <div>
+                        {{vm.currentCall.passengerGuidance}}
+                    </div>
+                </div>
+            </div>
+            <div class="flexLayout flexGrow1 flexJustifyEnd">
                 <div>
-                    <div ng-if="!vm.currentCall">Pickup Floor</div>
-                    <div ng-if="vm.currentCall">Destination Floor</div>
-                    <div class="flexLayout monospaceFontFamily fontSize4 flexJustifyEnd">
+                    <div ng-if="!vm.currentCall.pickupFloor &&  !vm.currentCall.destinationFloor">Pickup Floor</div>
+                    <div ng-if="vm.currentCall.pickupFloor &&  !vm.currentCall.destinationFloor">Destination Floor</div>
+                    <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">Next Floor</div>
+                    <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyEnd">
+                        <span ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">
+                             {{vm.currentCall.nextFloor}}
+                        </span>
                         <span ng-if="vm.selection == undefined && !vm.currentCall.destinationFloor"
                               style="color: lightgrey;">--</span>
                         <span ng-if="vm.selection != undefined && vm.selection < 10 && !vm.currentCall.destinationFloor"
@@ -53,7 +73,8 @@
             <div ng-click="vm.addNumber(7)">7</div>
             <div ng-click="vm.addNumber(8)">8</div>
             <div ng-click="vm.addNumber(9)">9</div>
-            <div ng-click="vm.sendCall()">Call</div>
+            <div ng-if="!vm.currentCall.pickupFloor" ng-click="vm.next()">Next</div>
+            <div ng-if="vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor" ng-click="vm.sendCall()">Call</div>
             <div ng-click="vm.addNumber(0)">0</div>
             <div ng-click="vm.addNumber(-1)">-1</div>
             <div ng-click="vm.addNumber(-2)">-2</div>

@@ -53,6 +53,16 @@ angular.module('thing-it-device-ui')
                 $('#elevatorDiv').removeClass('blinds');
             }
 
+            self.next = function () {
+
+                this.currentCall = {
+                    pickupFloor: this.selection
+                };
+
+                this.selection = undefined;
+
+            }
+
             self.sendCall = function () {
                 // this.portal.getUserLocation().done((location) => {
                 //     console.log(location);
@@ -60,13 +70,16 @@ angular.module('thing-it-device-ui')
                 //     this.call();
                 // });
 
-                if (!this.currentCall) {
-                    this.call({parameters: {pickupFloor: this.selection}});
+                this.currentCall.destinationFloor = this.selection;
+                this.selection = undefined;
 
-                    this.selection = undefined;
-                } else {
-                    this.call({parameters: {destinationFloor: this.selection}});
-                }
+                this.call({
+                    parameters: {
+                        pickupFloor: this.currentCall.pickupFloor,
+                        destinationFloor: this.currentCall.destinationFloor
+                    }
+                });
+
             }
 
             self.$onChanges = function (changes) {
@@ -82,9 +95,7 @@ angular.module('thing-it-device-ui')
                     if (this.state.calls && this.portal.loggedInUser && this.state.calls[this.portal.loggedInUser._id]) {
                         this.currentCall = this.state.calls[this.portal.loggedInUser._id];
 
-                        if (this.currentCall.pickupFloor == this.currentCall.currentFloor) {
-                            $('#elevatorDiv').addClass('blinds');
-                        } else if (this.currentCall.destinationFloor == this.currentCall.currentFloor) {
+                        if (this.currentCall.nextFloor === this.currentCall.currentFloor && this.currentCall.movingState === 'standing') {
                             $('#elevatorDiv').addClass('blinds');
                         } else {
                             $('#elevatorDiv').removeClass('blinds');
@@ -98,7 +109,7 @@ angular.module('thing-it-device-ui')
                             this.currentCall = undefined;
 
                             $('#elevatorDiv').removeClass('blinds');
-                        }, 5000);
+                        }, 10000);
                     }
                 }
 

@@ -4,19 +4,19 @@
             <div class="rendered">
                 <div>
                     <div>
-                        <div ng-if="vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor">
+                        <div ng-if="vm.pickupFloor && !vm.destinationFloor">
                             <div>Pickup Floor</div>
                             <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart" style="min-width:125px;">
                                 <div>
-                                    {{vm.currentCall.pickupFloor}}
+                                    {{vm.pickupFloor}}
                                 </div>
                             </div>
                         </div>
-                        <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">
+                        <div ng-if="vm.pickupFloor && vm.destinationFloor">
                             <div>Current Floor</div>
                             <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart" style="min-width:125px;">
                                 <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart">
-                                    {{vm.currentCall.currentFloor}}
+                                    {{vm.currentFloor}}
                                 </div>
                             </div>
                         </div>
@@ -45,16 +45,16 @@
             </div>
             <div class="flexLayout flexGrow1 flexJustifyEnd">
                 <div>
-                    <div ng-if="!vm.currentCall.pickupFloor &&  !vm.currentCall.destinationFloor">Pickup Floor</div>
-                    <div ng-if="vm.currentCall.pickupFloor &&  !vm.currentCall.destinationFloor">Destination Floor</div>
-                    <div ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">Next Floor</div>
+                    <div ng-if="!vm.pickupFloor &&  !vm.destinationFloor">Pickup Floor</div>
+                    <div ng-if="vm.pickupFloor &&  !vm.destinationFloor">Destination Floor</div>
+                    <div ng-if="vm.pickupFloor && vm.destinationFloor">Next Floor</div>
                     <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyEnd">
-                        <span ng-if="vm.currentCall.pickupFloor && vm.currentCall.destinationFloor">
+                        <span ng-if="vm.pickupFloor && vm.destinationFloor">
                              {{vm.currentCall.nextFloor}}
                         </span>
-                        <span ng-if="vm.selection == undefined && !vm.currentCall.destinationFloor"
+                        <span ng-if="vm.selection == undefined && !vm.destinationFloor"
                               style="color: lightgrey;">--</span>
-                        <span ng-if="vm.selection != undefined && vm.selection < 10 && !vm.currentCall.destinationFloor"
+                        <span ng-if="vm.selection != undefined && vm.selection < 10 && !vm.destinationFloor"
                               style="color: lightgrey;">-</span>
                         <span>{{vm.selection}}</span>
                     </div>
@@ -73,8 +73,8 @@
             <div ng-click="vm.addNumber(7)">7</div>
             <div ng-click="vm.addNumber(8)">8</div>
             <div ng-click="vm.addNumber(9)">9</div>
-            <div ng-if="!vm.currentCall.pickupFloor" ng-click="vm.next()">Next</div>
-            <div ng-if="vm.currentCall.pickupFloor && !vm.currentCall.destinationFloor" ng-click="vm.sendCall()">Call</div>
+            <div ng-if="!vm.pickupFloor" ng-click="vm.next()">Next</div>
+            <div ng-if="vm.pickupFloor && !vm.destinationFloor" ng-click="vm.sendCall()">Call</div>
             <div ng-click="vm.addNumber(0)">0</div>
             <div ng-click="vm.addNumber(-1)">-1</div>
             <div ng-click="vm.addNumber(-2)">-2</div>

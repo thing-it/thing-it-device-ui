@@ -289,6 +289,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                         $interval.cancel(this.__pickupInterval);
 
                         this.__pickupInterval = null;
+                        this.currentCall.passengerGuidance = 'Enter';
 
                         this.currentCall.nextFloor = parameters.destinationFloor;
 
@@ -323,7 +324,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                                     };
                                 } else {
                                     $interval.cancel(this.__destinationInterval);
-                                    this.currentCall.passengerGuidance = 'Enter';
+                                    this.currentCall.passengerGuidance = 'Exit';
                                     this.__destinationInterval = null;
                                     this._state = {};
                                 }

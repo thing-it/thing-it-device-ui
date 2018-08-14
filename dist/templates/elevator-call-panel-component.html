@@ -1,6 +1,21 @@
 <div class="elevator-call-panel flexGrow1 flexLayout flexJustifyCenter">
     <div class="calc">
         <div id='elevatorDiv' class="result flexLayout flexAlignStart">
+            <div class="flexLayout flexGrow1 flexJustifyStart">
+                <div>
+                    <div ng-if="vm.pickupFloor && !vm.destinationFloor">Pickup Floor</div>
+                    <div ng-if="vm.pickupFloor && vm.destinationFloor">Current Floor</div>
+                    <div class="flexLayout flexGrow1 monospaceFontFamily fontSize3 flexJustifyStart">
+                        <span ng-if="vm.pickupFloor && !vm.destinationFloor">
+                               {{vm.pickupFloor}}
+                        </span>
+                        <span ng-if="vm.pickupFloor && vm.destinationFloor">
+                              {{vm.currentCall.currentFloor}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--
             <div class="rendered">
                 <div>
                     <div>
@@ -23,6 +38,8 @@
                     </div>
                 </div>
             </div>
+
+            -->
             <div ng-if="vm.currentCall.lift">
                 <div class="flexLayout flexGrow1 fontSize3 flexJustifyCenter">
                     <div>

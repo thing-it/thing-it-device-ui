@@ -48,7 +48,10 @@ angular.module('thing-it-device-ui')
             }
 
             self.reset = function () {
-                // TODO Send reset
+
+                if (this.state.calls && this.portal.loggedInUser) {
+                    delete this.state.calls[this.portal.loggedInUser.account];
+                }
 
                 this.selection = undefined;
                 this.currentCall = undefined;
@@ -109,7 +112,7 @@ angular.module('thing-it-device-ui')
                         // No active call - reset
 
                         $timeout(() => {
-                            
+
                             this.selection = undefined;
                             this.currentCall = undefined;
                             this.pickupFloor = undefined;

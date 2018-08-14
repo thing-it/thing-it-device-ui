@@ -18,6 +18,9 @@ angular.module('thing-it-device-ui')
                 this.selection = undefined;
                 this.currentCall = undefined;
 
+                this.pickupFloor = undefined;
+                this.destinationFloor = undefined;
+
                 this.parent = jQuery($element).parent();
 
                 console.log('Parent >>>', this.parent);
@@ -49,6 +52,8 @@ angular.module('thing-it-device-ui')
 
                 this.selection = undefined;
                 this.currentCall = undefined;
+                this.pickupFloor = undefined;
+                this.destinationFloor = undefined;
 
                 $('#elevatorDiv').removeClass('blinds');
             }
@@ -70,13 +75,13 @@ angular.module('thing-it-device-ui')
                 //     this.call();
                 // });
 
-                this.currentCall.destinationFloor = this.selection;
+                this.destinationFloor = this.selection;
                 this.selection = undefined;
 
                 this.call({
                     parameters: {
-                        pickupFloor: this.currentCall.pickupFloor,
-                        destinationFloor: this.currentCall.destinationFloor
+                        pickupFloor: this.pickupFloor,
+                        destinationFloor: this.destinationFloor
                     }
                 });
 
@@ -92,8 +97,10 @@ angular.module('thing-it-device-ui')
                 if (changes.state && changes.state.currentValue) {
                     this.state.calls = changes.state.currentValue.calls;
 
-                    if (this.state.calls && this.portal.loggedInUser && this.state.calls[this.portal.loggedInUser._id]) {
-                        this.currentCall = this.state.calls[this.portal.loggedInUser._id];
+                    console.log('User >>>', this.portal.loggedInUser.account);
+
+                    if (this.state.calls && this.portal.loggedInUser && this.state.calls[this.portal.loggedInUser.account]) {
+                        this.currentCall = this.state.calls[this.portal.loggedInUser.account];
 
                         if (this.currentCall.nextFloor === this.currentCall.currentFloor && this.currentCall.movingState === 'standing') {
                             $('#elevatorDiv').addClass('blinds');

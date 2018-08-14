@@ -95,9 +95,11 @@ angular.module('thing-it-device-ui')
                 console.log('Changed >>>', changes);
 
                 if (changes.state && changes.state.currentValue) {
+
                     this.state.calls = changes.state.currentValue.calls;
 
-                    console.log('User >>>', this.portal.loggedInUser.account);
+                    console.log('User >>> ');
+                    console.log(this.portal.loggedInUser.account);
 
                     if (this.state.calls && this.portal.loggedInUser && this.state.calls[this.portal.loggedInUser.account]) {
                         this.currentCall = this.state.calls[this.portal.loggedInUser.account];

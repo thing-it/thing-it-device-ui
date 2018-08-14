@@ -163,13 +163,8 @@ angular.module('thing-it-device-ui')
             }
 
             self.next = function () {
-
-                this.currentCall = {
-                    pickupFloor: this.selection
-                };
-
+                this.pickupFloor = this.selection;
                 this.selection = undefined;
-
             }
 
             self.sendCall = function () {
@@ -218,8 +213,11 @@ angular.module('thing-it-device-ui')
                         // No active call - reset
 
                         $timeout(() => {
+                            
                             this.selection = undefined;
                             this.currentCall = undefined;
+                            this.pickupFloor = undefined;
+                            this.destinationFloor = undefined;
 
                             $('#elevatorDiv').removeClass('blinds');
                         }, 10000);

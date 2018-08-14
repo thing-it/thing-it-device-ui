@@ -236,147 +236,103 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                 this._state = state;
             },
             callElevator: function (parameters) {
+
                 console.log('Parameters', parameters);
 
-                if (parameters.pickupFloor) {
-                    this.currentCall = {
-                        callId: "2583275664",
-                        callState: "served",
-                        lift: "1",
-                        elevator: 'D',
-                        movingDirection: 'none',
-                        movingState: 'standing',
-                        passengerGuidance: 'Wait',
-                        loadState: 'normal',
-                        loadPercent: 0,
-                        currentFloor: -3, // Make random
-                        nextFloor: parameters.pickupFloor,
-                        pickupFloor: parameters.pickupFloor,
-                        destinationFloor: parameters.destinationFloor
-                    };
+                  this.currentCall = {
+                    callId: "2583275664",
+                    callState: "served",
+                    lift: "1",
+                    elevator: 'D',
+                    movingDirection: 'none',
+                    movingState: 'standing',
+                    passengerGuidance: 'Wait',
+                    loadState: 'normal',
+                    loadPercent: 0,
+                    currentFloor: -3, // Make random
+                    nextFloor: parameters.pickupFloor,
+                    pickupFloor: parameters.pickupFloor,
+                    destinationFloor: parameters.destinationFloor
+                };
 
-                    // Force update
+                // Force update
 
-                    this._state = {
-                        calls: {
-                            '4711': this.currentCall
-                        }
-                    };
-
-                    this.__pickupInterval = $interval(() => {
-
-                        if (this.currentCall.currentFloor !== this.currentCall.nextFloor) {
-
-                            if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
-                                this.currentCall.currentFloor++;
-                                this.currentCall.movingDirection = 'up';
-                            } else {
-                                this.currentCall.currentFloor--;
-                                this.currentCall.movingDirection = 'down';
-                            }
-
-                            // Force update
-
-                            this._state = {
-                                calls: {
-                                    '4711': this.currentCall
-                                }
-                            };
-
-                            console.log('Current Call >>> ', this.currentCall);
-                        } else {
-
-                            $interval.cancel(this.__pickupInterval);
-
-                            this.__pickupInterval = null;
-
-                            this.nextFloor = parameters.destinationFloor;
-
-                            console.log('Completing pickup >>>');
-
-                            if (parameters.destinationFloor && !this.__destinationInterval) {
-                                console.log('Start destination >>>');
-
-                                this.__destinationInterval = $interval(() => {
-                                    console.log('Current Call', this.currentFloor);
-
-                                    if (this.currentCall.currentFloor != this.currentCall.nextFloor) {
-
-                                        if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
-                                            this.currentCall.currentFloor++;
-                                            this.currentCall.movingDirection = 'up';
-                                        } else {
-                                            this.currentCall.currentFloor--;
-                                            this.currentCall.movingDirection = 'down';
-                                        }
-
-                                        this.movingState = 'moving';
-
-                                        // Force update
-
-                                        this._state = {
-                                            calls: {
-                                                '4711': this.currentCall
-                                            }
-                                        };
-                                    } else {
-                                        $interval.cancel(this.__destinationInterval);
-
-                                        this.currentCall.passengerGuidance = 'Enter';
-
-                                        this.__destinationInterval = null;
-                                        this._state = {};
-                                    }
-                                }, 2000);
-                            }
-                        }
-                    }, 2000);
-                } else if (parameters.destinationFloor) {
-                    this.currentCall.nextFloor = parameters.destinationFloor;
-
-                    // Force update
-
-                    this._state = {
-                        calls: {
-                            '4711': this.currentCall
-                        }
-                    };
-
-                    if (!this.__pickupInterval) {
-                        // Pickup is already complete
-
-                        this.__destinationInterval = $interval(() => {
-                            if (this.currentCall.currentFloor != this.currentCall.nextFloor) {
-                                if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
-                                    this.currentCall.direction = 1;
-                                    this.currentCall.currentFloor++;
-                                    this.currentCall.movingDirection = 'up';
-                                } else {
-                                    this.currentCall.direction = -1;
-                                    this.currentCall.currentFloor--;
-                                    this.currentCall.movingDirection = 'down';
-                                }
-
-                                this.currentCall.passengerGuidance = 'Stay';
-
-                                // Force update
-
-                                this._state = {
-                                    calls: {
-                                        '4711': this.currentCall
-                                    }
-                                };
-                            } else {
-                                $interval.cancel(this.__destinationInterval);
-
-                                this.currentCall.passengerGuidance = 'Leave';
-
-                                this.__destinationInterval = null;
-                                this._state = {};
-                            }
-                        }, 2000);
+                this._state = {
+                    calls: {
+                        '4711': this.currentCall
                     }
-                }
+                };
+
+                this.__pickupInterval = $interval(() => {
+
+                    if (this.currentCall.currentFloor !== this.currentCall.nextFloor) {
+
+                        if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
+                            this.currentCall.currentFloor++;
+                            this.currentCall.movingDirection = 'up';
+                        } else {
+                            this.currentCall.currentFloor--;
+                            this.currentCall.movingDirection = 'down';
+                        }
+
+                        // Force update
+
+                        this._state = {
+                            calls: {
+                                '4711': this.currentCall
+                            }
+                        };
+
+                        console.log('Current Call >>> ', this.currentCall);
+
+                    } else {
+
+                        $interval.cancel(this.__pickupInterval);
+
+                        this.__pickupInterval = null;
+
+                        this.currentCall.nextFloor = parameters.destinationFloor;
+
+                        console.log('Completing pickup >>>');
+
+                        if (this.currentCall.nextFloor && !this.__destinationInterval) {
+
+                            console.log('Start destination >>>');
+
+                            this.__destinationInterval = $interval(() => {
+
+                                console.log('Current Call', this.currentCall);
+
+                                if (this.currentCall.currentFloor !== this.currentCall.nextFloor) {
+
+                                    if (this.currentCall.currentFloor < this.currentCall.nextFloor) {
+                                        this.currentCall.currentFloor++;
+                                        this.currentCall.movingDirection = 'up';
+                                    } else {
+                                        this.currentCall.currentFloor--;
+                                        this.currentCall.movingDirection = 'down';
+                                    }
+
+                                    this.movingState = 'moving';
+
+                                    // Force update
+
+                                    this._state = {
+                                        calls: {
+                                            '4711': this.currentCall
+                                        }
+                                    };
+                                } else {
+                                    $interval.cancel(this.__destinationInterval);
+                                    this.currentCall.passengerGuidance = 'Enter';
+                                    this.__destinationInterval = null;
+                                    this._state = {};
+                                }
+                            }, 2000);
+                        }
+                    }
+                }, 2000);
+
             }
         };
 
@@ -419,7 +375,7 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
             component[service](parameters);
         }
 
-        this.loggedInUser = {_id: 4711};
+        this.loggedInUser = {_id: 4711, account: '4711'};
         this.getUserLocation = function () {
             return {
                 done: function (callback) {

@@ -243,7 +243,6 @@ let main = angular.module('DemoApp', ['thing-it-device-ui'])
                     callId: "2583275664",
                     callState: "served",
                     lift: "1",
-                    elevator: 'D',
                     movingDirection: 'none',
                     movingState: 'standing',
                     passengerGuidance: 'Wait',
